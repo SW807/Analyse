@@ -91,3 +91,14 @@ urlcolor=Black, linkcolor=Black, citecolor=Black,
 
 %bruges til description
 \usepackage{enumitem}
+
+\newcommand{\equaref}[1]{\hyperref[#1]{Formel \ref{#1}}}
+\newcommand{\figref}[1]{\hyperref[#1]{Figur \ref{#1}}}
+\newcommand{\tabref}[1]{\hyperref[#1]{Tabel \ref{#1}}}
+\newcommand{\chapref}[1]{\hyperref[#1]{Kapitel \ref{#1}}}
+\newcommand{\secref}[1]{\hyperref[#1]{Sektion \ref{#1}}}
+\newcommand{\subsecref}[1]{\hyperref[#1]{Subsektion \ref{#1}}}
+\newcommand{\lstref}[1]{\hyperref[#1]{Liste \ref{#1}}}
+\newcommand{\appref}[1]{\hyperref[#1]{Appendiks \ref{#1}}}
+\newcommand{\setof}[2]{\ensuremath{\{ #1 \mid #2 \}}}
+\newcommand{\set}[1]{\ensuremath{\{ #1 \}}}
