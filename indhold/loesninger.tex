@@ -1,5 +1,6 @@
 \section{Idéer}
-Dette afsnit bruger symptomer/kriterier for mani og depression beskrevet i \cref{} og ser på hvilke sensorer eller hvilke mobile lognings metoder der kunne bruges til at løse problemet.
+Dette afsnit bruger symptomer/kriterier for mani og depression beskrevet i \cref{sec:affektivelidelser} og ser på hvilke sensorer eller hvilke mobile lognings metoder der kunne bruges til at løse problemet.
+Sensorerne og logningsmetoderne er beskrevet i henholdsvis \cref{sensorer} og \cref{logning}.
 
 \subsection{Depression}
 
@@ -8,8 +9,10 @@ Kernesymptomerne kunne opdages på følgende måder:
 
 \paragraph{Man er i dårligt humør og er nedtrykt og trist}\label{darligthumor}
 Her er det en mulighed at bruge kameraet til at tage billede af patientien. Disse analyseres derefter og der kigges på hvilket humør en person er i. Denne idé er præsenteret i brochuren i \cref{app:brochure}.
-\\
-\\
+\stefan{bør vi ikke nævne metoden her i stedet for at referere til appendix?}
+
+\paragraph{}
+\noindent 
 Under behandlingen bruges der et skema der hedder stemningsregistering (\cref{sec:moede-med-psykolog}). Dette skema kunne bruges til at interagere med patienten, for på den måde at finde ud af hvordan vedkommende har det. Disse data kan dog manipuleres af patienten. Dog kan en hyppigere eller mindre brug af stemningsregistrerings funktion indikere mani eller depression.
 \paragraph{Man har nedsat lyst til at foretage sig noget, og man har mere eller mindre mistet interessen for ting man plejer at interessere sig for}
 Hvis ting man plejer at have lyst til har en anden lokation end ens hjem, kan man vha. GPS'en se om man er der. Der kunne indkodes nogle nøglelokationer, hvor nøglelokationer er lokationer hvor man foretager sig ting man har lyst til.
@@ -23,22 +26,29 @@ For at hjælpe behandlingen kunne man implementere en mobil løsning for huskeko
 
 \paragraph{Man bliver hurtigt træt og har ikke så meget energi som man plejer}
 Her det muligt at bruge accelerometeret til at afgøre hvor meget man bevæger sig, hvis man antager man hviler sig meget pga. træthed. Dette har dog flere implikationer. For det første er det ikke sikkert man altid har telefonen på sig. For det andet er det ikke sikkert man hviler sig selvom man er træt.
-Det første problem kunne afhjælpes ved at kigge på data i perioder for hvor man ikke er træt og så sammenligne med dem.
+Det første problem kunne afhjælpes ved at kigge på data i perioder for hvor man ikke er træt og så sammenligne med dem. \stefan{jeg forstår ikke denne sætning / løsning}
 Desuden kunne man kigge på data fra mikrofonen, meget støj kunne indikere at det ikke hvile og lidt til ingen støj indikerer nok hvile.
 \\
 \\
-Man kunne overvåge applikationsbrugen, en stigning kunne indikere på at man bruger sin telefon mere. Når man bruger sin telefon forholder man sig for det meste roligt.
+Man kunne også overvåge patientens applikationsbrug. 
+En stigning kunne indikere på at man bruger sin telefon mere. 
+Når man bruger sin telefon forholder man sig for det meste roligt.
 \\
 \\
 Her er det en mulighed at bruge kameraet til at tage billede af patientien. Disse analyseres derefter og der kigges på hvor træt en person er i. Denne idé er præsenteret ifht. humør i brochuren, \cref{app:brochure}.
+\stefan{bør vi ikke nævne metoden (eller tidligere beskrivelse) her i stedet for at referere til appendix?}
 
-\subsection{Ledsagesymptomer}
+\subsection{Ledsagesymptomer}\label{depr_ledsage}
 Idéer til opdagelse af ledsagesymptomer:
 \paragraph{Man har nedsat selvtillid eller selvværdsfølelse}
-Tekst fra SMS beskeder og måske andre applikationer kan analyseres. Disse kan indikere om man har lav selvtillid eller lavselværdsfølelser. Et eksempel er at hvis man bliver rost opfatter man det som skamros og prøver at bortforklare det eller snakke uden om.\cite{selvtillid}
+Tekst fra SMS beskeder og måske andre applikationer kan analyseres. Disse kan indikere om man har lav selvtillid eller lav selvværdsfølelser. Et eksempel er at hvis man bliver rost opfatter man det som skamros og prøver at bortforklare det eller snakke uden om.\cite{selvtillid}
 
 \paragraph{Man lider af skyldfølelse og bebrejder sig selv urimeligt}
+Som ovenstående kan SMS beskeder analysere for ord og sætning der tyder på skyldfølelse eller selvbebrejdelse.
+
 \paragraph{Man har tanker om at det ville være bedre hvis man var død, eller man tænker på at begå selvmord}
+\stefan{?}
+
 \paragraph{Man har svært ved at koncentrere sig eller oplever at man ikke kan tænke klart}
 Tekst fra SMS beskeder og måske andre applikationer kan analyseres. Her kan der ses på grammatiske fejl og om sætninger giver mening. Da man må antage hvis man ikke kan koncentrere sig eller kan tænke klart så er det svært at skrive noget sammenhængende der giver mening.
 \\
@@ -47,12 +57,24 @@ Dette symptom lægger desuden op til koncentrationsbesvær, som kan have mange k
 Søvnbesvær er dækket af ledsagesymptomet: '\textit{Man sover enten mere eller mindre end man plejer}'. Derfor kigger vi her på arbejdsbyrde og alkohol.
 \\
 \\
-Til at påvise arbejdsbyrden kan man bruge GPS sensoren til at se hvor meget man opholder sig på arbejdet. Dette kan dog være misvisende hvos man arbejder hjemmer.
+Til at påvise arbejdsbyrden kan man bruge GPS sensoren til at se hvor meget man opholder sig på arbejdet. Dette kan dog være misvisende hvis man arbejder hjemme.
+
+Til at forsøge at vise alkoholforbrug er der muligt at indkode GPS lokationer på barer og værtshuse for at se om patienten opholder sig der mere end normalt.
 
 \paragraph{Man er enten urolig og hvileløs, eller også er ens bevægelser nærmest gået i stå}
+Accelerometret kan bruges til at se om patienten bevæger sig rastløst rundt eller om bevægelserne er gået i stå.
+Her er det vigtigt at kigge over en længere periode for at kunne sammenligne adfærdsmønstret for patienten.
+
+
 \paragraph{Man sover enten mere eller mindre end man plejer}
+For at genkende patientens søvnmønster er det nødvendigt at telefonen ligger i sengen eller at patienten har en armbånd eller ur med sensorer i.
+Det er desuden nødvendigt at armbånd eller ur for at måle pulsen kontinuerligt gennem natten.
+
+Det vil da være muligt at identificere bevægelser og puls i løbet af natten hvilket vil kunne give et billede af hvornår patienten er gået i seng og stået op, samt om patienten vågner i løbet af natten.
+
 \paragraph{Man har mistet appetitten og har tabt sig, eller man er begyndt at trøstespise og har taget på}
 
+\stefan{?}
 
 \section{Mani}
 
@@ -68,24 +90,32 @@ Her nævnes det at man taler hurtigere og snakker mere når man er manisk.
 \stefan{Kan puls og GHR bruges? Jeg ved det ikke!}
 
 \paragraph{Man er hyperaktiv, rastløs og urolig}
-
+Som nævnt under \cref{depr_ledsage} kan man bruge accelerometret til at sammenligne patientens adfærdsmønster.
 
 \paragraph{Man føler et indre pres for at tale uafbrudt}
+Her kan man bruge lydoptagelse af patientens samtaler for at analysere om der er færre pauser end der plejer.
 
 \paragraph{Man har tankeflugt, hvor tankerne springer fra emne til emne}
 
+\stefan{? Måske noget med at åbne og lukke apps?}
+
 \paragraph{Man har en hæmningsløs adfærd, hvor ens normale hæmninger er væk}
+\stefan{?}
 
 \paragraph{Man har nedsat behov for søvn}
+Her kan metoden som blev nævnt under søvn i \cref{depr_ledsage} benyttes til at se om søvnen bliver kortere end normalen.
 
 \paragraph{Man har forhøjet selvfølelse, grandiositet}
+Samme metode som omtalt i \cref{depr_ledsage} under ``Man har nedsat selvtillid eller selvværdsfølelse'' kan man analysere indholdet af SMS beskeder, og i dette tilfælde kan man lede efter ord der tyder på at patienten har en forhøjet selvfølelse.
 
 \paragraph{Man er usamlet eller bliver konstant distraheret}
+\stefan{?}
 
 \paragraph{Man handler hensynsløst og uansvarligt}
+\stefan{?}
 
 \paragraph{Man har større seksualdrift end normalt}
-
+\stefan{?}
 
 
 
