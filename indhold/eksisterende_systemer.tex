@@ -37,18 +37,53 @@ Heriblandt;
 \begin{itemize}
 \item Apple Health\cite{apple_health}
 \item Google Fit\cite{google_fit}\cite{google_fit_api}
-\item Microsoft Health\cite{ms_health} / HealthVault\cite{ms_health_vault}
+\item Microsoft Health\cite{ms_health} og HealthVault\cite{ms_health_vault}\cite{ms_health_vault_api}
 \end{itemize}
 
 Ens for disse fitness trackere, i modsætning til enkelte apps, er at de samler informationer, fra et væld af forbundne enheder og apps, kun ét sted.
-Ydermere er de designet til at kunne indstilles til bestemte mål, og kan derved fortælle løbende om hvordan det går med at opnå disse mål.
+Ydermere kan de indstilles til bestemte mål, og kan derved fortælle løbende om hvordan det går med at opnå disse mål.
 
 \subsubsection{Apple Health}
 Med Apple Health er det muligt at indsamle information fra andre apps (fx. søvnmønstre eller hjertefrekvens), for at samle al data ét sted på sin mobil, eller synce det med en iCloud konto.
 Derudover er det muligt for andre apps at få adgang til Apple Health's data, ved at give tilladelse til forskellige kategorier af data (fx. hjertefrekvens eller kalorie-indtag).
+Skærmbilleder af henholdsvis den oversigt Apple Health kan give, samt de kategorier der indsamles i, kan ses på \cref{eksisterende_systemer:apple_health_ss}.
+
+\begin{figure}
+\centering
+\includegraphics[width=.75\textwidth]{apple_health_ss}
+\caption{Skærmbilleder af Apple Health fra \url{https://www.apple.com/ios/whats-new/health/}}
+\label{eksisterende_systemer:apple_health_ss}
+\end{figure}
 
 \subsubsection{Google Fit}
 Ligesom Apple Health, kan Google Fit samle data fra andre apps.
 Derudover kan Google Fit også indsamle data fra andre kilder, såsom wearables.
 Derefter er det muligt at få oversigt over ens aktiviteter og fysiske tilstand, via Googles egne sider eller apps.
 Det er til gengæld også muligt at lave sine egne apps, til både indsamling og visning, via Google Fit API (Android SDK eller REST web service).
+
+Uden wearables eller apps ud over Google Fit app'en, indsamles der kun bevægelses-data fra fx. GPS, hvor der app'en selv estimerer om man går, løber eller cykler.
+Ellers skal man manuelt indtaste aktiviteter og deres varighed, såsom styrketræning, roning, etc.
+
+\subsubsection{Microsoft Health og HealthVault}
+Microsoft Health er det overordnede system, som kan ses på \cref{eksisterende_systemer:ms_health_fig}.
+HealthVault er hvor al den indsamlet data er samlet og gjort tilgængelig for andre applikationer, via en web service.
+Applikationer der vil gøre brug af HealthVault skal anmode om specifikke rettigheder (såsom til allergi-informationer eller mad-indtag).
+I skrivende stund er der kun SDK til .NET framework.
+
+Ud over at indsamle data fra smart devices og wearables, kan man i HealthVault også uploade dokumenter såsom røntgenbilleder.
+Idéen er at man skal samle alle helbreds oplysninger ét sted, ikke kun dem vedrørende fitness.
+
+Der er 4 vigtige koncepter i HealthVault:
+\begin{description}
+\item[Record] er medicin og fitness information for en enkelt person.
+\item[Person] er et individ, som har fuld adgang til sin egen \textbf{Record}, med mulighed for at få adgang til andre personers records.
+\item[Thing] er noget bestemt data gemt i en \textbf{Record}.
+\item[Thing type] er typen for en \textbf{Thing}, hvilket beskriver hvad det er for en måling (såsom vægt eller blodtryk).
+\end{description}
+
+\begin{figure}
+\centering
+\includegraphics[width=\textwidth]{ms_health}
+\caption{Microsoft Health fra \url{http://www.microsoft.com/microsoft-health/en-us}}
+\label{eksisterende_systemer:ms_health_fig}
+\end{figure}
