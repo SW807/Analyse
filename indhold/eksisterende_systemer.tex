@@ -58,13 +58,21 @@ Skærmbilleder af henholdsvis den oversigt Apple Health kan give, samt de katego
 \subsubsection{Google Fit}
 Ligesom Apple Health, kan Google Fit samle data fra andre apps.
 Derudover kan Google Fit også indsamle data fra andre kilder, såsom wearables.
-Derefter er det muligt at få oversigt over ens aktiviteter og fysiske tilstand, via Googles egne sider eller apps.
-Det er til gengæld også muligt at lave sine egne apps, til både indsamling og visning, via Google Fit API (Android SDK eller REST web service).
+Derefter er det muligt at få oversigt over ens aktiviteter og fysiske tilstand, via Googles egen side eller app.
+Det er også muligt at lave sine egne apps, til både indsamling og visning, via Google Fit API (Android SDK eller REST web service).
 
-Uden wearables eller apps ud over Google Fit app'en, indsamles der kun bevægelses-data fra fx. GPS, hvor der app'en selv estimerer om man går, løber eller cykler.
-Ellers skal man manuelt indtaste aktiviteter og deres varighed, såsom styrketræning, roning, etc.
+Uden eksterne wearables eller apps, indsamles der kun bevægelses-data fra fx. GPS, hvor der Google Fit app'en selv estimerer om man går, løber eller cykler.
+For andet aktivitet skal man manuelt indtaste (fx. roning eller yoga) sammen med varigheden.
 
-%google fit begreber og muligheder
+Google Fit består af 4 komponenter:
+
+\begin{description}
+\item[Fitness store] er hvor al den indsamlet data er gemt.
+\item[Sensor framework] indeholder alt der skal bruges for at indsamle og repræsentere data, gennem repræsentationerne: \textit{Data Sources, Data Types, Data Points, Datasets, Sessions}.
+\item[Permissions and user controls] styrer adgang til de 3 data-kategorier: \textit{activity, location, body}.
+Der gives læse eller læse+skrive rettigheder til én eller flere kategorier.
+\item[Google Fit APIs] dækker over Android SDK og REST web service.
+\end{description}
 
 \subsubsection{Microsoft Health og HealthVault}
 Microsoft Health er det overordnede system, som kan ses på \cref{eksisterende_systemer:ms_health_fig}.
