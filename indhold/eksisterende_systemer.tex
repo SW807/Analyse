@@ -99,8 +99,18 @@ Der er 4 vigtige koncepter i HealthVault:
 \end{figure}
 
 \subsection{Problemer}
-%google fit terms and conditions
 
-%apple health ingen deling til andre personer
+\subsubsection{Apple Health}
+Apple Health er naturligvis lukket til iOS.
+Som det er nu, er det ikke muligt at dele helbredsoplysninger direkte med andre personer.
+Som det er nu skal der laves eksterne apps til indsamling af data, Apple Health kan ikke, ligesom Google Fit, selv tilslutte sig wearables for at indsamle data.
 
-%ms health ingen android sdk
+\subsubsection{Google Fit}
+I følge Google Fit Terms and Conditions er det ikke tilladt at bruge Google Fit til andet en fitness-formål, fx. at gemme lægelige eller biometrisk data.\footnote{''Do not use Google Fit APIs for non-fitness purposes, such as storing medical or biometric data, selling data, or using data for advertising.''}
+Lægelig data dækker over lægefaglig data, såsom diagnoser og sygdomsforløb.
+Biometrisk data dækker over data som kan identificere en person, såsom iris-skan eller stemmemønster.
+
+\subsubsection{MS Health og HealthVault}
+Ved brug af MS Health er det kun muligt at hente data ned, efter det er i cloud service'en.
+Dvs. at det ikke er muligt at få fat i rå data, som ved Google Fit.
+På nuværende tidspunkt er der ingen SDK'er til MS Health, det er kun muligt at få adgang til data via web service'en.
