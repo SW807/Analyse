@@ -6,7 +6,6 @@ del /s *.dvi
 del /s *.lof
 del /s *.lot
 del /s *.bit
-del /s *.idx
 del /s *.glo
 del /s *.bbl
 del /s *.ilg
