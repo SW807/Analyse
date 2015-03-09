@@ -10,8 +10,8 @@ Den generelle idé bag ved arkitekturen er modularitet, altså hvor man inddeler
 
 Som regel når man konstruerer et modulært system laver man mange forskellige moduler som så kompileres sammen i enden, hvor fordelen så er at man kan have flere forskellige teams som arbejder på det samme generelle system men på forskellige moduler som bare passes ind i systemet i slutningen. 
 
-http://en.wikipedia.org/wiki/Modular_design
-http://en.wikipedia.org/wiki/Modular_programming
+\url{http://en.wikipedia.org/wiki/Modular_design}
+\url{http://en.wikipedia.org/wiki/Modular_programming}
 
 Man bruger som regel en multi-proces arkitektur når man vil lave et robust system hvor hvis en af processerne crasher vil det ikke medfølge at hele systemet går ned, adskildning af ansvar hvor hver eneste proces har et begrænset ansvar og de ikke nødvendigvis er afhængige af andre processer i systemet, man undgår at en proces har alt for meget ansvar og skal gøre alt for meget, responsivitet af systemet, og i nogle situationer bedre sikkerhed.
 
@@ -21,9 +21,9 @@ Et anden eksempel på er Windows arkitekturen hvor der er flere forskellige prog
 
 Et tredje er Chromium/Chrome browseren, som bruger flere processer til at sikre robusthed af systemet, da hvis det hele bare var en proces og f.eks. den del der sørger for rendering af en webside crasher vil hele systemet crashe, mens hvis hver webside har sin egen process vil et crash af en eller flere af dem ikke gøre at hele systemet crasher. De bruger også et multi-proces da det gør det mere responsivt, og giver bedre mulighed for sikkerhed da det afgrænser hvad de forskellige processer kan gøre hvis de overtages ved et angreb.
 
-http://www.chromium.org/developers/design-documents/multi-process-architecture
-http://www.chromium.org/developers/design-documents/inter-process-communication
-http://blog.chromium.org/2008/09/multi-process-architecture.html
+\url{http://www.chromium.org/developers/design-documents/multi-process-architecture}
+\url{http://www.chromium.org/developers/design-documents/inter-process-communication}
+\url{http://blog.chromium.org/2008/09/multi-process-architecture.html}
 
 Mønstre og metoder måske relevant til et fler-applikations modulart system:
 
@@ -31,7 +31,7 @@ Inter-process communication som der bruges i Linux eller Windows er en måde at 
 
 Chromium/Chrome bruger også IPC til at kommunikere mellem processer.
 
-http://en.wikipedia.org/wiki/Inter-process_communication
-http://en.wikipedia.org/wiki/D-Bus
+\url{http://en.wikipedia.org/wiki/Inter-process_communication}
+\url{http://en.wikipedia.org/wiki/D-Bus}
 
 Det generelle modul mønstre er mere til brug af f.eks. hvordan man skaber selvstændige dele af et program, som bliver kompileret til den samme binære fil. Dette kunne f.eks. være en singleton eller statiske klasser der har alt hvad de har brug for til at kunne udføre deres opgave. 
