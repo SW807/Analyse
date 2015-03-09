@@ -9,11 +9,12 @@
 For at gøre systemet mere fleksibelt, vil vi udtænke en modul-baseret arkitektur.
 Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
 Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visninger til det allerede indsamlede data.
+For at kunne gøre dette benyttes der beskrivelses filer indkapslet i modul pakkerne, disse beskrivelses filer benyttes så af hoved-applikationen til at gøre dem brugbare, uden at der behøves ændres i hoved-applikationen.
 Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Schema \cite{json_schema}.
 Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Schema.
 
 \subsection{Typer af moduler}
-Der vil findes i alt tre typer moduler; \textit{sensor}, \textit{analyse} og \textit{view}.\footnote{Der bruges engelske begreber her for at holde det implementerings-nært.}
+Der vil findes i alt tre typer moduler; \textit{sensor}, \textit{analysis} og \textit{view}.\footnote{Der bruges engelske begreber her for at holde det implementerings-nært.}
 Sensor-modulerne repræsenterer de fysiske sensorer til stede i telefon eller tilsluttet wearable.
 De leverer data som analysis eller view modulerne skal bruge til at henholdsvis behandle eller vise data.
 Baseret på en eller flere sensor- eller analysis-moduler, kan et analyse modul levere behandlet data, til brug af andre analysis-moduler, samt view-moduler.
@@ -27,6 +28,10 @@ Sensor- og analysis-moduler skal gøre data tilgængeligt for andre analysis- og
 For at specificere hvordan den data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
 For hvert modul skal der defineres en eller flere tabeller, med navn, da det er muligt for ét modul at levere mere end én slags data.
 For hver tabel defineres en eller flere kolonner, med et beskrivende navn, samt datatyper og evt. en måleenhed.
+
+\subsubsection{Data typer}
+De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til de tilgængelige SQLite datatyper, som er den database der bruges i Android systemet.
+Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
 \subsection{Afhængigheder}
 Et analysis- eller view-modul kan være afhængigt af andre sensor- eller analysis-moduler, da det kan være de skal bruge en bestemt slags data for at være anvendelige.
@@ -67,21 +72,19 @@ Som nævnt i \cref{valg_af_android}, implementeres der til Android telefoner.
 Dette sætter nogle begrænsninger ift. valg af løsninger.
 
 \subsubsection{JSON}
-JSON blev valgt over XML, da der er bedre native support for JSON på Android.
-Dette er ikke normalt et problem, men da vi gerne ville have automatisk generering af Java klasser ud fra vores schema, og det ikke kunne lade sig gøre med XML, blev JSON i stedet valgt.
+XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML da man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
+Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af Java klasser ud fra vores schema, og det var ikke ligetil at gøre i XML mens i JSON var det lettere at sætte op på grund af bedre native support af den slags opførsel.
+JSON blev valgt over XML, da der er bedre native support for JSON på Android. 
 Der er ingen begrænsninger ved JSON, frem for XML, dog en anden syntaks.
 
 \subsubsection{Moduler som apps}
+\lasse{Bliver dette et problem, at vi vil uploade en mængde af applikationer som ikke kan bruges hvis man ikke har hoved-applikationen installeret?}
 For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres apps via Google Play Store.
 Alle modul-apps, samt hoved-applikationen, deler \textit{package}-navn.
-Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{resource}, som hoved-applikationen eller andre moduler har adgang til.
+Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
 
 Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
 Services og intents skal defineres i applikationens \textit{manifest}, og ville derfor skulle ændres hver gang der kom nye moduler til.
 I stedet for benytter vi content provider til både at gemme data opsamlet af moduler, samt at gøre tilgængelig til andre moduler.
-
-\subsubsection{Data typer}
-De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til dem som er tilgængelig i SQLite, som er den database der bruges på Android telefoner.
-Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
 \bruno{Synes vi skal vælge enten at bruge engelske fagtermer over det hele i dette afsnit eller kun dansk.}
