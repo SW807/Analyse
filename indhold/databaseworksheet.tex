@@ -1,17 +1,16 @@
 \chapter{Database Arbejdsblad}
 %Database
-Det er nødvendigt at lagre data fra sensorer så analyse og view moduler kan få adgang til dem.
+Det er nødvendigt at lagre data fra sensorer så analyse og view moduler kan bruge dem.
 I Android er det standard at alt data kun er tilgængeligt til den specifikke app der har lagret det, dog er der mulighed for selv at gøre det tilgængeligt for andre.
 
 %samlet i manager vs i hver app
-To muligheder for denne tilgængelighed, man kan samle alt dataen et sted, sandsynligvis i manageren, da denne står for den overordnede kontrol af systemet. Idéen er så at modulerne 'går igennem' manager for at lagre deres data gennem en prædefineret interface.
-Den anden mulighed er at hvert modul direkte lagrer sin egen data i deres egen database, og så gør den tilgængelig for de andre moduler der vil bruge den.
-Grundet den dynamik vi gerne vil have når det kommer til at tilføje nye moduler er den bedste fremgangsmåde at have det hele i manageren.
-Dette er grundet at moduler så kun skal kontakte manageren for at få data, i stedet for først at skulle identificere hvilket modul man skal kontakte for at få sin data og derefter kontakte den for dataen.
+Der er to muligheder for gøre data tilgængelig, man kan samle alt dataen i manageren da denne står for den overordnede kontrol af systemet. Idéen er så at manageren definerer en interface til databasen, som så moduler bruger til at læse eller skrive data. 
+Den anden mulighed er at hvert modul direkte lagrer data i deres egen database, og så gør den tilgængelig for de moduler der vil bruge den.
+Da man skal kunne tilføje nye moduler, virker den bedste mulighed til at være den første mulighed.
 
 %Database helper
-For at lave databasen i manageren er det nødvendigt at have en helper klasse som skal stå for at implementere de metoder der skal til for at lave DB tables, læse fra DB, skrive til DB og hvad der ellers er brug for.
-For selve tabel oprettelse er hvert modul nød til at specificere hvordan deres data skal struktureres, dette gøres i en af deres filer i XML/JSON (eller hvad det lige blev til), som så bliver passet til helper der laver de efterspurgte database tabeller. 
+For at lave databasen i manageren skal der oprettes opførsel til at kunne læse/skrive til DB og lave nye database tables samt hvad der ellers nu er brug for.
+Moduler som skal bruge deres egne tabeller er det nødvendigt at de specificere hvordan deres data skal struktureres.
 
 %Contentprovider
 Til sidst er det nødvendigt at have en content provider før det rent faktisk er muligt at give adgang til sin data for andre applikationer.
@@ -22,5 +21,5 @@ Vi kan ikke se hvad getType skal bruges til.
 Delete vælges ikke at implementere funktionalitet til, da vi sandsynligvis ikke er interesseret i at slette vores data da den skal bruges til statistikker og lignende.
 Update er af næsten lignende grunde heller ikke nødvendig, da vi sandsynligvis ikke vil ændre i vores data efter det er blevet sat ind, i hvert fald ikke sensor dataen.
 
-Analyse moduler kunne måske have brug for at ændre deres data, hvis nu det bare er et modul der via sin analyse bare returnere en enkelt værdi, ville det måske ikke være nødvendig at lagre alle de resultater den nogensinde har haft, men bare lagre det nyeste.
+Analyse moduler skal muligvis have brug for at ændre deres data, hvis nu det bare er et modul der via sin analyse bare returnere en enkelt værdi, ville det måske ikke være nødvendig at lagre alle de resultater den nogensinde har haft, men bare lagre det nyeste.
 Delete kunne også overvejes implementeret i en form, dog ikke en form der kan kaldes af andre moduler, mere som en oprydning der måske fjerne for gammel data. Da vi fokuserer på at se mønstre kunne det måske være sådan noget med at sensor data der var over 2 måneder gammel blev slettet, da det måske ikke længere var nødvendigt at se på, da de elementer af det der var vigtigt på nuværende tidspunkt ville være lagret af et analyse modul.
