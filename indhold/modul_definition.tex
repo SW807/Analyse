@@ -19,6 +19,9 @@ De leverer data som analysis eller view modulerne skal bruge til at henholdsvis 
 Baseret på en eller flere sensor- eller analysis-moduler, kan et analyse modul levere behandlet data, til brug af andre analysis-moduler, samt view-moduler.
 View-modulerne bruges til visning af den rå sensor-data eller den behandlet analysis-data.
 
+Som minimum har et modul et navn og en version.
+Sensor- og analysis-moduler vil have data, analysis- og view-moduler vil have afhængigheder.
+
 \subsection{Data}
 Sensor- og analysis-moduler skal gøre data tilgængeligt for andre analysis- og view-moduler.
 For at specificere hvordan den data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
@@ -59,3 +62,24 @@ Al meta-data er præfikset med \_ (underscore).
       ]}]}
 \end{lstlisting}
 
+\subsection{Implementering}
+Som nævnt i \cref{valg_af_android}, implementeres der til Android telefoner.
+Dette sætter nogle begrænsninger ift. valg af løsninger.
+
+\subsubsection{JSON}
+JSON blev valgt over XML, da der er bedre native support for JSON på Android.
+Dette er ikke normalt et problem, men da vi gerne ville have automatisk generering af Java klasser ud fra vores schema, og det ikke kunne lade sig gøre med XML, blev JSON i stedet valgt.
+Der er ingen begrænsninger ved JSON, frem for XML, dog en anden syntaks.
+
+\subsubsection{Moduler som apps}
+For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres apps via Google Play Store.
+Alle modul-apps, samt hoved-applikationen, deler \textit{package}-navn.
+Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{resource}, som hoved-applikationen eller andre moduler har adgang til.
+
+Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
+Services og intents skal defineres i applikationens \textit{manifest}, og ville derfor skulle ændres hver gang der kom nye moduler til.
+I stedet for benytter vi content provider til både at gemme data opsamlet af moduler, samt at gøre tilgængelig til andre moduler.
+
+\subsubsection{Data typer}
+De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til dem som er tilgængelig i SQLite, som er den database der bruges på Android telefoner.
+Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
