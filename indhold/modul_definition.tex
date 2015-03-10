@@ -6,24 +6,26 @@
 %Fleksibel måde at modtage data fra andre moduler, uden at skulle opdatere app(s). Dvs. ikke design-mønstre: observer, mediator, men gennem content provider.
 % modularisering i Android; multiple apps under samme package
 
-For at gøre systemet mere fleksibelt, vil vi udtænke en modul-baseret arkitektur.
+For at gøre systemet fleksibelt så det er muligt let at tilføje moduler til applikationen, vil vi udtænke en modul-baseret arkitektur.
 Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
 Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visninger til det allerede indsamlede data.
-For at kunne gøre dette benyttes der beskrivelses filer indkapslet i modul pakkerne, disse beskrivelses filer benyttes så af hoved-applikationen til at gøre dem brugbare, uden at der behøves ændres i hoved-applikationen.
+For at kunne gøre dette pakkes hvert modul i en selvstændig APK, og en beskrivelsesfil indkapsles i modul pakkerne. Disse beskrivelsesfiler benyttes så af hoved-applikationen til at gøre dem brugbare, uden at der behøves ændres i hoved-applikationen.
 Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Schema \cite{json_schema}.
 Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Schema.
 
 \subsection{Typer af moduler}
 Der vil findes i alt tre typer moduler; \textit{sensor}, \textit{analysis} og \textit{view}.\footnote{Der bruges engelske begreber her for at holde det implementerings-nært.}
+\stefan{jeg er uenig i at bruge engelske begreber}
 Sensor-modulerne repræsenterer de fysiske sensorer til stede i telefon eller tilsluttet wearable.
 De leverer data som analysis eller view modulerne skal bruge til at henholdsvis behandle eller vise data.
 Baseret på en eller flere sensor- eller analysis-moduler, kan et analysis modul levere behandlet data, til brug af andre analysis-moduler, samt view-moduler.
 View-modulerne bruges til visning af den rå sensor-data eller den behandlet analysis-data.
 
-Som minimum har et modul et navn og en version.
-Sensor- og analysis-moduler vil have data, analysis- og view-moduler vil have afhængigheder.
 
-\subsection{Data}
+
+\subsection{Moduldefinition}
+Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
+
 Sensor- og analysis-moduler skal gøre data tilgængeligt for andre analysis- og view-moduler.
 For at specificere hvordan den data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
 For hvert modul skal der defineres en eller flere tabeller, med navn, da det er muligt for ét modul at levere mere end én slags data.
