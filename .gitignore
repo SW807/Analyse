@@ -111,3 +111,7 @@ sympy-plots-for-*.tex/
 
 # test-fil til hurtig kompilering
 test.tex
+
+
+# Files not to ignore
+!media/prototype.pdf
