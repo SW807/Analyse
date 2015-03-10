@@ -2,13 +2,28 @@
 %guidelines
 For at få en velkendt og standardiseret brugergrænseflade fulgtes android design guidelines.
 Disse guidelines angiver hvornår man skal bruger diverse knapper, actionbars, settings etc.
-
+\winde{Kilde til androids guidelines}
 
 %Prototypes
 Ved at følge disse guidelines blev en række prototyper for indstillinger lavet.
 Disse byggede på samme princip om at udarbejde en indstillingsmenu.
 Der var diskussion om hvordan disse skulle være, men over flere iterationer valgtes der at gå fra en "wizard" tilgang til en regulær settings menu,
-Billeder af diverse prototyper kan ses i figur x \als{Winde indsæt billede her}
+Billeder af diverse prototyper kan ses i \cref{fig:prototype-manager}
+
+\begin{figure}
+	\centering
+	\begin{subfigure}[b]{0.45\textwidth}
+			\includegraphics[scale=0.3, page=1, trim = 1cm 5.5cm 1cm 0cm, clip]{media/prototype.pdf}
+			\caption{Forside}
+	\end{subfigure}
+	\begin{subfigure}[b]{0.45\textwidth}
+			\includegraphics[scale=0.3, page=2, trim = 1cm 5.5cm 1cm 0cm, clip]{media/prototype.pdf}
+			\caption{Indstillinger}
+	\end{subfigure}
+	\caption{Prototype af Manager}
+	\label{fig:prototype-manager}
+\end{figure}
+
 
 %Actionbar
 Ud fra prototypen kan en actionbar blandt andet ses, tanken er at følge et standard design hvor man har en actionbar i toppen.
@@ -30,4 +45,4 @@ Og som resultat af dette kan man forestille sig et hierarki hvor et modul på de
 %indstillinger, onPause start og stop sensorer
 Efter afhængighederne er enkodet i programmet mangler der at takle hvordan sensorer skal startes og stoppes fra indstillingsmenuen.
 Til at takle dette bruger vi den allerede udviklede ServiceHelper\als{referer til denne}.
-Der valges så at starte og stoppe de fornødne sensorer i onPause, da det typisk er når man forlader en indstillingsmenu at man gerne vil have at indstillingerne træder i kraft, og sikrer også at man ikke skal klikke på ekstra knapper for at indstillingerne træder i kraft.
+Der vælges så at starte og stoppe de fornødne sensorer i onPause, da det typisk er når man forlader en indstillingsmenu at man gerne vil have at indstillingerne træder i kraft, og sikrer også at man ikke skal klikke på ekstra knapper for at indstillingerne træder i kraft.
