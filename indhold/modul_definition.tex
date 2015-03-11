@@ -28,23 +28,25 @@ Som minimum har et modul et navn og en version, så andre moduler kan referere d
 
 Sensor- og analysis-moduler skal gøre data tilgængeligt for andre analysis- og view-moduler.
 For at specificere hvordan den data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
-For hvert modul skal der defineres en eller flere tabeller, med navn, da det er muligt for ét modul at levere mere end én slags data.
-For hver tabel defineres en eller flere kolonner, med et beskrivende navn, samt datatyper og evt. en måleenhed.
+For hvert modul skal der defineres en eller flere tabeller som modulet kan gemme sin data i.
+For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
 
 \subsubsection{Data typer}
 De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til de tilgængelige SQLite datatyper, som er den database der bruges i Android systemet.
 Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
 \subsection{Afhængigheder}
-Et analysis- eller view-modul kan være afhængigt af andre sensor- eller analysis-moduler, da det kan være de skal bruge en bestemt slags data for at være anvendelige.
+Et analysis- eller view-modul kan være afhængigt af andre sensor- eller analysis-moduler.
+Et analysismodul kan aggregere data fra andre analysismoduler mens et viewmodul er afhængig af det modul det skal vise data fra.
 Derfor skal det defineres for hvert modul hvilke andre moduler det er afhængigt af.
-Dette kan gøre på to måder; hard- eller soft-dependency.
+Der findes to grader af afhængighed i systemet: hard- eller soft-dependency.
 En hard-dependency er ét andet modul, samt version, som det pågældende modul ikke kan fungere uden.
 En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede moduler skal være til stede på enheden.
+Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en telefon eller fra en wearable.
 
 \subsection{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
-Det burde også være muligt for ikke-tekniske personer at læse, skrive og forstå et JSON dokument.
+JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul..
 For at sikre validiteten af eksternt leveret modul-beskrivelser, udarbejdes der et JSON Schema, som JSON-dokumenter kan holdes op imod og derved verificeres.
 Det anvendte JSON Schema kan findes i \cref{app:json_schema}.
 
@@ -75,9 +77,9 @@ Dette sætter nogle begrænsninger ift. valg af løsninger.
 
 \subsubsection{JSON}
 XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML da man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af Java klasser ud fra vores schema, og det var ikke ligetil at gøre i XML mens i JSON var det lettere at sætte op på grund af bedre native support af den slags opførsel.
-JSON blev valgt over XML, da der er bedre native support for JSON på Android. 
-Der er ingen begrænsninger ved JSON, frem for XML, dog en anden syntaks.
+Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af en parser ud fra skemaet.
+En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
+Denne automatiske generering viste sig ikke at være ligetil på grund af kombatibilitetsproblemer på android, mens det var enkelt at udføre i JSON.
 
 \subsubsection{Moduler som apps}
 \lasse{Bliver dette et problem, at vi vil uploade en mængde af applikationer som ikke kan bruges hvis man ikke har hoved-applikationen installeret?}
@@ -86,7 +88,5 @@ Alle modul-apps, samt hoved-applikationen, deler \textit{package}-navn.
 Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
 
 Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
-Services og intents skal defineres i applikationens \textit{manifest}, og ville derfor skulle ændres hver gang der kom nye moduler til.
-I stedet for benytter vi content provider til både at gemme data opsamlet af moduler, samt at gøre tilgængelig til andre moduler.
 
 \bruno{Synes vi skal vælge enten at bruge engelske fagtermer over det hele i dette afsnit eller kun dansk.}
