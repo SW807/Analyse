@@ -6,27 +6,24 @@
 %Fleksibel måde at modtage data fra andre moduler, uden at skulle opdatere app(s). Dvs. ikke design-mønstre: observer, mediator, men gennem content provider.
 % modularisering i Android; multiple apps under samme package
 
-For at gøre systemet fleksibelt så det er muligt let at tilføje moduler til applikationen, vil vi udtænke en modul-baseret arkitektur.
+For at gøre systemet fleksibelt så det er let at tilføje moduler til applikationen, har vi udtænkt en modul-baseret arkitektur.
 Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
 Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visninger til det allerede indsamlede data.
 For at kunne gøre dette pakkes hvert modul i en selvstændig APK, og en beskrivelsesfil indkapsles i modul pakkerne. Disse beskrivelsesfiler benyttes så af hoved-applikationen til at gøre dem brugbare, uden at der behøves ændres i hoved-applikationen.
-Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Schema \cite{json_schema}.
-Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Schema.
+Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \cite{json_schema}.
+Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Skema.
 
 \subsection{Typer af moduler}
-Der vil findes i alt tre typer moduler; \textit{sensor}, \textit{analysis} og \textit{view}.\footnote{Der bruges engelske begreber her for at holde det implementerings-nært.}
-\stefan{jeg er uenig i at bruge engelske begreber}
+Der findes i alt tre typer moduler; \textit{sensor}, \textit{analyse} og \textit{visning}.
 Sensor-modulerne repræsenterer de fysiske sensorer til stede i telefon eller tilsluttet wearable.
-De leverer data som analysis eller view modulerne skal bruge til at henholdsvis behandle eller vise data.
-Baseret på en eller flere sensor- eller analysis-moduler, kan et analysis modul levere behandlet data, til brug af andre analysis-moduler, samt view-moduler.
-View-modulerne bruges til visning af den rå sensor-data eller den behandlet analysis-data.
-
-
+De leverer data som analyse eller visnings modulerne skal bruge til at henholdsvis behandle eller vise data.
+Baseret på en eller flere sensor- eller analyse-moduler, kan et analyse modul levere behandlet data, til brug af andre analyse-moduler, samt visnings-moduler.
+Visnings-modulerne bruges til visning af den rå sensor-data eller den behandlede analyse-data.
 
 \subsection{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
 
-Sensor- og analysis-moduler skal gøre data tilgængeligt for andre analysis- og view-moduler.
+Sensor- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visnings-moduler.
 For at specificere hvordan den data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
 For hvert modul skal der defineres en eller flere tabeller som modulet kan gemme sin data i.
 For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
@@ -36,19 +33,19 @@ De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til d
 Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
 \subsection{Afhængigheder}
-Et analysis- eller view-modul kan være afhængigt af andre sensor- eller analysis-moduler.
-Et analysismodul kan aggregere data fra andre analysismoduler mens et viewmodul er afhængig af det modul det skal vise data fra.
+Et analyse- eller visnings-modul kan være afhængigt af andre sensor- eller visnings-moduler.
+Et analysemodul kan aggregere data fra andre analysemoduler mens et visningsmodul er afhængig af det modul det skal vise data fra.
 Derfor skal det defineres for hvert modul hvilke andre moduler det er afhængigt af.
-Der findes to grader af afhængighed i systemet: hard- eller soft-dependency.
-En hard-dependency er ét andet modul, samt version, som det pågældende modul ikke kan fungere uden.
+Der findes to grader af afhængigheder i systemet: hard- eller soft-dependency.
+En hard-dependency er ét andet modul, samt version, hvor det pågældende modul ikke kan fungere uden.
 En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede moduler skal være til stede på enheden.
 Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en telefon eller fra en wearable.
 
 \subsection{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
 JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul..
-For at sikre validiteten af eksternt leveret modul-beskrivelser, udarbejdes der et JSON Schema, som JSON-dokumenter kan holdes op imod og derved verificeres.
-Det anvendte JSON Schema kan findes i \cref{app:json_schema}.
+For at sikre validiteten af eksternt leveret modul-beskrivelser, udarbejdes der et JSON Skema, som JSON-dokumenter kan holdes op imod og derved verificeres.
+Det anvendte JSON Skema kan findes i \cref{app:json_schema}.
 
 \paragraph{Eksempel} på en modul-beskrivelse.
 Al meta-data er præfikset med \_ (underscore).
@@ -75,25 +72,22 @@ Al meta-data er præfikset med \_ (underscore).
 Som nævnt i \cref{valg_af_android}, implementeres der til Android telefoner.
 Dette sætter nogle begrænsninger ift. valg af løsninger.
 
-\subsubsection{JSON}
+\subsubsection{JSON kontra XML}
 XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML da man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
 Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af en parser ud fra skemaet.
 En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
-Denne automatiske generering viste sig ikke at være ligetil på grund af kombatibilitetsproblemer på android, mens det var enkelt at udføre i JSON.
+Denne automatiske generering viste sig ikke at være ligetil på grund af kompatibilitetsproblemer på android, mens det var enkelt at udføre i JSON.
 
 \subsubsection{Moduler som apps}
-\lasse{Bliver dette et problem, at vi vil uploade en mængde af applikationer som ikke kan bruges hvis man ikke har hoved-applikationen installeret?}
 For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres apps via Google Play Store.
 Alle modul-apps, samt hoved-applikationen, deler \textit{package}-navn.
 Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
 Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
 
-\bruno{Synes vi skal vælge enten at bruge engelske fagtermer over det hele i dette afsnit eller kun dansk.}
-
 \subsubsection{Håndtering i manager}
 Håndteringen af moduler sker i manageren\stefan{manager skal enten beskrives, eller der skal være en ref til arkitektur}.
 Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle apps der er installeret under pakken ``dk.aau.cs.psylog''.
-Manageren læser alle moduldefinitioner efter at valideret dem op imod JSON skemaet.
+Manageren læser alle moduldefinitioner efter at have valideret dem op imod JSON skemaet.
 Alle moduler der har opdateret versionsnummer eller er helt nye vil blive håndteret ved at manageren læser tabelinformation ind fra moduldefinitionen og opretter eller ændrer de pågældende tabeller.
 
-Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres.
+Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres\als{evt. referer til settings arbejdsark}.
