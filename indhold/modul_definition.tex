@@ -86,7 +86,14 @@ Denne automatiske generering viste sig ikke at være ligetil på grund af kombat
 For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres apps via Google Play Store.
 Alle modul-apps, samt hoved-applikationen, deler \textit{package}-navn.
 Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
-
 Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
 
 \bruno{Synes vi skal vælge enten at bruge engelske fagtermer over det hele i dette afsnit eller kun dansk.}
+
+\subsubsection{Håndtering i manager}
+Håndteringen af moduler sker i manageren\stefan{manager skal enten beskrives, eller der skal være en ref til arkitektur}.
+Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle apps der er installeret under pakken ``dk.aau.cs.psylog''.
+Manageren læser alle moduldefinitioner efter at valideret dem op imod JSON skemaet.
+Alle moduler der har opdateret versionsnummer eller er helt nye vil blive håndteret ved at manageren læser tabelinformation ind fra moduldefinitionen og opretter eller ændrer de pågældende tabeller.
+
+Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres.
