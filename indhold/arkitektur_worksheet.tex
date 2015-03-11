@@ -12,35 +12,36 @@ Denne komponent står for at holde styr på hvilke moduler der er installeret og
 \textit{Manageren} indeholder også et GUI så brugeren kan tilføje og fjerne moduler.
 \textit{Manageren} har også logikken for hvilke \textit{analyse} moduler der kan vises i hvilke \textit{views}.
 Desuden indeholder \textit{manageren} også et JSON skema for hver modul-type i \textit{moduler} komponenten.
+\stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
 
 \subsection*{Moduler}
-Denne komponent består af tre lag: \textit{sensor}, \textit{analyse} og \textit{views}.
-Alle moduler i hvert lag indeholder en JSON beskrivelse.
+Denne komponent består af tre konceptuelle lag: \textit{sensor}, \textit{analyse} og \textit{views}.
+Alle moduler indeholder en modulbeskrivelse som beskrevet i \cref{modul_definition}. 
+Alle moduler kan skrive til deres egne tabeller i databasen, samt læse fra alle andre modulers tabeller.
 
-\paragraph{Sensor}
-\textit{Sensor} laget indeholder alle de moduler der logger data fra sensor eller logger data fra applikationer.
+\stefan{skal der være eksempler på sensorer, moduler, etc?}
+\paragraph{Sensor} \textit{Sensor}laget indeholder alle de moduler der logger data fra sensorer eller logger data fra applikationer.
 
 \paragraph{Analyse}
-\textit{Analyse} laget indeholder alle moduler der bruger et antal \textit{sensor} moduler og analyserer det data.
-Dette modul foretager fx en del beregninger over tid og har et antal datatyper som output.
+\textit{Analyse}laget indeholder alle moduler der bruger et antal \textit{sensor}moduler og analyserer det data for derefter at gemme det i en databasetabel.
 
 \paragraph{Views}
-\textit{Views} laget indeholder alle moduler der gør det muligt at visualisere de analyserede data.
+\textit{Views}laget indeholder alle moduler der gør det muligt at visualisere de analyserede data.
 Den angiver hvilke og hvor mange datatyper den kan vise.
 
 \subsection*{DB Access}
-Denne komponent holder styr på hvem der skriver og læser fra databasen og på hvilken måde.
+Denne komponent styrer adgangen til databasen så det sker på en ensrettet måde.
+DB Access holder derudover styr på hvem der må skrive og læse fra de enkelte tabeller.
 
 \subsection*{DB}
-En sqlite database.
+Til dette projekt er valgt en sqlite database da denne er standard i android.
 
 \section*{Arkitekturens styrker}
-Denne modulbaserede arkitektur har \textit{moduler} komponenten som indeholder forskellige moduler.
-Disse moduler kan kombineres og dette er en styrke i forhold til at man har mulighed for at tilføje flere moduler løbende.
-Det giver en solid platform der giver mulighed for at udvikle flere moduler løbende.
-\\
-\\
-Det giver mulighed for at et view kan bruges af mange analyser eller omvendt.
+Denne modulbaserede arkitektur har \textit{moduler}komponenten som indeholder forskellige moduler.
+Disse moduler kan kombineres hvilket er en fordel da det giver mulighed for at tilføje flere moduler løbende.
+Det giver mulighed for at et view kan bruges til at vise mange forskellige analyser og at analyser man vises af mange forskellige views.
+
 Da smartphones udvikler sig hele tiden og sikkert får en del nye sensorer i fremtiden er det ikke et problem, fordi det er muligt at tilføje et nyt sensor modul.
 
 \textbf{Det har ikke været muligt at finde et umiddelbart arkitektur-mønster for dette.}
+\stefan{vi bør nok udvide dette, det virker lidt tyndt at skrive}
