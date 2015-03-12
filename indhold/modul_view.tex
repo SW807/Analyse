@@ -1,0 +1,70 @@
+\section{View Modul}
+
+Som udgangspunkt er \textit{views} forskellige visualiseringer af analyse modulernes output.
+
+Det antages at analyse moduler kan og vil være meget forskellige, og at de enkelte views ikke nødvendigvis vil passe på alle analyser.
+Derfor skal der være en måde at knytte de enkelte views med de passende analyser.
+En måde at gøre dette på er at lave en baglæns afhængighed for et view til en eller flere analyser, som beskriver hvilke analyser det pågældende view kan repræsentere.
+Problemet med dette er at denne liste, dvs. selve modul app'en, skal opdateres hver gang der oprettes nye analyser der passer sammen med view'et.
+En anden måde er at have bindingen på analyse-modulerne, så der i stedet beskrives hvilke views der gør sig gældende for de enkelte analyser.
+Her er problemet dog stadig det samme, at analyserne skal opdateres hver gang der kommer nye views.
+
+En mere fleksibel måde at håndtere denne knytning mellem views og analyser er at deducere ud fra analysens tabel/kolonne signatur, hvilken slags data den outputter.
+På denne måde kan der laves views der kan repræsentere bestemte signaturer, og der i stedet laves en implicit binding mellem views og analyser.
+
+I mange tilfælde vil denne implicitte binding være nok, dog kan det forestilles at analyserne vil være forskellige og til tider komplekse, hvilket kan gøre det nødvendigt at nærmere specificere hvordan den tilgængelige data kan vises.
+Her kunne der tilføjes noget meta-data på analysens tabeller/kolonner, der beskriver den på sådan en måde, at det ville kunne bruges til views der ikke nødvendigvis implicit kunne knyttes til det.
+
+\subsection{Eksempel}
+Her bruges light, som er en simpel sensor og analyse, der fra sensoren indhentes løbende lys-niveau (i lux).
+Analysen tager den senest indsamlet data og giver et gennemsnit.
+Det antages at alle tabeller har en tids-kolonne, der beskriver enten hvornår data blev indsat i databasen, eller i nogle tilfælde af analyser overføres tiden fra sensor-data.
+
+\begin{lstlisting}
+{
+  "name": "lightAvg",
+  "_version": 1.0,
+  "tables": [
+    {
+      "name": "lightAvg",
+      "columns":[
+        { "name": "lightAvg", "dataType": "REAL", "_unit": "lux" }
+      ]
+    }
+  ],
+  "dependencies": [
+    [{ name": "light" }]
+  ]
+}
+\end{lstlisting}
+
+Et eksempel på et view-modul som passer på denne type analyse kunne være en simpel 2D graf, som viser den gennemsnitlige belysning over tid.
+
+\begin{lstlisting}
+{
+  "name": "2dgraph",
+  "_version": 1.0,
+  "_type": "view",
+  "view": {
+    "layout": "2dgraph.xml",
+    "data": [
+      { "name": "x", "dataTypes": ["INTEGER"], "fromTimestamp": true },
+      { "name": "y", "dataTypes": ["INTEGER", "REAL"] }
+    ]
+  }
+}
+\end{lstlisting}
+
+Dette view beskriver en 2D graf, som bruger layoutet i \texttt{2dgraph.xml}.
+På x-aksen vises tiden (der står INTEGER fordi SQLite ikke har datorepræsentation ud over unix-time).
+Her bruges det tidsstempel som forventes på alle tabeller.
+Til y-aksen kan bruges alle analyser, som blot har en enkelt kolonne af heltal eller decimal-tal værdi.
+
+\subsection{Administrering af view}
+Ligesom sensorer og analyser, skal views også administreres af brugeren.
+
+For at holde det så simpelt som muligt, kunne man, ligesom ved sensorer/analyser, have to niveauer af administration.
+Som udgangspunkt vil alle installeret views automatisk knytte sig til de aktiverede analyser.
+Derudover vil man i de avancerede indstillinger kunne aktivere/deaktivere views for de enkelte analyser.
+
+På denne måde vil der automatisk blive genereret en liste af view/analyse kombinationer, men med mulighed for at slå nogle af kombinationerne fra.
