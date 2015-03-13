@@ -1,0 +1,89 @@
+\section{Refleksioner}
+Da vi udvikler til en mobil platform, er der nogle overvejelser vi bliver nød til at se på.
+Disse overvejelser involverer hukommelsesforbrug og batteri forbrug.
+
+\subsection{Pladsforbrug}
+%plads forbrug 16GB (+64GB)
+På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har vores Samsung Galaxy S4 enheder kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 100.000 gange mere).
+Dette er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre.
+i vores tilfælde er det vi skal overveje hvor meget sensor data vi rent faktisk kan lagre.
+Her kunne der fx. opstå problemer hvis man lagrer data fra sensorer hver gang de har mulighed for at lave en måling, hvis man fulgte denne fremgangsmåde vil databasen meget hurtigt blive stor, hvilket så ville kunne give problemer med den overordnede tilgængelige pladsmængde.
+
+%begrænse tilgængelig mængde plads for hver app
+Til at håndtere disse situationer er der flere forskellige potentielle løsninger.
+Man kunne vælge at begrænse mængden af plads der er tilgængelig for hver database tabel.
+Dette er en mulighed for os da alle tabellerne er i samme applikation som vi står for at udvikle.
+I denne løsning kunne man så kassere de ældste målinger når den gik over grænsen, eller bare nægte at tage imod mere data når tabellen var ved plads grænsen.
+
+%ekstern data storage/cloud storage
+En anden mulighed er at lagre data på et eksternt lager, sandsynligvis en cloud storage, dog ville dette kræve at data bliver sendt fra vores device, hvilket ville resultere i ekstra batteri forbrug og ekstra netværkskommunikation.
+
+%threshold begrænsning for hvornår man må skrive til DB
+En tredje mulighed til at begrænse plads forbrug er at kræve der skal være en hvis form for varians fra den forrige entry i databasen. Dette ville sandsynligvis reducere pladsforbruger væsentligt, men der er også en hvis risiko for at det kunne reducere præcisionen af analysemodulerne, da de ikke længere har den mængde data tilgængelig som de måske forventer.
+Dog er det muligt at opretholde en god præcision hvis man husker at tage højde for de tidsmæssige huller der kan være imellem entries i databasen.
+
+%håndtering af gammelt data
+En anden ting der også skal overvejes i forbindelse med pladsforbrug er hvor længe data skal lagres.
+Skal vi have det i en måned? to måneder?
+For at komme med en fornuftig værdi her er det nødvendigt at overveje hvor hurtigt den indsamlede data kommer til at fylde for meget samt hvor langt tilbage man har brug for ens data går for at man kan lave nogle fornuftige udregninger.
+Da vi i vores analyser sandsynligvis kommer til at fokusere på generel adfærd og ændringer i denne, er det nok nødvendigt at vores data går et godt stykke tilbage.
+Vi tænker umiddelbart at to uger tilbage er minimum med fire uger som det foretrukne.
+Dette gør sig kun gældende for sensor data, analyse data bør blive gemt i væsentligt længere tid, sandsynligvis ubegrænset tid, da disse er meget vigtigere for at finde trends.
+I samme forbindelse skal der overvejes hvad der skal gøres med data når vi beslutter os for vi ikke skal lagre det længere.
+Som vi ser det er der to muligheder her.
+Den første mulighed er at for gammelt data bare bliver slettet, men dette vil gøre det vanskeligere for nye analyser at komme i gang, da de kun har den nuværende lagrede data at gøre godt med.
+Hvis denne fremgangsmåde blev valgt, ville det nok skulle eksekveres en gang om dagen eller deromkring.
+Den anden mulighed er, at for gammelt data flyttes fra enheden til et eksternt lager, fx en cloud server.
+Dette ville løse det problem den forrige mulighed havde, i det at nye analyser har adgang til den data der ligger på cloud serveren, og derfor kan bruge det til at starte op.
+Ligesom med slet fremgangsmåden, så ville denne overførsel kun være nødvendig en gang om dagen.
+Der skulle så bestemmes hvornår dette skulle være, kunne fx. være om natten eller den første gang der er trådløs internet adgang hver dag.
+Det er ikke nødvendigt at køre oprydning i data hele tiden, da det først er på langt sigt mængden bliver et problem, desuden ville konstant netværkskommunikation være problematisk for batteriforbruget, som også er en ting vi skal forholde os til.
+
+\subsection{Batteriforbrug}
+%bateri forbrug 2600 mAh
+Grundet den store mængde af services der kører i baggrunden som en del af vores app, er der en risiko for at batteriforbruger bliver væsentligt forøget.
+Dette problem opstår da enheden nu skal lave meget mere end den plejer.
+Der findes nogle måder at arbejde udenom dette problem.
+En af løsningerne ville være at analysemodulerne, som nok er dem der kommer til at kræve mest at køre løbende, kun bliver kørt når brugeren er inde i programmet eller når enheden er sat til opladning, hvor vi ikke behøver bekymre os om strømforbruget.
+%natlige updates/eksekvering
+En anden løsning som ligger tæt op ad den forrige er at man kunne vente med at køre analyserne til om natten, hvor telefonen sandsynligvis ikke bruges til noget.
+Da det er meget sandsynligt at enheden er sat til opladning om natten er denne mulighed dog meget tæt på det forrige forslag.
+
+%begrænse frekvens for eksekvering
+En tredje mulighed for at begrænse strømforbruget er at sætte en grænse på hvor ofte de forskellige services køres.
+Dette kunne fx være at en sensor kun læser hvert sekund eller at analyse modul kun må køre en gang om dagen.
+Denne løsning har dog det problem, at det ikke er muligt for os at påtvinge disse begrænsninger til andre udviklere som laver udvidelsessprogrammer til vores applikation.
+Grundet dette problem er dette en løsning som vi i vores moduler godt kan overholde, men det eneste vi kan gøre for senere udviklede moduler er at håbe på at udvikleren af denne har de samme overvejelser som vi har. 
+
+\subsection{Eksperiment}
+For at finde ud af helt præcist hvor stort et problem dette er har vi udført et lille eksperiment.
+På en af vores enheder har vi installeret vores manager samt indsamlings software til accelerometer, gyroskop, lys, location, proximity, skærm og lyd.
+Under eksperimentet vil hverken skærm eller lyd sensoren have den helt store indflydelse, skærm da den kun ser på hvornår skærmen bliver tændt/slukket og lyd da den kun indsamler data under opkald.
+
+Selve eksperimentet går ud på at alle sensor-services bliver startet, hvorefter telefonen får lov at ligge i et stykke tid, derefter ses der på hvor meget den har brugt af lagerplads og strøm.
+
+Under eksperimentet blev det observeret at der i løbet af en periode på ca 24 timer blev indsamlet 220 MB sensor data. 
+Flere observationer antyder også en gennemsnitlig dataindsamling på 10 MB per time.
+Hvis vi går ud fra at denne mængde er gennemsnitlig for hvad man kan forvente så giver det ca 6 GB data efter fire uger, hvilket nok er den mængde data der bliver sigtet efter at have på enheden, så analyse modulerne har noget at arbejde med.
+Den primære grund til der er brug for data så langt tilbage er at vi nok ender med at fokusere på adfærdsændringer, hvilket kan være meget svært at vurdere på hvis man ikke har data ret langt tilbage.
+Da enhederne vi arbejder med har 16 GB lager plads er dette en del, da det betyder at vores applikation fylder tæt på halvdelen af det, og det er kun med basis sensorer.
+Hvis der fx blev tilføjet sensorer for wearables såsom et smartwatch, ville der være endnu mere data.
+Derudover kommer analyse moduler også til at lave noget data, men det er langt fra samme mængde som sensorerne så det kan mere eller mindre ignoreres.
+
+%eksperiment
+%accelerometer, gyroscope, light, location, proximity, screen, sound,
+%startet kl 15:52, 8,98 MB, 84 KB, 20KB cache
+%dag2
+%kl 08:24, 8,90MB, 418 MB total 24KB cache
+%kl 10:10 	-	 , 434 MB
+%kl 11:05	-	 , 443 MB
+%kl 14:18	-	 , 489 MB
+%kl 16:08	-	 , 495 MB
+%dag3
+%kl 08:34	-	 , 640 MB
+
+
+%bateri eksperiment:
+%startet kl 08:27, 100 %
+%kl 10:08 91 %
+%kl 11:06 85 %
