@@ -62,17 +62,26 @@ Under eksperimentet vil hverken skærm eller lyd sensoren have den helt store in
 
 Selve eksperimentet går ud på at alle sensor-services bliver startet, hvorefter telefonen får lov at ligge i et stykke tid, derefter ses der på hvor meget den har brugt af lagerplads og strøm.
 
-I løbet af en periode på 8 timer og 32 minutter har dens sensorer samlet 418MB data, hvilket er en del da enheden kun har ca. 16 GB til rådighed i total.
-Dette pladsforbrug er også alarmerende da vores applikation gerne skulle kunne køre hele tiden, og før vi kan lave fornuftige vurderinger om trends og adfærdsændringer, bliver vi nød til at have adgang til data der går et godt stykke tilbage i tiden, sandsynligvis omkring fire uger.
-Hvis vi ud fra vores eksperiment antager at det var ca 400 MB data på 8 timer, så giver det 1200 MB data på en dag, hvilket så bliver til 33600 MB på 28 dage som er det stykke tid vi antager er nødvendigt for at lave fornuftige vurderinger af adfærdsændringer.
-Dette giver ca 32 GB data, hvilket er dobbelt så meget som der er lager plads på vores enhed, hvilket er et problem.
-Selv 14 dages data ville være for meget at have lagret på enheden, hvilket er tæt på det absolute minimum vi har brug for, for at kunne sige om en persons generelle adfærd ændre sig eller om det bare har været en one-off.
+Under eksperimentet blev det observeret at der i løbet af en periode på ca 24 timer blev indsamlet 220 MB sensor data. 
+Flere observationer antyder også en gennemsnitlig dataindsamling på 10 MB per time.
+Hvis vi går ud fra at denne mængde er gennemsnitlig for hvad man kan forvente så giver det ca 6 GB data efter fire uger, hvilket nok er den mængde data der bliver sigtet efter at have på enheden, så analyse modulerne har noget at arbejde med.
+Den primære grund til der er brug for data så langt tilbage er at vi nok ender med at fokusere på adfærdsændringer, hvilket kan være meget svært at vurdere på hvis man ikke har data ret langt tilbage.
+Da enhederne vi arbejder med har 16 GB lager plads er dette en del, da det betyder at vores applikation fylder tæt på halvdelen af det, og det er kun med basis sensorer.
+Hvis der fx blev tilføjet sensorer for wearables såsom et smartwatch, ville der være endnu mere data.
+Derudover kommer analyse moduler også til at lave noget data, men det er langt fra samme mængde som sensorerne så det kan mere eller mindre ignoreres.
+
 %eksperiment
 %accelerometer, gyroscope, light, location, proximity, screen, sound,
 %startet kl 15:52, 8,98 MB, 84 KB, 20KB cache
+%dag2
 %kl 08:24, 8,90MB, 418 MB total 24KB cache
 %kl 10:10 	-	 , 434 MB
 %kl 11:05	-	 , 443 MB
+%kl 14:18	-	 , 489 MB
+%kl 16:08	-	 , 495 MB
+%dag3
+%kl 08:34	-	 , 640 MB
+
 
 %bateri eksperiment:
 %startet kl 08:27, 100 %
