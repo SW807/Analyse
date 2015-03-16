@@ -1,18 +1,18 @@
 \chapter{Database Arbejdsblad}
-%Database
+\section{Database}
 Det er nødvendigt at lagre data fra sensorer så analyse og view moduler kan bruge dem.
 I Android er det standard at alt data kun er tilgængeligt til den specifikke app der har lagret det, dog er der mulighed for selv at gøre det tilgængeligt for andre.
 
-%samlet i manager vs i hver app
+\section{Samlet i manager VS i hver app}
 Der er to muligheder for gøre data tilgængelig, man kan samle alt dataen i manageren da denne står for den overordnede kontrol af systemet. Idéen er så at manageren definerer en interface til databasen, som så moduler bruger til at læse eller skrive data. 
 Den anden mulighed er at hvert modul direkte lagrer data i deres egen database, og så gør den tilgængelig for de moduler der vil bruge den.
 Da man skal kunne tilføje nye moduler, virker den bedste mulighed til at være den første mulighed.
 
-%Database helper
+\section{Database Helper}
 For at lave databasen i manageren skal der oprettes opførsel til at kunne læse/skrive til DB og lave nye database tables samt hvad der ellers nu er brug for.
 Moduler som skal bruge deres egne tabeller er det nødvendigt at de specificere hvordan deres data skal struktureres.
 
-%Contentprovider
+\section{ContentProvider}
 Til sidst er det nødvendigt at have en content provider før det rent faktisk er muligt at give adgang til sin data for andre applikationer.
 Denne ContentProvider skal så override 5 forskellige metoder:  getType, query, insert, delete og update.
 Insert laver writes til databasen og giver reads.
