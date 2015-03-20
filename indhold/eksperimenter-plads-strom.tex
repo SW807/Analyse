@@ -32,6 +32,7 @@ Der findes fire konstanter der kan benyttes til at angive hastigheder der passer
 	\item SENSOR\_DELAY\_NORMAL forespørger hver 200. ms er tilstrækkeligt til at opfange ændringer i skærm orientering.
 \end{itemize}
 Det er også muligt at angive opdateringen i ticks hvis man vil have en langsommere opdatering.
+Det skal også bemærkes at disse angivelser kun benyttes som et hint til telefonen, det kan ikke garanteres at sensoren bliver forespurgt med det angivne interval.
 I dette eksperiment er SENSOR\_DELAY\_NORMAL benyttet.
 
 
@@ -45,7 +46,7 @@ Under antagelsen at sensorerne vil fortsætte med at generere data i den samme h
 De enkelte sensorers tabeller var fordelt på følgende måde
 
 \begin{tabular}{|c|c|c|c|}
-	\hline Modul & Plads forbrugt & Antal indgange & \% af hele databasen \\
+	\hline Modul & Plads forbrugt / bytes & Antal datapunkter & \% af databasen \\
 	\hline Accelerometer & 609266 & 12434 & 51.1 \\ 
 	\hline Gyroskop & 495018 & 10146 & 41.6\\ 
 	\hline Lyd & 42648 & 1706 & 4.3 \\ 
@@ -54,6 +55,20 @@ De enkelte sensorers tabeller var fordelt på følgende måde
 	\hline Skærm & 1242 & 54 & 0.31 \\ 
 	\hline 
 \end{tabular} 
+
+Som det ses af tabellen er de store pladssyndere accelerometret og gyroskopet.
+Dette skyldes at de forespørger konstant og gemmer al data.
+
+Lydmodulet var på eksperimenttidspunktet meget simpelt, og gemte kun amplituden af den optagne lyd i databasen. 
+Af denne grund fylder lydmodulets data i denne test ikke mere end 4 \% af databasen.
+Afhængig af hvad man vil analysere vil det være nødvendigt at gemme væsentligt mere end dette.
+
+Lokation er fra android konstrueret så den kun forespørger når der er en tilstrækkelig ændring i lokationen.
+
+Proximity sensoren ændrer sig kun når man sætter noget ind foran den, og der er derfor få datapunkter i dennes tabel.
+Det samme gælder for skærmsensoren der kun registrerer en ændring når skærmen enten tændes eller slukkes.	
+
+
 
 \subsection{Muligheder for begrænsning af pladsforbrug}
 
