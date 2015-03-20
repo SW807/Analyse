@@ -1,19 +1,33 @@
 \chapter{Arkitektur Worksheet}
-Denne modulbaserede arkitektur har \textit{moduler}komponenten som indeholder forskellige moduler.
-Disse moduler kan kombineres hvilket er en fordel da det giver mulighed for at tilføje flere moduler løbende.
-Det giver mulighed for at et view kan bruges til at vise mange forskellige analyser og at analyser man vises af mange forskellige views.
+For at kunne imødekomme et bredt spektrum af lidelser samt et bredt udvalg af forskellige, Android baserede, smartphones kræves en modulær arkitektur hvori moduler kan fjernes, tilføjes og ændres uafhængigt af det overordnede system.
 
-Da smartphones udvikler sig hele tiden og sikkert får en del nye sensorer i fremtiden er det ikke et problem, fordi det er muligt at tilføje et nyt sensor modul.
+Moduler inddeles i tre konceptuelle lag: \textit{sensor}-, \textit{analyse}- og \textit{visnings}moduler.
+Denne inddeling vil tillade adskilt udvikling af enkelte moduler uanset hvilket lag de tilhører.
+Ved at kombinere de forskellige moduler på tværs af lagene, opnås et fungerende system.
 
+Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visnings}modul.
+Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
+Sammensætningen af analyse- og visningsmoduler sker ved en beskrivelse af deres grænseflade.
+Moduler med fælles grænseflade vil kunne kombineres.
+Det vil sige at der kan anvendes flere forskellige visningsmoduler til det samme analysemodul, givet at de er kompatible.
+Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analysemoduler.
 \textbf{Det har ikke været muligt at finde et umiddelbart arkitektur-mønster for dette.}
 \stefan{vi bør nok udvide dette, det virker lidt tyndt at skrive}
-Arkitekturen er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
+
+\section*{Opbygning}
+Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
 En skitse af arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
 	\includegraphics[width=\textwidth]{architecture_draft}
 	\caption{Første udkast til arkitektur.}
   \label{arkitektur_udkast_1}
 \end{figure}
+Som nævnt herover er styrken ved denne arkitektur, den modulære opbygning af sensorer, analyser og visninger.
+Disse lag er derfor alle indholdt i den overordnede komponent \textit{moduler}.
+Derudover eksisterer et system, bestående af de resterende tre komponenter, der anvender de moduler der er installeret på den enkelte telefon.
+Systemet er altså opbygget uden direkte kendskab til de enkelte moduler, hvilket igen tillader udviklingen af moduler sideløbende med det overordnede system.
+
+Herunder gives en kort beskrivelse af hver af de fire moduler.
 
 \subsection*{Manager}
 Denne komponent står for at holde styr på hvilke moduler der er installeret og opretter tabeller i databasen for dem.
@@ -28,6 +42,7 @@ Alle moduler indeholder en modulbeskrivelse som beskrevet i \cref{modul_definiti
 Alle moduler kan skrive til deres egne tabeller i databasen, samt læse fra alle andre modulers tabeller.
 
 \stefan{skal der være eksempler på sensorer, moduler, etc?}
+\mikkel{jeg har tilføjet et eksempel på sammenhængende moduler i den introducerende tekst. skal vi have yderligere?}
 \paragraph{Sensor} \textit{Sensor}laget indeholder alle de moduler der logger data fra sensorer eller logger data fra applikationer.
 
 \paragraph{Analyse}
