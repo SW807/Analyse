@@ -27,14 +27,15 @@ Disse lag er derfor alle indholdt i den overordnede komponent \textit{moduler}.
 Derudover eksisterer et system, bestående af de resterende tre komponenter, der anvender de moduler der er installeret på den enkelte telefon.
 Systemet er altså opbygget uden direkte kendskab til de enkelte moduler, hvilket igen tillader udviklingen af moduler sideløbende med det overordnede system.
 
-Herunder gives en kort beskrivelse af hver af de fire moduler.
+Herunder gives en kort beskrivelse af hver af de fire komponenter.
+Komponenterne beskrives i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
 
-\subsection*{Manager}
-Denne komponent står for at holde styr på hvilke moduler der er installeret og opretter tabeller i databasen for dem.
-\textit{Manageren} indeholder også et GUI så brugeren kan tilføje og fjerne moduler.
-\textit{Manageren} har også logikken for hvilke \textit{analyse} moduler der kan vises i hvilke \textit{views}.
-Desuden indeholder \textit{manageren} også et JSON skema for hver modul-type i \textit{moduler} komponenten.
-\stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
+\subsection*{DB}
+Til dette projekt er valgt en sqlite database da denne er standard i android.
+
+\subsection*{DB Access}
+Denne komponent styrer adgangen til databasen så det sker på en ensrettet måde.
+DB Access holder derudover styr på hvem der må skrive og læse fra de enkelte tabeller.
 
 \subsection*{Moduler}
 Denne komponent består af tre konceptuelle lag: \textit{sensor}, \textit{analyse} og \textit{views}.
@@ -52,9 +53,9 @@ Alle moduler kan skrive til deres egne tabeller i databasen, samt læse fra alle
 \textit{Views}laget indeholder alle moduler der gør det muligt at visualisere de analyserede data.
 Den angiver hvilke og hvor mange datatyper den kan vise.
 
-\subsection*{DB Access}
-Denne komponent styrer adgangen til databasen så det sker på en ensrettet måde.
-DB Access holder derudover styr på hvem der må skrive og læse fra de enkelte tabeller.
-
-\subsection*{DB}
-Til dette projekt er valgt en sqlite database da denne er standard i android.
+\subsection*{Manager}
+Denne komponent står for at holde styr på hvilke moduler der er installeret og opretter tabeller i databasen for dem.
+\textit{Manageren} indeholder også et GUI så brugeren kan tilføje og fjerne moduler.
+\textit{Manageren} har også logikken for hvilke \textit{analyse} moduler der kan vises i hvilke \textit{views}.
+Desuden indeholder \textit{manageren} også et JSON skema for hver modul-type i \textit{moduler} komponenten.
+\stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
