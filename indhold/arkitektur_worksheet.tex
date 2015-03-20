@@ -1,4 +1,12 @@
 \chapter{Arkitektur Worksheet}
+Denne modulbaserede arkitektur har \textit{moduler}komponenten som indeholder forskellige moduler.
+Disse moduler kan kombineres hvilket er en fordel da det giver mulighed for at tilføje flere moduler løbende.
+Det giver mulighed for at et view kan bruges til at vise mange forskellige analyser og at analyser man vises af mange forskellige views.
+
+Da smartphones udvikler sig hele tiden og sikkert får en del nye sensorer i fremtiden er det ikke et problem, fordi det er muligt at tilføje et nyt sensor modul.
+
+\textbf{Det har ikke været muligt at finde et umiddelbart arkitektur-mønster for dette.}
+\stefan{vi bør nok udvide dette, det virker lidt tyndt at skrive}
 Arkitekturen er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
 En skitse af arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
@@ -35,13 +43,3 @@ DB Access holder derudover styr på hvem der må skrive og læse fra de enkelte 
 
 \subsection*{DB}
 Til dette projekt er valgt en sqlite database da denne er standard i android.
-
-\section*{Arkitekturens styrker}
-Denne modulbaserede arkitektur har \textit{moduler}komponenten som indeholder forskellige moduler.
-Disse moduler kan kombineres hvilket er en fordel da det giver mulighed for at tilføje flere moduler løbende.
-Det giver mulighed for at et view kan bruges til at vise mange forskellige analyser og at analyser man vises af mange forskellige views.
-
-Da smartphones udvikler sig hele tiden og sikkert får en del nye sensorer i fremtiden er det ikke et problem, fordi det er muligt at tilføje et nyt sensor modul.
-
-\textbf{Det har ikke været muligt at finde et umiddelbart arkitektur-mønster for dette.}
-\stefan{vi bør nok udvide dette, det virker lidt tyndt at skrive}
