@@ -1,0 +1,78 @@
+\subsection{Eksperiment}
+
+På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har vores Samsung Galaxy S4 enheder kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 100 gange mere).
+Dette er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre.
+i vores tilfælde er det vi skal overveje hvor meget sensor data vi rent faktisk kan lagre.
+For at undersøge hvordan de forskellige sensorer bruger pladsen på telefonen opstilles et eksperiment.
+
+Applikationen blev sat til at køre med følgende moduler tændt:
+\begin{itemize}
+	\item sound
+	\item screen
+	\item proximity
+	\item location
+	\item gyroscope
+	\item accelerometer
+\end{itemize}
+
+Moduler som screen, proximity og location producerer kun data når der sker ændringer. 
+Derfor blev testen udført på en måde der forsøger at efterligne brug. 
+Telefonen blev bevæget og skærmen blev tændt og slukket flere gange under testperioden.
+
+\paragraph{Forespørgselshastighed}
+Pladsen som modulerne bruger vil naturligvis afhænge af hvor ofte modulerne forespørger sensorerne for data.
+
+I android er der forskellige metoder til at angive forespørgselsraten på en sensor.
+Der findes fire konstanter der kan benyttes til at angive hastigheder der passer i forskellige kontekster \cite{sensormonitor}.
+
+\begin{itemize}
+	\item SENSOR\_DELAY\_FASTEST forespørger hele tiden.
+	\item SENSOR\_DELAY\_GAME forespørger hver 20. ms, og er beregnet til spil.
+	\item SENSOR\_DELAY\_UI forespørger hver 60. ms og er tilstrækkeligt til brug i userinterfaces.
+	\item SENSOR\_DELAY\_NORMAL forespørger hver 200. ms er tilstrækkeligt til at opfange ændringer i skærm orientering.
+\end{itemize}
+Det er også muligt at angive opdateringen i ticks hvis man vil have en langsommere opdatering.
+I dette eksperiment er SENSOR\_DELAY\_NORMAL benyttet.
+
+
+\subsection{Resultater}
+Til analyse af pladsforbruget blev programmet ``SQLite-analyzer'' benyttet \cite{sqliteanalyzer}.
+SQLite-analyzer viser statistik for en SQLite database inklusive data for de enkelte tabeller.
+
+Efter 30 minutter fyldte databasen 1156459 bytes.
+Under antagelsen at sensorerne vil fortsætte med at generere data i den samme hastighed vil det efter 24 timer fylde omkring 55 MB. 
+
+De enkelte sensorers tabeller var fordelt på følgende måde
+
+\begin{tabular}{|c|c|c|c|}
+	\hline Modul & Plads forbrugt & Antal indgange & \% af hele databasen \\
+	\hline Accelerometer & 609266 & 12434 & 51.1 \\ 
+	\hline Gyroskop & 495018 & 10146 & 41.6\\ 
+	\hline Lyd & 42648 & 1706 & 4.3 \\ 
+	\hline Lokation & 4751 & 91 & 0.92 \\ 
+	\hline Proximity & 3173 & 135 & 0.31 \\ 
+	\hline Skærm & 1242 & 54 & 0.31 \\ 
+	\hline 
+\end{tabular} 
+
+\subsection{Muligheder for begrænsning af pladsforbrug}
+
+\paragraph{Client server}
+Ved at sætte en server til rådighed for at holde på dataen kan man holde det aktuelle forbrug på selve telefonen nede.
+Det vil da kræve at man sætter en synkronisering op der sørger for at kun data der allerede er analyseret bliver slettet fra telefonen. 
+Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analysemodulerne er afhængige af.
+Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyser på serversiden.
+
+\paragraph{Oprydning i data}
+Skærm tændt modulet er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
+En udvidelse af de andre moduler kan gøre at de virker ligedan. 
+For eksempel er accelerometerdata kun interessante når der sker en vis acceleration.
+Der kan da sættes en tærskel for hvor meget acceleration der skal ske for at dataen gemmes i databasen.
+
+\paragraph{Opdateringshastighed}
+Som nævnt under opsætningen til forsøget bruger android konstanter til at angive hvor hurtigt en sensor skal opdatere.
+Disse kontanter er indbygget og er beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.
+Sensorer der bruger disse konstanter til opdatering har i 
+Vores kontekst er at logge brugerens færden, og 5 gange i sekundet er ikke nødvendigt.
+Der kan derfor spares en del plads ved enten at opdatere langsommere generelt, eller ved at ændre opdateringshastigheden løbende i takt med at der kommer mere relevant data.
+Det skal dog overvejes om den nedsatte præcision kommer til at have en effekt på de analyser der skal bruge dataen.
