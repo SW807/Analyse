@@ -42,15 +42,18 @@ Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en 
 \textit{DB Access} holder derudover styr på hvilke komponenter og lag der må skrive og læse fra de enkelte tabeller.
 
 Systemet anvender udelukkende en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
-I en fremtidig udvidelse af systemet kunne \textit{DB Access} laget tilgå et ekstern lager hvor dele af det administrerede data kan gemmes.
+I en fremtidig udvidelse af systemet kunne \textit{DB Access} komponenten tilgå et ekstern lager hvor dele af det administrerede data kan gemmes.
 Denne abstraktion forventes at kunne påføres \textit{DB Access} uden at kræve ændringer i de resterende komponenter.
 
 Muligheden for en sådan udvidelse af systemet er ikke undersøgt og der kan derfor naturligt være komplikationer herved, ligesom udvidelsen ikke med sikkerhed kan laves uden påvirkning af de resterende komponenter.
 
 \subsection*{Moduler}
-Denne komponent består af tre konceptuelle lag: \textit{sensor}, \textit{analyse} og \textit{views}.
-Alle moduler indeholder en modulbeskrivelse som beskrevet i \cref{modul_definition}. 
-Alle moduler kan skrive til deres egne tabeller i databasen, samt læse fra alle andre modulers tabeller.
+Denne komponent består af de tre forskellige modul-lag.
+Til hvert enkelt modul hører en modulbeskrivelse (se \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
+
+Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
+Alle moduler kan skrive til de tabeller de selv definerer, samt læse fra alle andre modulers tabeller.
+Adgangskontrollen til tabeller håndteres i \textit{DB Access} komponenten som alle moduler anvender til database adgang.
 
 \stefan{skal der være eksempler på sensorer, moduler, etc?}
 \mikkel{jeg har tilføjet et eksempel på sammenhængende moduler i den introducerende tekst. skal vi have yderligere?}
