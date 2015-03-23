@@ -41,6 +41,8 @@ Til dette projekt er valgt en sqlite database da denne er standard i android.
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
 \textit{DB Access} holder derudover styr på hvilke komponenter og lag der må skrive og læse fra de enkelte tabeller.
 
+\stefan{som det er nu kan alt skrive til og læse fra alt}
+
 Systemet anvender udelukkende en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
 I en fremtidig udvidelse af systemet kunne \textit{DB Access} komponenten tilgå et ekstern lager hvor dele af det administrerede data kan gemmes.
 Denne abstraktion forventes at kunne påføres \textit{DB Access} uden at kræve ændringer i de resterende komponenter.
