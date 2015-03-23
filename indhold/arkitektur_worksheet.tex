@@ -57,20 +57,44 @@ Denne administration består til dels i en definitioner af de tabeller modulet h
 Alle moduler kan skrive til de tabeller de selv definerer, samt læse fra alle andre modulers tabeller.
 Adgangskontrollen til tabeller håndteres i \textit{DB Access} komponenten som alle moduler anvender til database adgang.
 
-\stefan{skal der være eksempler på sensorer, moduler, etc?}
-\mikkel{jeg har tilføjet et eksempel på sammenhængende moduler i den introducerende tekst. skal vi have yderligere?}
-\paragraph{Sensor} \textit{Sensor}laget indeholder alle de moduler der logger data fra sensorer eller logger data fra applikationer.
+Bemærk at de tre lag i modul-komponenten består af udskiftelige moduler og at lagene derfor kun eksisterer konceptuelt.
+Nedenstående beskriver derfor de forskellige moduler der \textit{kan} ligge i hvert af lagene.
+Beskrivelserne er til dels intentioner for modulerne i hvert lag og omfatter altså ikke alle moduler der kan udvikles til systemet.
+
+\paragraph{Sensor}
+\textit{Sensor}laget indeholder moduler der indsamler data fra telefonens (eller tilbehør dertil) forskellige sensorer og applikationer.
+Der påføres kun et minimum af behandling på det indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden et stort energi-behov.
+Et sensor modul bør ikke smide indsamlet data ud.
+Det vil sige at komprimering bør være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i sensorens data tabel.
+\mikkel{Beskriv et eksempel på et sensor modul, når vi har flere detaljer om et.}
 
 \paragraph{Analyse}
-\textit{Analyse}laget indeholder alle moduler der bruger et antal \textit{sensor}moduler og analyserer det data for derefter at gemme det i en databasetabel.
+\textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
+Herefter udføres en analyse af det indsamlede data med \textit{''forståelig information''} som resultat.
+I denne process vil der kunne forekomme tab af data.
+Herved opnås en opsummering af det indsamlede data, der skaber værdifuld information for brugeren.
+Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
+Denne information anvendes af visningsmodulerne.
 
-\paragraph{Views}
-\textit{Views}laget indeholder alle moduler der gør det muligt at visualisere de analyserede data.
-Den angiver hvilke og hvor mange datatyper den kan vise.
+Der kan ved analyse af sensor data anvendes flere ressourcer, da analysen typisk vil kunne udføres, på større mængder indsamlet data, få gange dagligt.
+Eksempelvis kan analysen foretages om natten hvor telefonen kan sættes til opladning.
+\mikkel{Beskriv et eksempel på et analyse modul, der anvender ovenstående sensor modul, når vi har flere detaljer om et.}
+
+\paragraph{Visning}
+\textit{Visnings}laget indeholder moduler der visualiserer det analyserede data.
+Som en del af et visningsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
+Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visning anvendes på den enkelte analyse.
+\mikkel{Beskriv et eksempel på et visnings modul, der anvender ovenstående analyse modul, når vi har flere detaljer om et.}
 
 \subsection*{Manager}
-Denne komponent står for at holde styr på hvilke moduler der er installeret og opretter tabeller i databasen for dem.
-\textit{Manageren} indeholder også et GUI så brugeren kan tilføje og fjerne moduler.
-\textit{Manageren} har også logikken for hvilke \textit{analyse} moduler der kan vises i hvilke \textit{views}.
-Desuden indeholder \textit{manageren} også et JSON skema for hver modul-type i \textit{moduler} komponenten.
+Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
+Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
+Denne administration indebærer blandt andet oprettelse af de tabeller hvert modul har i sin beskrivelse, samt start og stop af sensor- og analysemoduler.
+Sidstnævnte sker ud fra definitioner givet i beskrivelserne af de enkelte moduler.
+
+Ved at sammenholde visninger og analyser kan manageren beskrive for brugeren hvilke data der kan fremvises og med hvilke visninger det kan ske.
+Manageren har desuden en prædefineret brugerflade der anvender ovenstående kombinationer til at vise brugeren de relevante informationer.
+
+Manager komponenten indeholder desuden et JSON skema for hver modul-type i moduler komponenten.
+Disse definitioner beskriver formatet for eventuelle nye moduler man måtte ønske at føje til systemet.
 \stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
