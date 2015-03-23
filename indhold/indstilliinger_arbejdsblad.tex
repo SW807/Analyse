@@ -2,12 +2,12 @@
 %guidelines
 For at få en velkendt og standardiseret brugergrænseflade fulgtes android design guidelines.
 Disse guidelines angiver hvornår man skal bruger diverse knapper, actionbars, settings etc.
-\winde{Kilde til androids guidelines}
+\cite{androiddesign}
 
 %Prototypes
 Ved at følge disse guidelines blev en række prototyper for indstillinger lavet.
 Disse byggede på samme princip om at udarbejde en indstillingsmenu.
-Der var diskussion om hvordan disse skulle være, men over flere iterationer valgtes der at gå fra en "wizard" tilgang til en regulær settings menu,
+Der var diskussion om hvordan disse skulle være, men over flere iterationer valgtes der at gå fra en ``wizard'' tilgang til en regulær settings menu,
 Billeder af diverse prototyper kan ses i \cref{fig:prototype-manager}
 
 \begin{figure}
@@ -41,6 +41,7 @@ JSONParseren giver som resultat en liste af moduler. Disse scannes så igennem f
 Disse afhængigheder bruges så til at konstruere events (OnChange) til at fortælle de moduler der skal have besked når et givent modul aktiveres/deaktiveres.
 Ved at lave en sådan række er der implicit konstrueret en dependency graph.
 Og som resultat af dette kan man forestille sig et hierarki hvor et modul på det lavest liggende niveau medfører en kæde af deaktiveringer af moduler der eksplicit og implicit afhænger af dette modul.
+\stefan{så vidt jeg ved sker dette ikke længere på samme måde, Winde (eller en der vil sætte sig ind i koden) bør nok revidere dette afsnit}
 
 %indstillinger, onPause start og stop sensorer
 Efter afhængighederne er enkodet i programmet mangler der at takle hvordan sensorer skal startes og stoppes fra indstillingsmenuen.
