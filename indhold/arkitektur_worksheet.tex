@@ -55,16 +55,18 @@ Denne administration består til dels i en definitioner af de tabeller modulet h
 Alle moduler kan skrive til de tabeller de selv definerer, samt læse fra alle andre modulers tabeller.
 Adgangskontrollen til tabeller håndteres i \textit{DB Access} komponenten som alle moduler anvender til database adgang.
 
-\stefan{skal der være eksempler på sensorer, moduler, etc?}
-\mikkel{jeg har tilføjet et eksempel på sammenhængende moduler i den introducerende tekst. skal vi have yderligere?}
-\paragraph{Sensor} \textit{Sensor}laget indeholder alle de moduler der logger data fra sensorer eller logger data fra applikationer.
+\paragraph{Sensor}
+\textit{Sensor}laget indeholder alle de moduler der logger data fra sensorer eller logger data fra applikationer.
+\mikkel{Beskriv et eksempel på et sensor modul, når vi har flere detaljer om et.}
 
 \paragraph{Analyse}
 \textit{Analyse}laget indeholder alle moduler der bruger et antal \textit{sensor}moduler og analyserer det data for derefter at gemme det i en databasetabel.
+\mikkel{Beskriv et eksempel på et analyse modul, der anvender ovenstående sensor modul, når vi har flere detaljer om et.}
 
 \paragraph{Views}
 \textit{Views}laget indeholder alle moduler der gør det muligt at visualisere de analyserede data.
 Den angiver hvilke og hvor mange datatyper den kan vise.
+\mikkel{Beskriv et eksempel på et visnings modul, der anvender ovenstående analyse modul, når vi har flere detaljer om et.}
 
 \subsection*{Manager}
 Denne komponent står for at holde styr på hvilke moduler der er installeret og opretter tabeller i databasen for dem.
