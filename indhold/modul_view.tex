@@ -2,15 +2,25 @@
 
 Som udgangspunkt er \textit{visninger} forskellige visualiseringer af analyse modulernes output.
 
-Det antages at analyse moduler kan og vil være meget forskellige, og at de enkelte visninger ikke nødvendigvis vil passe på alle analyser.
-Derfor skal der være en måde at knytte de enkelte visninger med de passende analyser.
-En måde at gøre dette på er at lave en baglæns afhængighed for en visning til en eller flere analyser, som beskriver hvilke analyser den pågældende visning kan repræsentere.
-Problemet med dette er at denne liste, dvs. selve modul app'en, skal opdateres hver gang der oprettes nye analyser der passer sammen med visningen.
-En anden måde er at have bindingen på analyse-modulerne, så der i stedet beskrives hvilke visninger der gør sig gældende for de enkelte analyser.
-Her er problemet dog stadig det samme, at analyserne skal opdateres hver gang der kommer nye visninger.
+De eneste restriktioner der stilles for det data der kan læses fra et analyse moduler er de formater der kan gemmes i databasen.
+Det betyder at det mulige output fra et analyse model er meget fleksibelt, hvilket kræver en tilsvarende fleksibilitet i visningsmodulerne.
 
-En mere fleksibel måde at håndtere denne knytning mellem visninger og analyser er at deducere ud fra analysens tabel/kolonne signatur, hvilken slags data den outputter.
-På denne måde kan der laves visninger der kan repræsentere bestemte signaturer, og der i stedet laves en implicit binding mellem visninger og analyser.
+En simpel løsning vil være at der for hvert analysemodul skal defineres et visnings modul.
+Herved sikres det at alle analysemoduler har en visning der præcist repræsenterer det genererede data.
+Det er dog nemt at problemstillingerne i denne løsningsmodel, da det giver meget lav genanvendelse af eksisterende moduler.
+Eksempelvis kan man nemt forestille sig forskellige datasæt der kan repræsenteres ved hjælp af en to-dimensional graf.
+En løsning der ville kræve en ny implementation af en sådan visning for hver analyse modul er ikke fleksibel nok.
+
+Alternativt kan visninger beskrive en liste over de analyser de kan anvendes på.
+På den måde kan visninger anvendes på mere end et analyse modul.
+Omend dette løser problemet til en vis grad vil problemet stadig eksistere når der tilføjes nye analyse moduler.
+Her vil visningerne enten blot ikke have kendskab til de nye moduler eller de vil skulle opdateres løbende.
+Altså er fleksibiliteten af denne løsning heller ikke god nok.
+Man kan naturligvis også lade alle analyse moduler beskrive en liste over visnings moduler.
+Men denne opbygning vil give samme problemstilling som beskrevet herover.
+
+En mere fleksibel metode til håndtering knytningen mellem visninger og analyser er at deducere ud fra analysens tabel/kolonne signatur, hvilken slags data der kan aflæses.
+På denne måde kan der laves visninger der repræsenterer bestemte signaturer, og der opstår en implicit binding mellem visninger og analyser for de hvor de to beskrivelser stemmer overens.
 
 I mange tilfælde vil denne implicitte binding være nok, dog kan det forestilles at analyserne vil være forskellige og til tider komplekse, hvilket kan gøre det nødvendigt at nærmere specificere hvordan den tilgængelige data kan vises.
 Her kunne der tilføjes noget meta-data på analysens tabeller/kolonner, der beskriver den på sådan en måde, at det ville kunne bruges til visninger der ikke nødvendigvis implicit kunne knyttes til det.
@@ -54,7 +64,7 @@ Et eksempel på et visnigs-modul som passer på denne type analyse kunne være e
   }
 }
 \end{lstlisting}
-
+ 
 Denne visning beskriver en 2D graf, som bruger layoutet i \texttt{2dgraph.xml}.
 På x-aksen vises tiden (der står INTEGER fordi SQLite ikke har datorepræsentation ud over unix-time).
 Her bruges det tidsstempel som forventes på alle tabeller.
