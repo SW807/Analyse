@@ -1,17 +1,22 @@
 \section{Manager}
 
+For at styre hvilke moduler der er aktive og håndtere at de kører på det rigtige tidspunkt findes der i arkitekturen et Manager komponent.
+Manageren står for at indhente oplysninger om installerede moduler for derefter at gøre det muligt for brugeren at aktivere og deaktivere moduler.
+Når systemet kører er det managerens opgave at sætte modulerne igang når det er nødvendigt.
+Nogle moduler skal køre hele tiden, blandt andet sensorer, mens andre kun behøver at køre en gang om dagen, for eksempel analyser der kræver mere data.
+Manageren står til sidst også for at koble views og moduler sammen så man kan visualisere sin data på mange forskellige måder.
 
-
-\subsection{Task Runner}
-
-\subsection{Settings}
+De enkelte elementer i manageren vil i det følgende blive beskrevet.
 
 \subsection{JSON-Parser}
 
-
-
-
-
-\subsection{View Controller}
+\subsection{Settings}
 
 \subsection{Modul start/ stop}
+\stefan{''ikke implementeret endnu''}
+\stefan{jeg er ikke sikker på hvad dette indebærer}
+
+\subsection{Task Runner}
+
+\subsection{View Controller}
+\stefan{''ikke implementeret endnu''}
