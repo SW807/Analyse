@@ -9,10 +9,34 @@
 For at gøre systemet fleksibelt så det er let at tilføje moduler til applikationen, har vi udtænkt en modul-baseret arkitektur.
 Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
 Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visninger til det allerede indsamlede data.
-For at kunne gøre dette pakkes hvert modul i en selvstændig APK, og en beskrivelsesfil indkapsles i modul pakkerne. Disse beskrivelsesfiler benyttes så af hoved-applikationen til at gøre dem brugbare, uden at der behøves ændres i hoved-applikationen.
+
+\subsection{Forslag til modulariseing}
+\paragraph{Komplet pakke}
+En traditionel app pakker al funktionalitet i en samlet pakke.
+Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele appen på samme tid.
+Desuden bliver det sværere for eksterne udviklere at bidrage til applikationen, da opdateringer skal ske igennem udviklerne af hovedapplikationen.
+
+\paragraph{Import af kode}
+En anden mulighed er at inkludere et scripting sprog med applikationen og gøre det muligt at udvikle script der kan agere modul.
+Denne løsning kræver et meget kraftigt scripting sprog hvis alle androids muligheder skal stilles til rådighed.
+Hvis scripts på den anden side skal skrives direkte i java vil der være nogle sikkerhedshensyn som vil gøre det svært at kontrollere hvad moduler kan og ikke kan.
+For eksempel vil det ikke være muligt at kontrollere hvilke database tabeller der er adgang til.
+
+
+\paragraph{Selvstændig app}
+Den tredje mulighed er at pakke hvert modul i en selvstændig APK \footnote{Androids pakkeformat}.
+Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet
+Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
+
+Denne metode er valgt i dette projekt.
+Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp af selvstændige apps.
+
+\subsection{Beskrivelsesfilen}
+
 Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \cite{json_schema}.
 Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Skema.
 
+\stefan{moduldefinitionerne er så vidt jeg ved lavet om, og dette bør revideres}
 \subsection{Typer af moduler}
 Der findes i alt tre typer moduler; \textit{sensor}, \textit{analyse} og \textit{visning}.
 Sensor-modulerne repræsenterer de fysiske sensorer til stede i telefon eller tilsluttet wearable.
