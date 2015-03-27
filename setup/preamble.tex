@@ -57,6 +57,8 @@
   font=footnotesize,% set font size to footnotesize
   labelfont=bf % bold label (e.g., Figure 3.2) font
 }
+\usepackage{pdfpages}
+\usepackage[numbers, sort&compress]{natbib}
 % Make the standard latex tables look so much better
 \usepackage{array,booktabs}
 % Enable the use of frames around, e.g., theorems
@@ -123,10 +125,10 @@
 % Bibliography
 % http://en.wikibooks.org/wiki/LaTeX/Bibliography_Management
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\usepackage[backend=bibtex,
-  bibencoding=utf8
-  ]{biblatex}
-\addbibresource{bib/mybib}
+%\usepackage[backend=bibtex,
+%  bibencoding=utf8
+%  ]{biblatex}
+%\addbibresource{bib}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Misc
@@ -168,6 +170,9 @@
 	pdfstartview=FitH%
 }
 
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{cleveref}
 \usepackage{listings}
 

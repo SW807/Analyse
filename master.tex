@@ -22,43 +22,76 @@
 %frontmatter
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter
-\input{sections/frontpage.tex}
-\input{sections/colophon.tex}
+%\input{sections/frontpage.tex}
+%\input{sections/colophon.tex}
 \input{titlepage.tex}
 \cleardoublepage
 \pdfbookmark[0]{Indholdsfortegnelse}{label:contents}
 \pagestyle{fancy} %enable headers and footers again
 \tableofcontents
 \listoftodos
-\input{sections/preface.tex}
+%\input{sections/preface.tex}
 \cleardoublepage
 %mainmatter
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
 \chapter{Initierende problem/Introduktion}
 \chapter{Problemanalyse}
 \section{Vigtige begreber}
+\input{indhold/vigtige_begreber}
 \section{Affektive lidelser}
-\subsection{unipolar}
-\subsection{bipolar}
+\input{indhold/sygdomme}
+\input{indhold/affektiv}
+\subsection{Unipolar}
+\subsection{Bipolar}
+
 \section{Interviews(Janne + Jørgen)}
+\input{indhold/interviews}
+\input{indhold/moedemedjanne2}
+\input{indhold/moede_med_joergen}
 \section{Sensorer}
+\input{indhold/dataindsamling}
+\input{indhold/sensorer}
+\input{indhold/KilderTilSensorer}
 \section{Mobil logning}
+\input{indhold/mobil_logning}
+\section{Løsninger}\mikkel{Find på bedre navn}
+\input{indhold/loesninger}
 \section{Eksisterende systemer}
+\input{indhold/eksisterende_systemer}
+
 \chapter{Konfigurationstabel}
 \chapter{Platform}
 \section{Motivation} %Als's ide - et slags bindeled mellem konfigurationstabel og platform
 \section{Arkitektur}
+\input{indhold/arkitektur_worksheet}
 \section{Komponenter}
 \subsection{Manager}
-\subsubsection{TaskRunner}
-\subsubsection{Settings}
-\subsubsection{JSON-parser}
-\subsubsection{ViewController} %(ikke implementeret endnu)
+\subsubsection{TaskRunner}\mikkel{Find på bedre navn}
+\subsubsection{Indstillinger}
+\input{indhold/indstilliinger_arbejdsblad}
+\subsubsection{JSON-parser}\mikkel{Find på bedre navn}
+\subsubsection{ViewController}\mikkel{Find på bedre navn} %(ikke implementeret endnu)
 \subsubsection{Modul start/stop} %(ikke implementeret endnu)
-\subsection{DAL}
-\section{Modul-definition}
-\section{Eksperimenter}
 
-\printbibliography[heading=bibintoc]
+\subsection{Data lag}
+\input{indhold/databaseworksheet}
+
+\section{Modul-definition}
+\input{indhold/modul_definition}
+\input{indhold/modul_view}
+\section{Eksperimenter}
+\input{indhold/eksperimenter-plads-strom}
+
+\bibliographystyle{unsrtnat}
+\bibliography{bib}
 \label{bib:mybiblio}
+
+\appendix
+\include{appendix/janne}
+\include{appendix/joergen}
+\chapter{Brochure Med Idéer Til Brug Af Sensorer}\label{app:brochure}
+\includepdf[pages=-, nup=1x2]{appendix/brochurefil.pdf} 
+
+\chapter{Stemningsregistrering}
+\includepdf[pages=-]{appendix/stemningsregistrering.pdf}
 \end{document}
