@@ -26,7 +26,7 @@
 \input{sections/colophon.tex}
 \input{titlepage.tex}
 \cleardoublepage
-\pdfbookmark[0]{Contents}{label:contents}
+\pdfbookmark[0]{Indholdsfortegnelse}{label:contents}
 \pagestyle{fancy} %enable headers and footers again
 \tableofcontents
 \listoftodos
@@ -34,11 +34,31 @@
 \cleardoublepage
 %mainmatter
 \pagenumbering{arabic} %use arabic page numbering in the mainmatter
-\input{sections/introduction.tex}
-\input{sections/ch2name.tex}
-\input{sections/conclusion.tex}
+\chapter{Initierende problem/Introduktion}
+\chapter{Problemanalyse}
+\section{Vigtige begreber}
+\section{Affektive lidelser}
+\subsection{unipolar}
+\subsection{bipolar}
+\section{Interviews(Janne + Jørgen)}
+\section{Sensorer}
+\section{Mobil logning}
+\section{Eksisterende systemer}
+\chapter{Konfigurationstabel}
+\chapter{Platform}
+\section{Motivation} %Als's ide - et slags bindeled mellem konfigurationstabel og platform
+\section{Arkitektur}
+\section{Komponenter}
+\subsection{Manager}
+\subsubsection{TaskRunner}
+\subsubsection{Settings}
+\subsubsection{JSON-parser}
+\subsubsection{ViewController} %(ikke implementeret endnu)
+\subsubsection{Modul start/stop} %(ikke implementeret endnu)
+\subsection{DAL}
+\section{Modul-definition}
+\section{Eksperimenter}
+
 \printbibliography[heading=bibintoc]
 \label{bib:mybiblio}
-\appendix
-\input{sections/appAname.tex}
 \end{document}
