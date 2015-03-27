@@ -1,4 +1,3 @@
-\chapter{Arkitektur Worksheet}
 For at kunne imødekomme et bredt spektrum af lidelser samt et bredt udvalg af forskellige, Android baserede, smartphones kræves en modulær arkitektur hvori moduler kan fjernes, tilføjes og ændres uafhængigt af det overordnede system.
 
 Moduler inddeles i tre konceptuelle lag: \textit{sensor}-, \textit{analyse}- og \textit{visnings}moduler.
@@ -35,7 +34,7 @@ Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en sqlite database da denne er standard i android.
+Til dette projekt er valgt en SQLite database da denne er standard i android.
 
 \subsection*{DB Access}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
