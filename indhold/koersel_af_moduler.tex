@@ -1,0 +1,17 @@
+Der er overordnet to måder hvorpå moduler køres; enten styrer de selv deres kørsel (kontinuerte kørende moduler) eller så administreres de af Managerens \texttt{TaskRunner}, som er en \texttt{Service} der startes når mobilen tændes.
+Både sensor- og analyse-moduler kan køre på disse to forskellige måder.
+
+\paragraph{Kontinuerligt kørende moduler}
+Til moduler der skal køres kontinuert, startes deres \texttt{Service} blot lige så snart modulet aktiveres i indstillinger, hvorefter det selv administrerer hvornår og hvor ofte det udfører dets opgave.
+Fordelen ved dette er at vi sparer kommunikations-overhead, da der ikke konstant skal kommunikeres mellem Manager og kontinuert-kørende moduler.
+
+\paragraph{TaskRunner}
+Derudover er der også moduler som kun skal køres med faste, større, intervaller, eller på bestemte tidspunkter.
+Her er der ikke behov for at det enkelte modul har en kontinuert kørende \texttt{Service}, men kan derimod nøjes med at Manageren starter modulets opgave på det korrekte tidspunkt.
+På denne måde spares der ressourcer, da modulet kun aktiveres i den tid hvor det skal udføre sin opgave. 
+
+Når \texttt{TaskRunner}en startes, danner den en liste over de moduler der skal køres med interval eller på fast tidspunkt.
+Derefter laver den en prioriteret kø, sorteret efter næste kørsels-tidspunkt.
+\texttt{TaskRunner} tråden \texttt{sleep()}es så, indtil næste opgave skal udføres.
+Efter opgaven er udført, udregnes næste kørsels-tidspunkt for den netop kørte opgave, hvorefter prioritets-køen sorteres.
+Så \texttt{sleep()}es tråden igen, indtil næste kørsels-tidspunkt, og dette fortsætter så længe der er aktive moduler der skal køres på denne måde.
