@@ -97,20 +97,22 @@ Denne tabel ligner ikke overraskende den tabel der blev produceret af eksperimen
 Det er igen accelerometret og gyroskopet der fylder databasen efterfulgt af lydmodulet der bruger væsentligt mindre, og til sidst de resterende moduler der næsten ikke bruger noget plads.
 
 \subsection{Muligheder for begrænsning af pladsforbrug}
+For ikke at flyde mobil telefonen op med data fra modulerne kan det være en god idé at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
 
-\paragraph{Client server}
+\subsubsection{Client server}
 Ved at sætte en server til rådighed for at holde på dataen kan man holde det aktuelle forbrug på selve telefonen nede.
 Det vil da kræve at man sætter en synkronisering op der sørger for at kun data der allerede er analyseret bliver slettet fra telefonen. 
 Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analysemodulerne er afhængige af.
 Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyser på serversiden.
 
-\paragraph{Oprydning i data}
+\subsubsection{Oprydning i data}
 Skærm tændt modulet er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
 En udvidelse af de andre moduler kan gøre at de virker ligedan. 
-For eksempel er accelerometerdata kun interessante når der sker en vis acceleration.
-Der kan da sættes en tærskel for hvor meget acceleration der skal ske for at dataen gemmes i databasen.
+For eksempel er accelerometerdata kun interessante når der sker en vis svingning i acceleration.
+Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at dataen gemmes i databasen.
+Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt.
 
-\paragraph{Opdateringshastighed}
+\subsubsection{Opdateringshastighed}
 Som nævnt under opsætningen til forsøget bruges android konstanter til at angive hvor hurtigt en sensor skal opdatere.
 Disse kontanter er indbygget og er beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.
 Vores kontekst er at logge brugerens færden, og 5 gange i sekundet er ikke nødvendigt.
