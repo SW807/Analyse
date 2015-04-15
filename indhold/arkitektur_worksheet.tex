@@ -34,13 +34,12 @@ Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en SQLite database da denne er standard i android.
+Til dette projekt er valgt en SQLite database da denne er standard i Android.
 
 \subsection*{DB Access}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
-\textit{DB Access} holder derudover styr på hvilke komponenter og lag der må skrive og læse fra de enkelte tabeller.
-
-\stefan{som det er nu kan alt skrive til og læse fra alt}
+Derudover skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men have mulighed for at læse fra de tabeller som den er afhængig af.
+Dette er dog ikke muligt da \textit{DB Access} bruger en \textit{ContentProvider}, men her er det ikke muligt at se hvad for en anden applikation der tilgår \textit{DB Access}, hvilket gør at denne begrænsning ikke er mulig.
 
 Systemet anvender udelukkende en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
 I en fremtidig udvidelse af systemet kunne \textit{DB Access} komponenten tilgå et ekstern lager hvor dele af det administrerede data kan gemmes.
@@ -51,10 +50,7 @@ Muligheden for en sådan udvidelse af systemet er ikke undersøgt og der kan der
 \subsection*{Moduler}
 Denne komponent består af de tre forskellige modul-lag.
 Til hvert enkelt modul hører en modulbeskrivelse (se \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
-
 Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
-Alle moduler kan skrive til de tabeller de selv definerer, samt læse fra alle andre modulers tabeller.
-Adgangskontrollen til tabeller håndteres i \textit{DB Access} komponenten som alle moduler anvender til database adgang.
 
 Bemærk at de tre lag i modul-komponenten består af udskiftelige moduler og at lagene derfor kun eksisterer konceptuelt.
 Nedenstående beskriver derfor de forskellige moduler der \textit{kan} ligge i hvert af lagene.
@@ -85,7 +81,7 @@ Som en del af et visningsmoduls beskrivelse findes en beskrivelse af hvilken inf
 Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visning anvendes på den enkelte analyse.
 \mikkel{Beskriv et eksempel på et visnings modul, der anvender ovenstående analyse modul, når vi har flere detaljer om et.}
 
-\subsection*{Manager}
+\subsection*{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
 Denne administration indebærer blandt andet oprettelse af de tabeller hvert modul har i sin beskrivelse, samt start og stop af sensor- og analysemoduler.

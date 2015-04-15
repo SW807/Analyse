@@ -107,7 +107,7 @@ Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{res
 Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
 
 \subsubsection{Håndtering i manager}
-Håndteringen af moduler sker i manageren\stefan{manager skal enten beskrives, eller der skal være en ref til arkitektur}.
+Håndteringen af moduler sker i manageren, beskrevet i \cref{subsec:arkitektur-Manager}.
 Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle apps der er installeret under pakken ``dk.aau.cs.psylog''.
 Manageren læser alle moduldefinitioner efter at have valideret dem op imod JSON skemaet.
 Alle moduler der har opdateret versionsnummer eller er helt nye vil blive håndteret ved at manageren læser tabelinformation ind fra moduldefinitionen og opretter eller ændrer de pågældende tabeller.
