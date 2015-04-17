@@ -3,6 +3,7 @@ Dette afsnit beskriver forskellige sensorer, der kan være interessant for proje
 
 \paragraph{Kamera}
 Kameraet kan tage billeder og billedesekvenser i form af video optagelse.
+\ivan{Der er typisk 2 kameraer af forskellig kvalitet}
 
 \paragraph{Accelerometer}
 Accelerometeret måler accelerationen i x,y,z akserne i et koordinatsystem som vist på \cref{analyse:accelerometer:koo}.
@@ -31,13 +32,15 @@ Sensoren vil i dette tilfælde rapportere en g-kraft i z-aksens retning.
 
 \paragraph{GPS}
 GPS sensoren giver en lokation som koordinater bestående af: breddegrad, længdegrad og en pejling.
+\ivan{Diff ift tid: hastighed, Diff igen: acceleration}
 
 \paragraph{Mikrofon}
 Mikrofonen kan optage omgivelserne ved at konvertere akustisk lyd til elektriske signaler.
 
-Lyd kan beskrives som bølger, der kan karakteriseres ved bølgens amplitude og frekvens.
+\textbf{Lyd kan beskrives som bølger, der kan karakteriseres ved bølgens amplitude og frekvens.
 Amplituden svarer til hvor høj en lyd opfattes og måles i decibel.
-Frekvensen af en bølge bestemmer hvilken tone lyden er og måles i hertz. \cite{sound}
+Frekvensen af en bølge bestemmer hvilken tone lyden er og måles i hertz. \cite{sound}}
+\ivan{GUL RETTELSE, er det relevant? Hvad med følsomhed og kvalitet? Hvor meet kan man opfange? OFte er der to mikrofoner i en smartphone; kan det bruges til noget?}
 
 
 \paragraph{Lyssensor}
@@ -59,11 +62,13 @@ Lyssensoren kan måle belysningsstyrken på en flade i lux. Det er intensiteten 
 \end{tabular}
 \caption{En tabel der viser belysningsstyrken på flader i lux under forskellige forhold. \citep{misc:lux}}
 \label{fig:lux}
+\ivan{Er tabellen relevant?}
 \end{figure}
+
 
 \paragraph{Pulsmåler}
 Pulsmåleren måler pulsen i hjerteslag per minut ved enten en elektrisk puls igennem et ledende materiale på huden, eller via en optisk sensor man sætter fingeren på.
 Den mest præcise måling fås hvis sensoren sidder spændt omkring brystet, mens sensorer der måler enten på håndleddet eller fingeren er mindre præcise \cite{burke1998precision}.
 
 \paragraph{Galvanisk Hud Respons}
-Galvanisk hud respons sensoren giver adgang til data omkring hvor god hud er til at lede strøm, huden leder strøm bedre jo mere den sveder, og giver derfor også data om hvor meget den sveder.
+Galvanisk hud respons sensoren giver adgang til data om hvor god hud er til at lede strøm, huden leder strøm bedre jo mere den sveder, og giver derfor også data om hvor meget den sveder.

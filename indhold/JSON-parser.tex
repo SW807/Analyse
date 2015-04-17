@@ -1,8 +1,8 @@
 JSON-parserens job er at finde JSON filen for hvert eneste modul installeret på telefonen, hvor efter dette skal parsers over i en klasse, så på den måde at autogenerer klasser via JSON filen.
 Måden dette er gjort på er ved brug af ***, der gør det muligt at få genereret klasserne som passer til JSON skemaerne, men også at få parset JSON filerne over i en klasse. \winde{Kan ikke huske hvad programmet hedder vi brugte til at parse JSON}
 
-Måden JSON-parsernen virker på er ved at læse alle installeret moduler på telefonen.
-Derefter tjekker den hvorvidt navnet på modulet er enten en sensor eller analyse module.
+Måden JSON-parsernen virker på er ved at læse alle installerede moduler på telefonen.
+Derefter tjekker den hvorvidt navnet på modulet er enten en sensor eller et analyse module.
 Dette gøres for at vide hvad for en type klasse filen skal parses om til.
 Efter klassens type er fundet parser den filen over i klassen og gemmer derefter den nye klasse i en liste.
-Når dette er gjort for alle installeret moduler er parserens job færdig, og gør derefter de nye klasser tilgængelige til andre program dele.
+Når dette er gjort for alle installerede moduler er parseren færdig, og de nye klasser er tilgængelige for andre program dele.
