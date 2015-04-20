@@ -2,18 +2,19 @@ Dette afsnit detaljerer data laget i det overordnede system.
 
 \subsubsection{Database}
 Det er nødvendigt at lagre data fra moduler så andre moduler kan bruge dataene.
-I Android er det standard at alt data kun er tilgængeligt til den specifikke applikation der har lagret det.
-Applikationen kan da selv at gøre sin data tilgængeligt for andre via en \texttt{ContentProvider}.
+I Android er det standard at data kun er tilrådighed til den specifikke applikation der har lagret det.
+Applikationen gøre sin data tilrådighed for andre via en \texttt{ContentProvider}.
 
 \subsubsection{Samlet i manager VS i hver app}
 Der er undersøgt to muligheder for gøre data tilgængelig.
-Man kan samle alt dataen i manageren da denne står for den overordnede kontrol af systemet. 
+Man kan samle data fra alle moduler i manageren da denne står for den overordnede kontrol af systemet. 
 Manageren kan da definere et interface til databasen, som så moduler bruger til at læse eller skrive data. 
 Den anden mulighed er at hvert modul direkte lagrer data i deres egen database, og så gør den tilgængelig for de moduler der vil bruge den.
-Vi vælger at samle al data i manageren da det stærkt simplificerer adgang til databasen, da hvis man brugte individuelle databaser til hvert modul vil det påkræve at opsætning af database i hvert eneste modul og på samme tid simplificere det også backup og udvælgelse af data hvis det ligger samlet.
+Vi vælger at samle al data i manageren, da det stærkt simplificerer adgang til databasen, da hvis individuelle databaser var blevet brugt til hvert modul vil dette påkræve opsætning af databaser i hvert eneste modul.
+Derudover simplificere det også backup og udvælgelse af data hvis det ligger samlet.
 
 \subsubsection{Database Helper}
-For at lave databasen i manageren skal der oprettes opførsel til at kunne læse/skrive til databasen og lave nye database tabeller.
+For at lave databasen i manageren skal der oprettes rettigheder til at kunne læse/skrive til databasen samt lave nye database tabeller.
 
 \subsubsection{ContentProvider}
 En content provider er en android konstruktion der giver adgang til data for andre applikationer.
@@ -21,8 +22,8 @@ ContentProvider er en abstrakt klasse, hvor subklasser skal overskrive 5 metoder
 
 Insert gør det muligt at skrive til databasen, query læser fra databasen, delete sletter og update opdaterer eksisterende data.
 
-getType er en metode der benyttes til at angive MIME typen af det data ContentProvideren giver adgang til.
+getType er en metode der benyttes til at angive MIME typen af data ContentProvideren giver adgang til.
 
 I den nuværende implementation er det valgt kun at implementere insert og query da det er de eneste relevante funktioner i forhold til det behov vi har på nuværende tidspunkt, hvor vi kun er interesserede i at læse fra og skrive til databasen.
 
-Delete kan blive relevant til brug ved oprydning af for gammel data. Da vi fokuserer på at analysere på mønstre i dataene kunne man eksempelvis slette sensor data der er ældre end 2 måneder.
+Delete kan blive relevant til brug ved oprydning af for gammel data. Da vi fokuserer på at analysere på mønstre i dataene kunne man eksempelvis slette sensor data der er ældre end 2 måneder. \ivan{Alder på data til sletning vil måske afhænge af type af data (bevægelsesdata kan måske slettes efter kort tid, og sociale interaktionsdata skal måske leve længere)}

@@ -111,3 +111,5 @@ sympy-plots-for-*.tex/
 
 # test-fil til hurtig kompilering
 test.tex
+
+!/grafik/KonfigurationTabel.pdf

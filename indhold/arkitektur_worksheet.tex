@@ -12,9 +12,20 @@ Det vil sige at der kan anvendes flere forskellige visningsmoduler til det samme
 Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analysemoduler.
 \textbf{Det har ikke været muligt at finde et umiddelbart arkitektur-mønster for dette.}
 \stefan{vi bør nok udvide dette, det virker lidt tyndt at skrive}
+\ivan{Enig. Check lige
+	Gamma et al om
+	I har overset noget.
+	Samme om Fowler.
+	HVIS der ikke
+	findes mønstre, så
+	tag nogle, der
+	næsten gør, og
+	forklar hvorfor de
+	ikke kan bruges
+	alligevel.}
 
 \section*{Opbygning}
-Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
+Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.\ivan{evt. to ord om hver komponents formål}
 En skitse af arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
 	\includegraphics[width=\textwidth]{architecture_draft}
@@ -23,24 +34,25 @@ En skitse af arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \end{figure}
 Som nævnt herover er styrken ved denne arkitektur, den modulære opbygning af sensorer, analyser og visninger.
 Disse lag er derfor alle indholdt i den overordnede komponent \textit{moduler}.
-Derudover eksisterer et system, bestående af de resterende tre komponenter, der anvender de moduler der er installeret på den enkelte telefon.
-Systemet er altså opbygget uden direkte kendskab til de enkelte moduler, hvilket igen tillader udviklingen af moduler sideløbende med det overordnede system.
+Derudover eksisterer et system, bestående af de resterende tre komponenter, der anvender de moduler der er installeret på den enkelte telefon. \ivan{kompakt og lidt klodset formulering}
+Systemet er altså opbygget uden \ivan{evt. to ord om hver komponents formål} til de enkelte moduler, hvilket igen tillader udviklingen af moduler sideløbende med det overordnede system.
+\ivan{Information hiding? Lidt tyndt her}
 
 Herunder gives en kort beskrivelse af hver af de fire komponenter.
 Komponenterne beskrives i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
 
+\ivan{Måske var det en ide at bruge en skabelon for gennemgangen af komponenterne f.eks. (1) Formål - (2)design, og - (3) Perspektiv for fremtidig udvikling - På den måde kunne I understrege generaliteten og fremtidsikringen i jeres design}
 \subsection*{DB}
 Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en SQLite database da denne er standard i android.
+Til dette projekt er valgt en SQLite database da denne er standard i Android.
 
 \subsection*{DB Access}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
-\textit{DB Access} holder derudover styr på hvilke komponenter og lag der må skrive og læse fra de enkelte tabeller.
-
-\stefan{som det er nu kan alt skrive til og læse fra alt}
+Derudover skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men have mulighed for at læse fra de tabeller som den er afhængig af.
+Dette er dog ikke muligt da \textit{DB Access} bruger en \textit{ContentProvider}, men her er det ikke muligt at se hvad for en anden applikation der tilgår \textit{DB Access}, hvilket gør at denne begrænsning ikke er mulig. \ivan{Klodet og redundant sprog}
 
 Systemet anvender udelukkende en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
 I en fremtidig udvidelse af systemet kunne \textit{DB Access} komponenten tilgå et ekstern lager hvor dele af det administrerede data kan gemmes.
@@ -51,21 +63,19 @@ Muligheden for en sådan udvidelse af systemet er ikke undersøgt og der kan der
 \subsection*{Moduler}
 Denne komponent består af de tre forskellige modul-lag.
 Til hvert enkelt modul hører en modulbeskrivelse (se \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
-
 Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
-Alle moduler kan skrive til de tabeller de selv definerer, samt læse fra alle andre modulers tabeller.
-Adgangskontrollen til tabeller håndteres i \textit{DB Access} komponenten som alle moduler anvender til database adgang.
 
-Bemærk at de tre lag i modul-komponenten består af udskiftelige moduler og at lagene derfor kun eksisterer konceptuelt.
+Bemærk at de tre lag i modul-komponenten består af udskiftelige moduler og at lagene derfor kun eksisterer konceptuelt. \ivan{Dette forstår jeg ikke helt}
 Nedenstående beskriver derfor de forskellige moduler der \textit{kan} ligge i hvert af lagene.
 Beskrivelserne er til dels intentioner for modulerne i hvert lag og omfatter altså ikke alle moduler der kan udvikles til systemet.
 
 \paragraph{Sensor}
 \textit{Sensor}laget indeholder moduler der indsamler data fra telefonens (eller tilbehør dertil) forskellige sensorer og applikationer.
-Der påføres kun et minimum af behandling på det indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden et stort energi-behov.
-Et sensor modul bør ikke smide indsamlet data ud.
+Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
+Et sensor modul bør ikke smide indsamlede data ud.
 Det vil sige at komprimering bør være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i sensorens data tabel.
 \mikkel{Beskriv et eksempel på et sensor modul, når vi har flere detaljer om et.}
+\ivan{Betyder det, at data lagres decentralt ved hver sensor? Hvorfor dete valg? evt. henvise til senere i kapitlet}
 
 \paragraph{Analyse}
 \textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
@@ -75,17 +85,17 @@ Herved opnås en opsummering af det indsamlede data, der skaber værdifuld infor
 Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
 Denne information anvendes af visningsmodulerne.
 
-Der kan ved analyse af sensor data anvendes flere ressourcer, da analysen typisk vil kunne udføres, på større mængder indsamlet data, få gange dagligt.
+Der kan ved analyse af sensor data anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
 Eksempelvis kan analysen foretages om natten hvor telefonen kan sættes til opladning.
 \mikkel{Beskriv et eksempel på et analyse modul, der anvender ovenstående sensor modul, når vi har flere detaljer om et.}
 
 \paragraph{Visning}
-\textit{Visnings}laget indeholder moduler der visualiserer det analyserede data.
+\textit{Visnings}laget indeholder moduler der visualiserer analyserede data.
 Som en del af et visningsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
 Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visning anvendes på den enkelte analyse.
 \mikkel{Beskriv et eksempel på et visnings modul, der anvender ovenstående analyse modul, når vi har flere detaljer om et.}
 
-\subsection*{Manager}
+\subsection*{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
 Denne administration indebærer blandt andet oprettelse af de tabeller hvert modul har i sin beskrivelse, samt start og stop af sensor- og analysemoduler.

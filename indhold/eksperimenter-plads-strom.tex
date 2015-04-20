@@ -1,7 +1,8 @@
-På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har vores Samsung Galaxy S4 enheder kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 100 gange mere).
+På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har vores Samsung Galaxy S4 enheder kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
 Dette er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre.
-I vores tilfælde er det vi skal overveje hvor meget sensor data vi rent faktisk kan lagre.
+I vores tilfælde er det vi skal overveje hvor stor andel sensor data der kan lagres.
 For at undersøge hvordan de forskellige sensorer bruger pladsen på telefonen opstilles to eksperimenter.
+\ivan{Evt. omtale af backup af data til server}
 
 Applikationen blev sat til at køre med følgende moduler tændt:
 \begin{itemize}
@@ -15,7 +16,7 @@ Applikationen blev sat til at køre med følgende moduler tændt:
 
 Dette udvalg er de moduler der på eksperiment tidspunktet var kørbare.
 Det er vigtigt at bemærke at de ikke er i deres endelige form og at listen er ikke er komplet.
-Der vil i fremtiden komme flere sensorer og der vil komme analysemoduler der analyserer dataen og muligvis gemmer denne analyse.
+Der vil i fremtiden komme flere sensorer og der vil komme analysemoduler der analyserer data og muligvis gemmer denne analyse.
 Disse eksperimenter vil derfor kun kunne give et indblik i hvordan sensorer opfører sig og give et estimat for pladsforbruget.
 
 Moduler som screen, proximity og location producerer kun data når der sker ændringer. 
@@ -38,8 +39,8 @@ Der findes fire konstanter der kan benyttes til at angive hastigheder der passer
 	\item SENSOR\_DELAY\_UI forespørger hver 60. ms og er tilstrækkeligt til brug i userinterfaces.
 	\item SENSOR\_DELAY\_NORMAL forespørger hver 200. ms er tilstrækkeligt til at opfange ændringer i skærm orientering.
 \end{itemize}
-Det er også muligt at angive opdateringen i ticks hvis man vil have en langsommere opdatering.
-Det skal også bemærkes at disse angivelser kun benyttes som et hint til telefonen, det kan ikke garanteres at sensoren bliver forespurgt med det angivne interval.
+Det er muligt at angive opdateringen i ticks hvis man vil have en langsommere opdatering.
+Det skal bemærkes at disse angivelser kun benyttes som et hint til telefonen, det kan ikke garanteres at sensoren bliver forespurgt med det angivne interval.
 I dette eksperiment er SENSOR\_DELAY\_NORMAL benyttet.
 
 
@@ -62,6 +63,7 @@ De enkelte sensorers tabeller var fordelt på følgende måde
 	\hline Proximity 		& 3173 	 / $\sim 3$ KB		& 135 				 & 0.31 \\ 
 	\hline Skærm 			& 1242 	 / $\sim 1$	KB		& 54				 & 0.31 \\ 
 	\hline 
+	\ivan{SKAL disse data lagres diskret form? Kan de aggregeres uden at miste vigtig viden}
 \end{tabular} 
 
 Som det ses af tabellen er de store pladssyndere accelerometret og gyroskopet.
@@ -97,25 +99,29 @@ Denne tabel ligner ikke overraskende den tabel der blev produceret af eksperimen
 Det er igen accelerometret og gyroskopet der fylder databasen efterfulgt af lydmodulet der bruger væsentligt mindre, og til sidst de resterende moduler der næsten ikke bruger noget plads.
 
 \subsection{Muligheder for begrænsning af pladsforbrug}
+For ikke at fylde mobil telefonen op med data fra modulerne kan det være en god idé at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
 
-\paragraph{Client server}
-Ved at sætte en server til rådighed for at holde på dataen kan man holde det aktuelle forbrug på selve telefonen nede.
-Det vil da kræve at man sætter en synkronisering op der sørger for at kun data der allerede er analyseret bliver slettet fra telefonen. 
+\subsubsection{Client server}
+Ved at sætte en server til rådighed for at holde på data kan man holde det aktuelle forbrug på selve telefonen nede.
+Det vil kræve at man sætter en synkronisering op der sørger for at kun data der allerede er analyseret bliver slettet fra telefonen. 
 Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analysemodulerne er afhængige af.
 Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyser på serversiden.
 
-\paragraph{Oprydning i data}
+\subsubsection{Oprydning i data}
 Skærm tændt modulet er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
 En udvidelse af de andre moduler kan gøre at de virker ligedan. 
-For eksempel er accelerometerdata kun interessante når der sker en vis acceleration.
-Der kan da sættes en tærskel for hvor meget acceleration der skal ske for at dataen gemmes i databasen.
+For eksempel er accelerometerdata kun interessante når der sker en vis svingning i acceleration.
+Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at dataen gemmes i databasen.
+Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt. \ivan{Forklar gerne utralkort}
 
-\paragraph{Opdateringshastighed}
+\subsubsection{Opdateringshastighed}
 Som nævnt under opsætningen til forsøget bruges android konstanter til at angive hvor hurtigt en sensor skal opdatere.
-Disse kontanter er indbygget og er beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.
+Disse konstanter er \textbf{indbygget} og beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.\ivan{RØD RETTELSE}
 Vores kontekst er at logge brugerens færden, og 5 gange i sekundet er ikke nødvendigt.
 Der kan derfor spares en del plads ved enten at opdatere langsommere generelt, eller ved at ændre opdateringshastigheden løbende i takt med at der kommer mere relevant data.
 Det skal dog overvejes om den nedsatte præcision kommer til at have en effekt på de analyser der skal bruge dataen.
+\ivan{Er det en ide at diskutere opdateringshastighed i forhold til forskellige typer data?}
+
 
 \subsection{Konklusion}
 Når telefonen ikke er i brug vil det valgte udsnit af moduler generere 49 MB data i døgnet mens aktiv brug af telefonen vil få dette forbrug op på 55 MB.
@@ -124,6 +130,7 @@ De store syndere er accelerometret og gyroskopet der begge er sat til at gemme d
 Det vil derfor være nødvendigt at udvikle en strategi for begrænsning af datamængde.
 Her er foreslået enten oprydning af data som går ud på kun at gemme det data der er interessant for analyserne.
 En anden mulighed er at nedsætte opdateringshastigheden så der ikke gemmes så ofte.
+\ivan{En tredje mulighed er at aggregere (tælle \# skrift over tid istedet for diskrete værider)}
 
-Implementation af enten den ene eller begge af disse strategier vil kunne reducere den gemte data, men det vil højst sandsynligt ikke stadig være for meget til at dataen kan holdes på telefonen i længere perioder.
-Derfor vil en udvidelse med server klient arkitektur være nødvendig, men der er ikke nok ressourcer eller tid til at implementere dette så derfor vil dette ikke blive implementeret.
+Implementation af enten den ene eller begge af disse strategier vil kunne reducere den gemte data, men det vil højst sandsynligt ikke stadig være for meget til at dataen kan holdes på telefonen i længere perioder.\ivan{OK. denne kombi af negativ/positiv kan jeg ikke parse. Jeg giver op :-)}
+Derfor vil en udvidelse med server klient arkitektur være nødvendig, men der er ikke nok ressourcer eller tid til at implementere dette så derfor vil dette ikke blive implementeret.\ivan{Unødvendigt defensivt. Dette kan tilføjes en senere version}
