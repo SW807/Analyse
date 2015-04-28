@@ -120,9 +120,11 @@ Det har dog fordelen at det kan køre på Android gennem en almindelig webbrowse
 Baseret på disse ville denne arkitektur nok ikke fungere.
 
 En anden arkitektur ville være en standalone applikation som indeholder alt sensor indsamling, analyse og visning i samme applikation.
-Dette har fordelen at det er nemmere at programmere end 15 forskellige applikationer, men kommer med ulempen at denne ene applikation ville være meget stor.
-Det er selvfølgelig muligt for udefrakommende udviklere at implementere ny funktionalitet til denne hvis de har fri adgang til kildekoden, men dette vil nok danne med problemer med Google Play Store idet at hvis 30 forskellige udviklere tilføjer ny funktionalitet til applikationen ville dette påkræve at hvis denne skal bruges af flere ville der være flere versioner af den samme applikation uploadet af forskellige udviklere.
-På grund af dette og af andre grunde ville denne arkitektur ikke gøre det LET at implementere og bruge ny funktionalitet.
-I denne er det muligt at implementere forskellige dele til applikationen som indsamler, analysere og viser data.
-Denne kan godt implementeres på Android, så til dette ville der ikke være noget problem.
+Dette har fordelen at det er nemmere at programmere end 15 forskellige applikationer, men kommer med ulempen at applikationen kunne ende med at blive meget stor.
+Det er selvfølgelig muligt for udefrakommende udviklere at implementere ny funktionalitet til denne hvis de har fri adgang til kildekoden, men dette vil nok danne med problemer med Google Play Store idet at hvis 30 forskellige udviklere tilføjer ny funktionalitet til applikationen ville dette påkræve at hvis denne skal bruges af flere ville der være flere versioner af den samme applikation uploadet af forskellige udviklere og dette gør det på samme tid svære at udvikle videre på andres arbejde da alting er samlet i en applikation og ikke over flere.
+På grund af dette ville denne arkitektur ikke gøre det let at implementere og bruge ny funktionalitet.
+Denne arkitektur gør det muligt at implementere forskellige dele til applikationen som indsamler, analysere og viser data.
+Denne arkitektur kan selvfølgelig godt implementeres på Android.
 Da det ikke er let at tilføje ny funktionalitet afvises denne arkitektur. 
+
+Baseret på disse antages det at arkitekturen der er blevet valgt er den mest åbenbare og at hvis der er andre arkitekturer kender vi ikke til dem.
