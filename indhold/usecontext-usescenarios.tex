@@ -1,10 +1,53 @@
+% A description of use context and selected use scenarios (see Essence-book Chapter 13).
+
+
 \section{Paradigm view}
 I dette view undersøges hvordan \textit{the Challenge} bliver set fra brugerens perspektiv.
 Teknikker til denne undersøgelse inkluderer at definere applikationens problem domæne ved hjælp af en \textit{Use context} og \textit{Use Scenarios}.
 
-\paragraph{Use context}
+\paragraph{Stakeholders}
+I dette projekt er patienterne den vigtigste \textit{stakeholder}, da det er patienterne der skal bruge applikationen i hverdagen.
+Applikationen skal derfor udvikles på patienternes præmisser.
+Sikkerheden skal være så patienterne er trygge ved at gemme sine personline oplysninger i applikationen, og brugerfladen skal udvikles så patienter med forskellige grader af lidelser kan anvende den.
 
-Fra konfig tabel:
-Den unipolare/bipolare patient åbner app’en for at blive informeret om der har været adfærdsændringer.
+På den anden side er behandlerne og læger som skal kunne få fat i det data der er nødvendigt for at kunne behandle patienten og hjælpe med patientens sygdomsforløb.
+Data skal altså være muligt at trække ud på en måde som behandlere og læger kan arbejde videre med.
+
+\stefan{for stor detalje om stakeholders krav?}
+\stefan{Morten?}
+
+\paragraph{Use context}
+Konteksten som applikationen skal kunne bruges i er meget bred, da det omfatter hele patientens hverdag.
+Der skal derfor tages højde for at GPS signal ikke altid er tilgængeligt, og at data forbindelse ikke nødvendigvis er tilgængelig hele tiden.
+Da applikationen skal logge data om patientens færden skal der håndteres at telefonen kan være i lommen, i hånden og ikke mindst på et bord eller i en jakkelomme der hænger i entreen.
+
+
+\paragraph{Technologies}
+Teknologier der benyttes inkluderer en smartphone og wearables der kan bruges sammen med en smartphone.
+Disse kan være ure, armbånd og ørestykker.
+
+\paragraph{Problems and needs}
+\stefan{taget fra s. 83. Ved ikke om vi skal skrive noget her}
 
 \paragraph{Use Scenarios}
+\textit{Use scenarios} bruges til at udforske ideer og muligheder i forhold til brugerens brug af systemet.
+
+Scenarier:
+\begin{itemize}
+	\item Patienten bevæger sig rundt i sin hverdag med telefonen i lommen. 
+	Data logges i systemet om gemmes til at kunne blive analyseret.
+	\item Patienten får en notifikation af systemet der beder patienten svare på et spørgsmål omkring patientens søvn.
+	Patienten svarer på spørgsmålet og fortsætter sin aktivitet.
+	\item Patienten får en notifikation af systemet der beder patienten svare på et spørgsmål omkring patientens søvn.
+	Patienten har ikke lyst til at svare på spørgsmålet nu, og udsætter det til senere.
+	\item Patienten vil gerne have applikationen til at fortælle hvordan den vurderer hans tilstand.
+	Applikationen viser at patienten udviser normal adfærd.
+	\item Patienten vil gerne have applikationen til at fortælle hvordan den vurderer hans tilstand.
+	Applikationen viser at patientens sindstilstand er lavere end normalen.
+	Patienten konsulterer sin liste af lystbetonede aktiviteter og udfører en af disse.
+\end{itemize}
+\stefan{Skal kigges på i fællesskab}
+
+% A discussion of how to implement support for key use scenarios (see Essence-book Chapter 14).
+
+\stefan{A discussion of how to implement support for key use scenarios (see Essence-book Chapter 14)}
