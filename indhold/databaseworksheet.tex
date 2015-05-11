@@ -26,4 +26,5 @@ getType er en metode der benyttes til at angive MIME typen af data ContentProvid
 
 I den nuværende implementation er det valgt kun at implementere insert og query da det er de eneste relevante funktioner i forhold til det behov vi har på nuværende tidspunkt, hvor vi kun er interesserede i at læse fra og skrive til databasen.
 
-Delete kan blive relevant til brug ved oprydning af for gammel data. Da vi fokuserer på at analysere på mønstre i dataene kunne man eksempelvis slette sensor data der er ældre end 2 måneder. \ivan{Alder på data til sletning vil måske afhænge af type af data (bevægelsesdata kan måske slettes efter kort tid, og sociale interaktionsdata skal måske leve længere)}
+Delete kan blive relevant til brug ved oprydning af for gammel data. Da vi fokuserer på at analysere på mønstre i dataene kunne man eksempelvis slette sensor data der er ældre end 2 måneder. 
+Alder på data til sletning kan afhænge af datatype, eksempelvis kunne man forestille sig at bevægelsesdata kan slettes efter kort tid mens sociale interaktionsdata skal leve længere.

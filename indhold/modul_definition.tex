@@ -18,18 +18,22 @@ Desuden bliver det sværere for eksterne udviklere at bidrage til applikationen,
 En anden mulighed er at inkludere et scripting sprog med applikationen og gøre det muligt at udvikle script der kan agere modul.
 Denne løsning kræver et meget kraftigt scripting sprog hvis alle androids muligheder skal stilles til rådighed.
 Hvis scripts på den anden side skal skrives direkte i java vil der være nogle sikkerhedshensyn som vil gøre det svært at kontrollere hvad moduler kan og ikke kan.
-For eksempel vil det ikke være muligt at kontrollere hvilke database tabeller der er adgang til.
-\ivan{Gode overvejelser. Er sikkerhedsproblemet både stort og uløseligt?}
+For eksempel vil det være vanskeligt at kontrollere hvilke database tabeller der er adgang til.
+Sikkerhedsproblemet er stort, men kunne sikkert løses med nok tid og ressourcer.
 
 \paragraph{Selvstændig app}
 Den tredje mulighed er at pakke hvert modul i en selvstændig APK \footnote{Androids pakkeformat}.
 Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet
 Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
 
-Denne metode er valgt i dette projekt.
-Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp af selvstændige apps.
+Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræver at en stor mængde af apps skal installeres
+Derudover er kommunikation mellems apps vanskeligere end internt i en app, men ses som acceptabelt.
+Desuden kan det være træls at skulle installere en større mængde af apps for at have den fornødne funktionalitet.
+Som løsning derpå kunne man med videre arbejde have et indbygget app marked i manageren, og er værd at udforske med mere tid.
 
-\ivan{Er dette en sgratis frokost? Hvad er prisen for dette valg?}
+Det er en løsning der har mange fordele i.f.t. modularisering og svagheder der kan tolereres, hvorfor denne løsning er valgt. 
+
+Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp af selvstændige apps.
 
 \subsection{Beskrivelsesfilen}
 

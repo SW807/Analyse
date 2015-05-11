@@ -3,7 +3,7 @@ Dette afsnit beskriver forskellige sensorer, der kan være interessant for proje
 
 \paragraph{Kamera}
 Kameraet kan tage billeder og billedesekvenser i form af video optagelse.
-\ivan{Der er typisk 2 kameraer af forskellig kvalitet}
+Der er typisk to kameraer af forskellig kvalitet, hvilket bør holdes i mente.
 
 \paragraph{Accelerometer}
 Accelerometeret måler accelerationen i x,y,z akserne i et koordinatsystem som vist på \cref{analyse:accelerometer:koo}.
@@ -32,38 +32,15 @@ Sensoren vil i dette tilfælde rapportere en g-kraft i z-aksens retning.
 
 \paragraph{GPS}
 GPS sensoren giver en lokation som koordinater bestående af: breddegrad, længdegrad og en pejling.
-\ivan{Diff ift tid: hastighed, Diff igen: acceleration}
+Ved at differentiere positionen ift. tid kan man blive oplyst om hastigheden og ved at differentiere igen kan man blive oplyst om accelerationen.
 
 \paragraph{Mikrofon}
 Mikrofonen kan optage omgivelserne ved at konvertere akustisk lyd til elektriske signaler.
-
-\textbf{Lyd kan beskrives som bølger, der kan karakteriseres ved bølgens amplitude og frekvens.
-Amplituden svarer til hvor høj en lyd opfattes og måles i decibel.
-Frekvensen af en bølge bestemmer hvilken tone lyden er og måles i hertz. \cite{sound}}
-\ivan{GUL RETTELSE, er det relevant? Hvad med følsomhed og kvalitet? Hvor meet kan man opfange? OFte er der to mikrofoner i en smartphone; kan det bruges til noget?}
+\ivan{Hvad med følsomhed og kvalitet? Hvor meget kan man opfange? OFte er der to mikrofoner i en smartphone; kan det bruges til noget?}
 
 
 \paragraph{Lyssensor}
-Lyssensoren kan måle belysningsstyrken på en flade i lux. Det er intensiteten af lyset der kan måles på en flade. På \cref{fig:lux} er der givet eksempler.
-
-\begin{figure}
-\centering
-\begin{tabular}{|c|c|}
-\hline \textbf{Belysningsstyrke}    & \textbf{Flader belyst af:}\\
-\hline 0,27-1,0 lux                 & Fuldmåne på en klar himmel \\
-\hline 50 lux                       & Stue \\
-\hline 80 lux                       & Gang/toilet belysning \\
-\hline 100 lux                      & Meget mørk overskyet dag \\
-\hline 320-500 lux                  & Kontor belysning \\
-\hline 400 lux                      & Solopgang eller solnedgang \\
-\hline 1000 lux                     & Overskyet dag \\
-\hline 10000-25000 lux              & Fuld dagslys \\
-\hline 32000-100000 lux             & Direkte sollys\\ \hline
-\end{tabular}
-\caption{En tabel der viser belysningsstyrken på flader i lux under forskellige forhold. \citep{misc:lux}}
-\label{fig:lux}
-\ivan{Er tabellen relevant?}
-\end{figure}
+Lyssensoren kan måle belysningsstyrken på en flade i lux. Det er intensiteten af lyset der kan måles på en flade.
 
 
 \paragraph{Pulsmåler}

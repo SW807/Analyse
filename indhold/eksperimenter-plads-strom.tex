@@ -2,7 +2,7 @@ På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som
 Dette er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre.
 I vores tilfælde er det vi skal overveje hvor stor andel sensor data der kan lagres.
 For at undersøge hvordan de forskellige sensorer bruger pladsen på telefonen opstilles to eksperimenter.
-\ivan{Evt. omtale af backup af data til server}
+Hvis pladsforbruget viser sig for stort skal data enten komprimeres eller man bør overveje muligheden for ekstern lagring.
 
 Applikationen blev sat til at køre med følgende moduler tændt:
 \begin{itemize}
@@ -63,8 +63,10 @@ De enkelte sensorers tabeller var fordelt på følgende måde
 	\hline Proximity 		& 3173 	 / $\sim 3$ KB		& 135 				 & 0.31 \\ 
 	\hline Skærm 			& 1242 	 / $\sim 1$	KB		& 54				 & 0.31 \\ 
 	\hline 
-	\ivan{SKAL disse data lagres diskret form? Kan de aggregeres uden at miste vigtig viden}
+	
 \end{tabular} 
+\ivan{SKAL disse data lagres diskret form? Kan de aggregeres uden at miste vigtig viden}
+\als{Nu bruger vi komprimering. Skal vi ikke vise en anden tabel med det? og gentage eksperimentet}
 
 Som det ses af tabellen er de store pladssyndere accelerometret og gyroskopet.
 Dette skyldes at de forespørger konstant og gemmer al data.
@@ -98,6 +100,7 @@ I denne periode blev databasen fyldt med 136523139 bytes (136 MB) hvilket svarer
 Denne tabel ligner ikke overraskende den tabel der blev produceret af eksperimentet på 30 minutter.
 Det er igen accelerometret og gyroskopet der fylder databasen efterfulgt af lydmodulet der bruger væsentligt mindre, og til sidst de resterende moduler der næsten ikke bruger noget plads.
 
+Det er naivt at lagre dataet i diskret form, hvorfor diverse metoder til aggregering af data diskuteres under \cref{sec:opryd}.
 \subsection{Muligheder for begrænsning af pladsforbrug}
 For ikke at fylde mobil telefonen op med data fra modulerne kan det være en god idé at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
 
@@ -107,21 +110,24 @@ Det vil kræve at man sætter en synkronisering op der sørger for at kun data d
 Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analysemodulerne er afhængige af.
 Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyser på serversiden.
 
-\subsubsection{Oprydning i data}
+\subsubsection{Oprydning i data}\label{sec:opryd}
 Skærm tændt modulet er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
 En udvidelse af de andre moduler kan gøre at de virker ligedan. 
 For eksempel er accelerometerdata kun interessante når der sker en vis svingning i acceleration.
-Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at dataen gemmes i databasen.
-Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt. \ivan{Forklar gerne utralkort}
+Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at data gemmes i databasen.
+Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt.
+Hvilket er algoritmer til at reducere antal af punkter der bruges til at estimere en kurve, det er dog lossy data komprimerings metoder, hvorfor man også kunne overveje lossless data komprimering.
+
+Et eksempel på en sådan lossless datakomprimering er run-length encoding.
+Run-length encoding udnytter at hvis man har en sekvens af punkter med samme værdi ville disse kunne komprimeres til blot at angive antallet af punkter og med hvilken værdi disse punkter har.
 
 \subsubsection{Opdateringshastighed}
 Som nævnt under opsætningen til forsøget bruges android konstanter til at angive hvor hurtigt en sensor skal opdatere.
-Disse konstanter er \textbf{indbygget} og beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.\ivan{RØD RETTELSE}
+Disse konstanter er beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.
 Vores kontekst er at logge brugerens færden, og 5 gange i sekundet er ikke nødvendigt.
 Der kan derfor spares en del plads ved enten at opdatere langsommere generelt, eller ved at ændre opdateringshastigheden løbende i takt med at der kommer mere relevant data.
-Det skal dog overvejes om den nedsatte præcision kommer til at have en effekt på de analyser der skal bruge dataen.
-\ivan{Er det en ide at diskutere opdateringshastighed i forhold til forskellige typer data?}
-
+Det skal dog overvejes om den nedsatte præcision kommer til at have en effekt på de analyser der skal bruge data.
+Vi tager det forbehold at opdateringshastigheden kan variere afhængig af datatypen og er noget der bør overvejes på sensor modul basis.
 
 \subsection{Konklusion}
 Når telefonen ikke er i brug vil det valgte udsnit af moduler generere 49 MB data i døgnet mens aktiv brug af telefonen vil få dette forbrug op på 55 MB.
@@ -130,7 +136,7 @@ De store syndere er accelerometret og gyroskopet der begge er sat til at gemme d
 Det vil derfor være nødvendigt at udvikle en strategi for begrænsning af datamængde.
 Her er foreslået enten oprydning af data som går ud på kun at gemme det data der er interessant for analyserne.
 En anden mulighed er at nedsætte opdateringshastigheden så der ikke gemmes så ofte.
-\ivan{En tredje mulighed er at aggregere (tælle \# skrift over tid istedet for diskrete værider)}
+En tredje mulighed er at aggregere data, eksempelvis ved brug af run-length encoding eller ved blot at lagre ændring i værdi.
 
-Implementation af enten den ene eller begge af disse strategier vil kunne reducere den gemte data, men det vil højst sandsynligt ikke stadig være for meget til at dataen kan holdes på telefonen i længere perioder.\ivan{OK. denne kombi af negativ/positiv kan jeg ikke parse. Jeg giver op :-)}
-Derfor vil en udvidelse med server klient arkitektur være nødvendig, men der er ikke nok ressourcer eller tid til at implementere dette så derfor vil dette ikke blive implementeret.\ivan{Unødvendigt defensivt. Dette kan tilføjes en senere version}
+Implementation af en eller flere af disse strategier vil kunne reducere den gemte data, men det vil muligvis stadig være for meget til at data kan holdes på telefonen i længere perioder.
+Hvis et sådant problem stadig eksisterer, er en udvidelse med server klient arkitektur en mulighed.\als{Skriv gerne to ord om hvad det indebærer.}
