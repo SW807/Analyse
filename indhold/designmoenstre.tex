@@ -5,5 +5,22 @@ Dermed ikke sagt at alle design mønstre beskrevet benyttes, men blot at de har 
 \subsection{Facade}
 
 \subsection{Observer}
+For at moduler kan tilgå hinandens data uden at have adgang til at tilføje eller ændre i det har vi brug for en model til at dele data.
+
+En overvejelse har været at bruge observer mønstret til dette.
+Med observer mønstret kan man hver gang der er nyt data sende opdateringen ud til alle de moduler der har brug for dataen \cite[p.~244]{gamma1994design}.
+
+Ved brug af dette mønster vil hvert modul der abonnerer på en datakilde kunne udføre sine beregninger med det samme når dataen er tilgængelig.
+Det betyder på den anden side at det ikke er muligt for modulet selv at bestemme hvornår tunge beregninger skal udføres.
+Hvis et modul skal udføre tunge beregninger vil det være fordelagtigt at kunne udføre disse når brugeren ikke bruger telefonen, eventuelt om natten når telefonen alligevel er sat til strøm.
+Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
+
+
+
+
+Vores løsning til dette problem er i stedet at bruge adgangsbeskyttelse på databasen.
+Alle moduler kan skrive til sine egne tabeller, og kan læse fra alle tabeller.
+På denne måde kan ingen ændre i tabeller som det ikke er meningen der skal ændres i, og alle har adgang til det data de har brug for, når de har brug for det.
+\stefan{adgangskontrol er så vidt jeg husker ikke implementeret, hvordan nævner vi dette?}
 
 \subsection{Mediator}
