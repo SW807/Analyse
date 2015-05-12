@@ -1,0 +1,19 @@
+%factory pattern
+Til at strukturere den modulære arkitektur der er tiltænkt, kan et Factory Pattern overvejes.
+Dette design mønster kan tages i brug når man ikke er helt sikker på hvilken klasse de objekter man skal lave er, hvilket man kunne forstille sig kunne ske i en arkitektur hvor komponenter tilføjes og fjernes efter forgodtbefindende.
+Måden dette gøres på er, at der laves en enten abstract eller virtual create metode, som kaldes når objekter skal laves.
+Create metoden laves som virtual hvis der kan defineres et fornuftigt standard tilfælde, og abstract hvis der ikke kan.
+Metoden kan så overrides i de tilfælde hvor det er nødvendigt.
+Når metoden kaldes, laver den det objekt der passer til den givne situation.
+
+Et problem der kan være med dette design mønster er at den kræver nedarvning fra det generelle objekt til det specifikke.
+Dette er problematisk hvis man har brug for at nedarve fra et andet objekt at det sprog man skriver i ikke understøtter multiple nedarvning, hvilket Java som vi arbejder med ikke gør.
+Dette er dog ikke noget problem hvis man ikke havde brug for nedarvning ellers.
+
+%vores vald
+Dog vælger vi ikke at bruge dette mønster i sin helhed.
+Dette valg grunder i, at vi ikke nødvendigvis behøver at lave et objekt af hver moduls type, men kun behøver at sætte den metode i gang der definerer modulets funktionalitet.
+De dele af mønsteret vi tænker stadig er brugbart er definitionen af en abstrakt klasse, der har en metode der kan kaldes fra andre steder, subklasserne står for at overskrive så den funktionalitet det giver er den der passer.
+
+Den modulære del der omhandler at vise resultater til brugeren gøre god brug af factory pattern.
+Specifikt her vurderes det at være meget brugbart, da man kunne forstille sig disse har gavn af bare at kalde en metode der for eksempel siger createGraphView og så får man det objekt der passer bedst til den data man har.
