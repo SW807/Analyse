@@ -3,7 +3,26 @@ For at få lavet en fint struktureret platform har vi udforsket forskellige desi
 Dermed ikke sagt at alle design mønstre beskrevet benyttes, men blot at de har været værd at overveje.
 
 \subsection{Facade}
+%Beskrivelse af formålet med facade
+Vi tager inspiration i det strukturelle facade design mønster.
+Facade er et design mønter der tilbyder et simpelt interface til et komplekst subsystem \citep{DATGANGOFFOUR}. 
+Det er et middel til at få en løsere kobling mellem et system og klienterne der bruger systemet.
+Dette gøres ved at opstille en facade mellem klienterne og subsystemet.
+Facaden sikrer et ensartet interface til brug af subsystemerne, men hvor man abstraherer over disse.
+At implementere dette sikrer også større modularitet idét at ændringer i subsystemerne ikke kræver ændring i klienterne, da de blot bruger facaden der kan justere for disse ændringer.
 
+%Hvordan kan det være nyttigt i vores tilfælde
+Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
+Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
+Men det kan være nyttigt at abstrahere over hvor data indsamles og lagres, og er fint i tråd med de krav om generelitet og fleksibilitelt for platformen.
+
+Af denne årsag vælges der at bruge facade designmønstret til at abstrahere over lagringen af data.
+
+\als{Nævn hvordan det implementeres -- DBAccess og ContentProvider}
+
+
+
+%Henvis til DBAccess?
 \subsection{Observer}
 
 \subsection{Mediator}
