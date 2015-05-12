@@ -1,28 +1,9 @@
-For at kunne imødekomme et bredt spektrum af lidelser samt et bredt udvalg af forskellige, Android baserede, smartphones kræves en modulær arkitektur hvori moduler kan fjernes, tilføjes og ændres uafhængigt af det overordnede system.
-
-Moduler inddeles i tre konceptuelle lag: \textit{sensor}-, \textit{analyse}- og \textit{visnings}moduler.
-Denne inddeling vil tillade adskilt udvikling af enkelte moduler uanset hvilket lag de tilhører.
-Ved at kombinere de forskellige moduler på tværs af lagene, opnås et fungerende system.
-
-Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visnings}modul.
-Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
-Sammensætningen af analyse- og visningsmoduler sker ved en beskrivelse af deres grænseflade.
-Moduler med fælles grænseflade vil kunne kombineres.
-Det vil sige at der kan anvendes flere forskellige visningsmoduler til det samme analysemodul, givet at de er kompatible.
-Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analysemoduler.
-\textbf{Det har ikke været muligt at finde et umiddelbart arkitektur-mønster for dette.}
-\stefan{vi bør nok udvide dette, det virker lidt tyndt at skrive}
-\ivan{Enig. Check lige
-	Gamma et al om
-	I har overset noget.
-	Samme om Fowler.
-	HVIS der ikke
-	findes mønstre, så
-	tag nogle, der
-	næsten gør, og
-	forklar hvorfor de
-	ikke kan bruges
-	alligevel.}
+\section{Valgt arkitektur}
+Eftersom vi ikke har fundet et eksisterende arkitekturmønster der kan tilgodese vores krav opstillet i \cref{arkitekturkrav}, har vi konstrueret vores egen arkitektur der forsøger at tilgodese kravene bedst muligt.
+Arkitekturen er lavet ud fra ideen om at apps på android kan kontakte hinanden igennem android systemet. 
+Det er altså muligt for en hovedapplikation at starte en service der ligger i en anden applikation.
+Dette udnytter vi ved at alle moduler bliver pakket i en selvstændig app. 
+Ved at lave en adgangsbeskyttet database vil det være muligt for moduler at få adgang til data fra andre moduler.
 
 \section*{Opbygning}
 Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
@@ -30,13 +11,11 @@ Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \t
 Derudover indhenter \textit{manageren} de enkelte \textit{views} for at vise disse til brugeren.
 
 \textit{Moduler} dækker over sensor, analyse og view moduler, de står for alt indsamling og behandling af data.
-\textit{Sensor} moduler ses som moduler der som eneste opgave har at indsamle data.
-\textit{Analyse} moduler foretager analyser på det indsamlede data.
-\textit{View} moduler sørger for generering af visninger som manageren kan indhente, til at få vist det lagrede sensor og analyse data.
 
-\textit{DB access} kan tænkes som en facade, der sikrer adgangskontrol til databasen og sikrer at det er nemt at læse og skrive til \textit{DB}.
-\textit{DB} er databasen der skrives til, men kunne nemt udskiftes med et cloud baseret lager. 
-Det ville være en opgave for DB-access om hvor man skal læse og skrive til.
+\textit{DB access} er det komponent der sikrer adgangskontrol til databasen og sikrer at det er nemt at læse og skrive til \textit{DB} men at det kun er muligt at skrive til modulets egen database.
+
+\textit{DB} er det komponent der lagrer data. 
+I vores løsning er dette en lokal database der skrives til, men kunne nemt udskiftes med et cloud baseret lager. 
 
 En skitse af arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
@@ -45,14 +24,10 @@ En skitse af arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 	\caption{Første udkast til arkitektur.}
   \label{arkitektur_udkast_1}
 \end{figure}
-Som nævnt herover er styrken ved denne arkitektur, den modulære opbygning af sensorer, analyser og visninger.
-Systemet er altså opbygget uden indbyrdes afhængighed til de enkelte moduler, hvilket igen tillader udviklingen af moduler sideløbende med det overordnede system.
-Med andre ord sikrer det information hiding, da der er en facade i form af \textit{DB Access} som sikrer abstraktion over hvordan data er indsamlet, hvilket gør modulerne mindre sårbare overfor ændringer i andre moduler.
 
 Herunder gives en kort beskrivelse af hver af de fire komponenter.
 Komponenterne beskrives i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
 
-\ivan{Måske var det en ide at bruge en skabelon for gennemgangen af komponenterne f.eks. (1) Formål - (2)design, og - (3) Perspektiv for fremtidig udvikling - På den måde kunne I understrege generaliteten og fremtidsikringen i jeres design}
 \subsection*{DB}
 Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
@@ -60,10 +35,38 @@ Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \texti
 
 Til dette projekt er valgt en SQLite database da denne er standard i Android.
 
+
 \subsection*{DB Access}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
-Derudover skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men have mulighed for at læse fra de tabeller som den er afhængig af.
-Dette er dog ikke muligt da \textit{DB Access} bruger en \textit{ContentProvider}, men er det ikke muligt at se hvad for en anden applikation der tilgår \textit{DB Access}, hvilket gør at denne begrænsning ikke er mulig. \ivan{Klodset og redundant sprog}
+\paragraph{Facade}
+For at opnå denne ensrettethed tager vi inspiration i det strukturelle \textit{facade} design mønster.
+Facade er et design mønter der tilbyder et simpelt interface til et komplekst subsystem \citep{DATGANGOFFOUR}. 
+Det er et middel til at få en løsere kobling mellem et system og klienterne der bruger systemet.
+Dette gøres ved at opstille en facade mellem klienterne og subsystemet.
+Facaden sikrer et ensartet interface til brug af subsystemerne, men hvor man abstraherer over disse.
+At implementere dette sikrer også større modularitet idet ændringer i subsystemerne ikke kræver ændring i klienterne, da de blot bruger facaden der kan justere for disse ændringer.
+
+Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
+Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
+Men det kan være nyttigt at abstrahere over hvor data indsamles og lagres, og er fint i tråd med de krav om generelitet og fleksibilitelt for platformen.
+
+Af denne årsag vælges der at bruge facade designmønstret til at abstrahere over lagringen af data.
+
+\paragraph{Observer}
+For at moduler kan tilgå hinandens data uden at have adgang til at tilføje eller ændre i det har vi brug for en model til at dele data.
+
+En overvejelse har været at bruge observer mønstret til dette.
+Med observer mønstret kan man hver gang der er nyt data sende opdateringen ud til alle de moduler der har brug for dataen \cite[p.~244]{gamma1994design}.
+
+Ved brug af dette mønster vil hvert modul der abonnerer på en datakilde kunne udføre sine beregninger med det samme når dataen er tilgængelig.
+Det betyder på den anden side at det ikke er muligt for modulet selv at bestemme hvornår tunge beregninger skal udføres.
+Hvis et modul skal udføre tunge beregninger vil det være fordelagtigt at kunne udføre disse når brugeren ikke bruger telefonen, eventuelt om natten når telefonen alligevel er sat til strøm.
+Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
+
+\paragraph{Sikkerhed}
+Udover at være ensrettet skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men samtidig have mulighed for at læse fra andre modulers tabeller.
+
+\stefa{ikke implementeret, refleksion - skriv at vi skal have en form for public key system til at løse dette.}
 
 Systemet anvender udelukkende en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
 I en fremtidig udvidelse af systemet kunne \textit{DB Access} komponenten tilgå et ekstern lager hvor dele af det administrerede data kan gemmes.
@@ -72,11 +75,12 @@ Denne abstraktion forventes at kunne påføres \textit{DB Access} uden at kræve
 Muligheden for en sådan udvidelse af systemet er ikke undersøgt og der kan derfor naturligt være komplikationer herved, ligesom udvidelsen ikke med sikkerhed kan laves uden påvirkning af de resterende komponenter.
 
 \subsection*{Moduler}
-Denne komponent består af de tre forskellige modul-lag.
+Moduler befinder sig i et lag for sig selv i arkitekturen.
 Til hvert enkelt modul hører en modulbeskrivelse (se \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
 Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
 
-Bemærk at de tre lag i modul-komponenten er rent konceptuelt, da på implementationsniveau skelnes der ikke mellem disse.\als{Måske er view anderledes på implementationsniveau også}
+Modullaget inddeles yderligere i tre konceptuelle lag: \textit{sensor}-, \textit{analyse}- og \textit{visnings}moduler.
+
 Nedenstående beskriver derfor de forskellige moduler der \textit{kan} ligge i hvert af lagene.
 Beskrivelserne er til dels intentioner for modulerne i hvert lag og omfatter altså ikke alle moduler der kan udvikles til systemet.
 
@@ -85,8 +89,10 @@ Beskrivelserne er til dels intentioner for modulerne i hvert lag og omfatter alt
 Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
 Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
 Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
-\mikkel{Beskriv et eksempel på et sensor modul, når vi har flere detaljer om et.}
 
+Et eksempel på et sensormodul er indsamling af data fra accelerometret.
+Modulet får data fra accelerometret og gemmer det i sin database. 
+For ikke at gemme unødvendige mængder data vil modulet kun gemme et datapunkt når det er forskelligt fra det forrige målte punkt.
 
 \paragraph{Analyse}
 \textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
@@ -96,15 +102,27 @@ Herved opnås en opsummering af det indsamlede data, der skaber værdifuld infor
 Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
 Denne information anvendes af visningsmodulerne.
 
-Der kan ved analyse af sensor data anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
+Der kan ved analyse af sensordata anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
 Eksempelvis kan analysen foretages om natten hvor telefonen kan sættes til opladning.
-\mikkel{Beskriv et eksempel på et analyse modul, der anvender ovenstående sensor modul, når vi har flere detaljer om et.}
+
+Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
+Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
 
 \paragraph{Visning}
 \textit{Visnings}laget indeholder moduler der visualiserer analyserede data.
 Som en del af et visningsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
 Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visning anvendes på den enkelte analyse.
-\mikkel{Beskriv et eksempel på et visnings modul, der anvender ovenstående analyse modul, når vi har flere detaljer om et.}
+
+Et eksempel på et visningsmodul er et modul der visualisere den analyse som føromtalte søvnanalyse har fundet frem til.
+Dette kunne være en graf der fortæller hvor dyb søvn man har været i, eller en simpel farvet indikator hvis farve viser hvor godt man har sovet de sidste par dage.
+
+Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visnings}modul.
+
+Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
+Sammensætningen af analyse- og visningsmoduler sker ved en beskrivelse af deres grænseflade.
+Moduler med fælles grænseflade vil kunne kombineres.
+Det vil sige at der kan anvendes flere forskellige visningsmoduler til det samme analysemodul, givet at de er kompatible.
+Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analysemoduler.
 
 \subsection*{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
@@ -119,23 +137,3 @@ Manager komponenten indeholder desuden et JSON skema for hver modul-type i modul
 Disse definitioner beskriver formatet for eventuelle nye moduler man måtte ønske at føje til systemet.
 \stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
 
-\subsection{Diskussion af Valg}
-Et af spørgsmålene der skal stilles er om valget af arkitekturen er dækkende og om der ikke er alternativer som kunne have blive brugt.
-En af grund idéerne til platformen er at det skal være let for udefrakommende udviklere at tilføje funktionalitet. 
-Det skal være muligt at implementere dele til systemet som indsamler, analysere og viser data.
-Baseret på Android's åbenhed, brugsniveau og dokumentation er det blevet valgt at platformen skal køre på Android.
-
-Men er der alternativer? En af standard arkitekturerne i mobil udvikling er Client-Server, hvilket kunne være hvor web sider kan bruges til at f.eks. visualisere data men dette har et problem idet at sensor data indsamling ville nødvendigvis påkræve implementering adskilt da det er denne data som er interessant.
-Denne arkitektur har dette problem at det ikke er nemt for udefrakommende udviklere at tilføje funktionalitet, det kan desværre også være svært at implementere dele som indsamler, analysere og viser data idet at alt data ville ligge lokalt og skal nødvendigvis sendes til serveren før den kan bruge denne data til noget. 
-Det har dog fordelen at det kan køre på Android gennem en almindelig webbrowser eller en applikation som bruger WebViews.
-Baseret på disse ville denne arkitektur nok ikke fungere.
-
-En anden arkitektur ville være en standalone applikation som indeholder alt sensor indsamling, analyse og visning i samme applikation.
-Dette har fordelen at det er nemmere at programmere end 15 forskellige applikationer, men kommer med ulempen at applikationen kunne ende med at blive meget stor.
-Det er selvfølgelig muligt for udefrakommende udviklere at implementere ny funktionalitet til denne hvis de har fri adgang til kildekoden, men dette vil nok danne med problemer med Google Play Store idet at hvis 30 forskellige udviklere tilføjer ny funktionalitet til applikationen ville dette påkræve at hvis denne skal bruges af flere ville der være flere versioner af den samme applikation uploadet af forskellige udviklere og dette gør det på samme tid svære at udvikle videre på andres arbejde da alting er samlet i en applikation og ikke over flere.
-På grund af dette ville denne arkitektur ikke gøre det let at implementere og bruge ny funktionalitet.
-Denne arkitektur gør det muligt at implementere forskellige dele til applikationen som indsamler, analysere og viser data.
-Denne arkitektur kan selvfølgelig godt implementeres på Android.
-Da det ikke er let at tilføje ny funktionalitet afvises denne arkitektur. 
-
-Baseret på disse antages det at arkitekturen der er blevet valgt er den mest åbenbare og at hvis der er andre arkitekturer kender vi ikke til dem.
