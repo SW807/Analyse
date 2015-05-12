@@ -3,7 +3,43 @@ For at få lavet en fint struktureret platform har vi udforsket forskellige desi
 Dermed ikke sagt at alle design mønstre beskrevet benyttes, men blot at de har været værd at overveje.
 
 \subsection{Facade}
+%Beskrivelse af formålet med facade
+Vi tager inspiration i det strukturelle facade design mønster.
+Facade er et design mønter der tilbyder et simpelt interface til et komplekst subsystem \citep{DATGANGOFFOUR}. 
+Det er et middel til at få en løsere kobling mellem et system og klienterne der bruger systemet.
+Dette gøres ved at opstille en facade mellem klienterne og subsystemet.
+Facaden sikrer et ensartet interface til brug af subsystemerne, men hvor man abstraherer over disse.
+At implementere dette sikrer også større modularitet idét at ændringer i subsystemerne ikke kræver ændring i klienterne, da de blot bruger facaden der kan justere for disse ændringer.
 
+%Hvordan kan det være nyttigt i vores tilfælde
+Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
+Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
+Men det kan være nyttigt at abstrahere over hvor data indsamles og lagres, og er fint i tråd med de krav om generelitet og fleksibilitelt for platformen.
+
+Af denne årsag vælges der at bruge facade designmønstret til at abstrahere over lagringen af data.
+
+\als{Nævn hvordan det implementeres -- DBAccess og ContentProvider}
+
+
+
+%Henvis til DBAccess?
 \subsection{Observer}
+For at moduler kan tilgå hinandens data uden at have adgang til at tilføje eller ændre i det har vi brug for en model til at dele data.
+
+En overvejelse har været at bruge observer mønstret til dette.
+Med observer mønstret kan man hver gang der er nyt data sende opdateringen ud til alle de moduler der har brug for dataen \cite[p.~244]{gamma1994design}.
+
+Ved brug af dette mønster vil hvert modul der abonnerer på en datakilde kunne udføre sine beregninger med det samme når dataen er tilgængelig.
+Det betyder på den anden side at det ikke er muligt for modulet selv at bestemme hvornår tunge beregninger skal udføres.
+Hvis et modul skal udføre tunge beregninger vil det være fordelagtigt at kunne udføre disse når brugeren ikke bruger telefonen, eventuelt om natten når telefonen alligevel er sat til strøm.
+Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
+
+
+
+
+Vores løsning til dette problem er i stedet at bruge adgangsbeskyttelse på databasen.
+Alle moduler kan skrive til sine egne tabeller, og kan læse fra alle tabeller.
+På denne måde kan ingen ændre i tabeller som det ikke er meningen der skal ændres i, og alle har adgang til det data de har brug for, når de har brug for det.
+\stefan{adgangskontrol er så vidt jeg husker ikke implementeret, hvordan nævner vi dette?}
 
 \subsection{Mediator}
