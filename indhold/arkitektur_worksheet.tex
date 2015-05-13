@@ -2,8 +2,9 @@
 Eftersom vi ikke har fundet et eksisterende arkitekturmønster der kan tilgodese vores krav opstillet i \cref{arkitekturkrav}, har vi konstrueret vores egen arkitektur der forsøger at tilgodese kravene bedst muligt.
 Arkitekturen er lavet ud fra ideen om at apps på android kan kontakte hinanden igennem android systemet. 
 Det er altså muligt for en hovedapplikation at starte en service der ligger i en anden applikation.
-Dette udnytter vi ved at alle moduler bliver pakket i en selvstændig app. 
+Dette udnytter vi ved at alle moduler bliver pakket i en selvstændig app som også tjener det formål at give den modulære tilgang vi leder efter. 
 Ved at lave en adgangsbeskyttet database vil det være muligt for moduler at få adgang til data fra andre moduler.
+Til sidst vurderes det også at en central bestyrende enhed er nødvendig for at have et bindeled mellem alle de selvstændige apps det blev valgt at installere.
 
 \section*{Opbygning}
 Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
@@ -17,7 +18,7 @@ En skitse af arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \end{figure}
 \stefan{fix billede}
 
-Herunder gives en kort beskrivelse af hver af de fire komponenter.
+Herunder gives en beskrivelse af hver af de fire komponenter.
 Komponenterne beskrives i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
 
 \subsection*{DB}
@@ -78,10 +79,11 @@ Det udviklede system anvender en database placeret på selve mobiltelefonen og e
 Da der er begrænset plads på en mobiltelefon (se \cref{eksperimenter}) vil denne løsning muligvis udløse en række problemer.
 Det vil derfor være en naturlig udvidelse af DB Access skal sørge for at uploade data til et eksternt lager når dataen ikke er nødvendig at lagre på telefonen mere.
 På denne måde begrænser man systemets pladsforbrug, og kan samtidig foretager analyser på al dataen hvis en ny analyse installeres på systemet.
+Denne ændring kan desuden udføres uden at kræve ændringer i andre moduler end DB Access da Facade mønsteret er taget i brug.
 
 \subsection*{Moduler}
-Moduler befinder sig i et lag for sig selv i arkitekturen.
-Modulerne indeholder applikationens hovedfunktionalitet og inkluderer indsamling af data, bearbejdelse af data og visning af data.
+Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
+Moduler indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visning af data.
 
 \paragraph{Design}
 Til hvert enkelt modul hører en modulbeskrivelse (se \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
@@ -89,7 +91,7 @@ Denne administration består til dels i en definitioner af de tabeller modulet h
 
 Modullaget inddeles yderligere i tre konceptuelle lag: \textit{sensor}-, \textit{analyse}- og \textit{visnings}moduler.
 
-Nedenstående beskriver intentionerne bag de forskellige modultyper.
+Nedenstående beskriver intentionerne bag de forskellige modultyper og deres opgave.
 
 \subparagraph{Sensor}
 \textit{Sensor}laget indeholder moduler der indsamler data fra telefonens (eller tilbehør dertil) forskellige sensorer og applikationer.
@@ -120,7 +122,7 @@ Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge 
 Som en del af et visningsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
 Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visning anvendes på den enkelte analyse.
 
-Et eksempel på et visningsmodul er et modul der visualisere den analyse som føromtalte søvnanalyse har fundet frem til.
+Et eksempel på et visningsmodul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
 Dette kunne være en graf der fortæller hvor dyb søvn man har været i, eller en simpel farvet indikator hvis farve viser hvor godt man har sovet de sidste par dage.
 
 Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visnings}modul.
@@ -138,8 +140,9 @@ Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analyse
 \subsection*{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
-Denne administration indebærer blandt andet oprettelse af de tabeller hvert modul har i sin beskrivelse, samt start og stop af sensor- og analysemoduler.
+Denne administration indebærer blandt andet oprettelse af de database tabeller hvert modul har bedt om i sin beskrivelse, samt start og stop af sensor- og analysemoduler.
 Sidstnævnte sker ud fra definitioner givet i beskrivelserne af de enkelte moduler.
+Desuden er det også gennem manageren brugeren for vist den information de leder efter.
 
 \paragraph{Design}
 Ved at sammenholde visninger og analyser kan manageren beskrive for brugeren hvilke data der kan fremvises og med hvilke visninger det kan ske.
