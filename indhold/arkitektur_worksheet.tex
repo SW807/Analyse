@@ -49,15 +49,15 @@ Facaden sikrer et ensartet interface til brug af subsystemerne, men hvor man abs
 At implementere dette sikrer også større modularitet idet ændringer i subsystemerne ikke kræver ændring i klienterne, da de blot bruger facaden der kan justere for disse ændringer.
 
 Af denne årsag vælges der at bruge facade designmønstret til at abstrahere over lagringen af data.
-Implementationen af dette mønster er udført ved at udnytte androids indbyggede \textit{Content Provider} konstruktion.
-En Content Provider indkapsler en mængde af struktureret data, hvilket i vores tilfælde er det data som DB Access råder over \cite{contentprovider}.
+Implementationen af dette mønster er udført ved at udnytte Androids indbyggede \textit{Content Provider} konstruktion.
+En Content Provider enkapsulerer data og giver adgang til denne gennem en Content Resolver interface, til brug når data skal deles blander flere applikationer. I vores tilfælde af den data der deles den som DB Access råder over \citep{contentprovider}.
 \stefan{mere detalje?}
 
 \subparagraph{Observer}
 For at moduler kan tilgå hinandens data uden at have adgang til at tilføje eller ændre i det har vi brug for en model til at dele data.
 
 En overvejelse har været at bruge observer mønstret til dette.
-Med observer mønstret kan man hver gang der er nyt data sende opdateringen ud til alle de moduler der har brug for dataen \cite[p.~244]{gamma1994design}.
+Med observer mønstret kan man hver gang der er nyt data sende opdateringen ud til alle de moduler der har brug for dataen \citep[p.~244]{gamma1994design}.
 
 Ved brug af dette mønster vil hvert modul der abonnerer på en datakilde kunne udføre sine beregninger med det samme når dataen er tilgængelig.
 Det betyder på den anden side at det ikke er muligt for modulet selv at bestemme hvornår tunge beregninger skal udføres.
