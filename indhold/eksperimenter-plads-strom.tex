@@ -12,7 +12,7 @@ Der vil i fremtiden komme flere sensorer og der vil komme analysemoduler der ana
 Disse eksperimenter vil derfor kun kunne give et indblik i hvordan de forskellige moduler opfører sig og give et estimat for pladsforbruget.
 
 Moduler som Skærm, Nærhed og Placering producerer kun data når der sker ændringer. 
-Derfor blev det første eksperiment udført på en måde der forsøger at efterligne brugssituation. 
+Derfor blev det første eksperiment udført på en måde der efterligner brugssituation. 
 Telefonen blev bevæget og skærmen blev tændt og slukket flere gange under testperioden.
 Det første eksperiment blev udført over 30 minutter.
 
@@ -88,13 +88,13 @@ I denne periode blev databasen fyldt med 136523139 bytes (136 MB) hvilket svarer
 Denne tabel ligner ikke overraskende den tabel der blev produceret af eksperimentet på 30 minutter.
 Det er igen Accelerometer og Gyroskop modulerne der fylder databasen efterfulgt af Lyd modulet der bruger væsentligt mindre, og til sidst de resterende moduler der næsten ikke bruger noget plads.
 
-Det er naivt at lagre dataet i diskret form, hvorfor diverse metoder til aggregering af data diskuteres herunder.
+Det er naivt at lagre dataet i diskret form, hvorfor diverse metoder til reducering af data som opbevares på telefonen diskuteres herunder.
 
 \subsection{Muligheder for begrænsning af pladsforbrug}
 For ikke at fylde mobil telefonen op med data fra modulerne vil det være fornuftigt at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
 
-\subsubsection{Cloud}
-Ved at bruge en cloud til at gemme på data kan man holde det aktuelle forbrug på selve telefonen nede.
+\subsubsection{Skyen}
+Ved at bruge skyen til at gemme på data kan man holde det aktuelle forbrug på selve telefonen nede.
 Det vil dog kræve at man synkroniserer fra telefonen til skyen, der sørger for at kun data der allerede er analyseret bliver slettet fra telefonen. 
 Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analyse modulerne er afhængige af.
 Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyser på serversiden.
@@ -106,7 +106,6 @@ For eksempel er accelerometerdata kun interessante når der sker en vis svingnin
 Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at data gemmes i databasen.
 Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt.
 Hvilket er algoritmer til at reducere antal af punkter der bruges til at estimere en kurve, det er dog lossy data komprimerings metoder, hvorfor man også kunne overveje lossless data komprimering.
-
 Et eksempel på en sådan lossless datakomprimering er run-length encoding.
 Run-length encoding udnytter at hvis man har en sekvens af punkter med samme værdi ville disse kunne komprimeres til blot at angive antallet af punkter og med hvilken værdi disse punkter har.
 
@@ -122,7 +121,7 @@ Vi tager det forbehold at opdateringshastigheden kan variere afhængig af dataty
 Når telefonen ikke er i brug vil det valgte udsnit af moduler generere 49 MB data i døgnet mens aktiv brug af telefonen vil få dette forbrug op på 55 MB.
 
 De store syndere er accelerometret og gyroskopet der begge er sat til at gemme data 5 gange i sekundet.
-Det vil derfor være nødvendigt at udvikle en strategi for begrænsning af datamængde.
+Det vil derfor være en god idé at udvikle en strategi for begrænsning af hvor meget data som opbevares på telefonen.
 Her er foreslået enten oprydning af data som går ud på kun at gemme det data der er interessant for analyserne.
 En anden mulighed er at nedsætte opdateringshastigheden så der ikke gemmes så ofte.
 En tredje mulighed er at aggregere data, eksempelvis ved brug af run-length encoding eller ved blot at lagre ændring i værdi.

@@ -23,15 +23,15 @@ Sikkerhedsproblemet er stort, men kunne sikkert løses med nok tid og ressourcer
 
 \paragraph{Selvstændig app}
 Den tredje mulighed er at pakke hvert modul i en selvstændig APK \footnote{Androids pakkeformat}.
-Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet
+Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet.
 Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
 
-Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræver at en stor mængde af apps skal installeres
-Derudover er kommunikation mellems apps vanskeligere end internt i en app, men ses som acceptabelt.
+Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræver at en stor mængde af apps skal installeres.
+Derudover er kommunikation mellem apps vanskeligere end internt i en app, men ses som acceptabelt.
 Desuden kan det være træls at skulle installere en større mængde af apps for at have den fornødne funktionalitet.
 Som løsning derpå kunne man med videre arbejde have et indbygget app marked i manageren, og er værd at udforske med mere tid.
 
-Det er en løsning der har mange fordele i.f.t. modularisering og svagheder der kan tolereres, hvorfor denne løsning er valgt. 
+Det er en løsning der har mange fordele i forhold til modularisering og svagheder der kan tolereres, hvorfor denne løsning er valgt. 
 
 Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp af selvstændige apps.
 
@@ -40,14 +40,11 @@ Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp a
 Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \cite{json_schema}.
 Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Skema.
 
-\stefan{moduldefinitionerne er så vidt jeg ved lavet om, og dette bør revideres}
 \subsection{Typer af moduler}
-\ivan{Henvis til det overordnede design her}
-Der findes i alt tre typer moduler; \textit{sensor}, \textit{analyse} og \textit{visning}.
-Sensor-modulerne repræsenterer de fysiske sensorer til stede i telefon eller tilsluttet wearable.
-De leverer data som analyse eller visnings modulerne skal bruge til at henholdsvis behandle eller vise data.
-Baseret på et eller flere sensor- eller analyse-moduler, kan et analyse modul levere behandlede data, til brug af andre analyse-moduler, samt visnings-moduler.
-Visnings-modulerne bruges til visning af den rå sensor-data eller den behandlede analyse-data.
+Der findes som sagt i \cref{sec:arkitektur}, tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visning}.
+Som sagt er sensor moduler, moduler som indsamler data fra telefonens forskellige sensorer og applikationer.
+Endvidere er analyse moduler, moduler som bruger data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
+Visnings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
 \subsection{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
