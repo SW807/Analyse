@@ -9,18 +9,15 @@ Teknikker til denne undersøgelse inkluderer at definere applikationens problem 
 \paragraph{Stakeholders}
 I dette projekt er patienterne den vigtigste \textit{stakeholder}, da det er patienterne der skal bruge applikationen i hverdagen.
 Applikationen skal derfor udvikles på patienternes præmisser.
-Sikkerheden skal være så patienterne er trygge ved at gemme sine personline oplysninger i applikationen, og brugerfladen skal udvikles så patienter med forskellige grader af lidelser kan anvende den.
-
-På den anden side hvis det kunne gøres muligt at trække data ud så behandlere og læger kunne arbejde videre med dette ville det være en god ting at have.
+Sikkerheden skal være så patienterne er trygge ved at gemme sine personlige oplysninger i applikationen, og brugerfladen skal udvikles så forskellige patienter kan anvende den.
 
 \paragraph{Use context}
 Konteksten som applikationen skal kunne bruges i er meget bred, da det omfatter hele patientens hverdag.
-Der skal derfor tages højde for at GPS signal ikke altid er tilgængeligt, og at data forbindelse ikke nødvendigvis er tilgængelig hele tiden.
+Der skal derfor tages højde for at sensorer ikke altid er tilgængeligt, og at data forbindelse ikke nødvendigvis er tilgængelig hele tiden.
 Da applikationen skal logge data om patientens færden skal der håndteres at telefonen kan være i lommen, i hånden og ikke mindst på et bord eller i en jakkelomme der hænger i entreen.
 
 \paragraph{Technologies}
 Teknologier der benyttes inkluderer en smartphone og wearables der kan bruges sammen med en smartphone.
-Disse kan være ure, armbånd og ørestykker.
 
 \paragraph{Problems and needs}
 \stefan{taget fra s. 83. Ved ikke om vi skal skrive noget her - fra essence - bare intern kommentar}
@@ -32,24 +29,34 @@ Disse kan være ure, armbånd og ørestykker.
 Scenarier:
 \begin{itemize}
 	\item Patienten bevæger sig rundt i sin hverdag med telefonen i lommen. 
-	Data logges i systemet om gemmes til at kunne blive analyseret.
+	\begin{itemize}
+		\item Data logges i systemet om gemmes til at kunne blive analyseret.
+	\end{itemize}
+	
 	\item Patienten er taget til familiearrangement og har efterladt telefonen i jakkelommen.
-	Data logges i systemet og filtreres efter hvad der kan bruges selvom telefonen ikke er på patienten.
-	Brugbar data gemmes.
-	\item Patienten låner sin telefon til sit barn, der bevæger sig rund med den hele dagen.
-	Data logges i systemet og forkastes da de ikke kan bruges til at få information om patienten.
+	\begin{itemize}
+		\item Data logges i systemet og filtreres efter hvad der kan bruges selvom telefonen ikke er på patienten.
+		Brugbar data gemmes.
+	\end{itemize}
+	
+	\item Patienten låner sin telefon til sit barn, der bevæger sig rundt med den hele dagen.
+	\begin{itemize}
+		\item Data logges i systemet og forkastes da de ikke kan bruges til at få information om patienten.
+	\end{itemize}
+	
 	\item Patienten får en notifikation af systemet der beder patienten svare på et spørgsmål omkring patientens søvn.
-	Patienten svarer på spørgsmålet og fortsætter sin aktivitet.
-	\item Patienten får en notifikation af systemet der beder patienten svare på et spørgsmål omkring patientens søvn.
-	Patienten har ikke lyst til at svare på spørgsmålet nu, og udsætter det til senere.
+	\begin{itemize}
+		\item Patienten svarer på spørgsmålet og fortsætter sin aktivitet.
+		\item Patienten har ikke lyst til at svare på spørgsmålet nu, og udsætter det til senere.
+	\end{itemize}
+	
 	\item Patienten vil gerne have applikationen til at fortælle hvordan den vurderer hans tilstand.
-	Applikationen viser at patienten udviser normal adfærd.
-	\item Patienten vil gerne have applikationen til at fortælle hvordan den vurderer hans tilstand.
-	Applikationen viser at patientens sindstilstand er lavere end normalen.
-	Patienten konsulterer sin liste af lystbetonede aktiviteter og udfører en af disse.
-	\item Patienten vil gerne have applikationen til at fortælle hvordan den vurderer hans tilstand.
-	Applikationen viser at patientens sindstilstand er lavere end normalen.
-	Patienten foretager sig intet og tilstanden fortsætter med at forværres.
+	\begin{itemize}
+		\item Applikationen viser at patienten udviser normal adfærd.
+		\item Applikationen viser at patientens sindstilstand er lavere end normalen. Patienten konsulterer sin liste af lystbetonede aktiviteter og udfører en af disse.
+		\item Applikationen viser at patientens sindstilstand er lavere end normalen. Patienten foretager sig intet og tilstanden fortsætter med at forværres.
+	\end{itemize}
+
 \end{itemize}
 \stefan{Skal kigges på i fællesskab}
 
@@ -72,11 +79,11 @@ Hvilke datakilder dette skal være kan variere meget fra individ til individ.
 Et individ kunne for eksempel have brug for at få set på sit bevægelsesmønster og på sin sociale adfærd, hvor et andet kunne have brug for at få analyseret på søvn og på hvor meget han har forladt sit hjem.
 At kunne se på disse er udfordrende i sig selv, da man for hver af disse skal finde ud af hvilke datakilder man har til rådighed der kan give en fornuftig information om disse, og derefter skal man finde ud af hvordan man ud fra den data kan lave en vurdering af det givne kriterie.
 Når hvert kriterie er vurderet skal der laves en vurdering af tilstanden som helhed, og hvordan denne laves skal variere fra individ til individ.
-Det kunne også være man valgte at inddrage brugeren i denne vurdering, enten ved at give dem spørgsmål eller ved at have dem til at gøre noget andet der kunne give et prej om hvordan de har det.
+Det kunne også være man valgte at inddrage brugeren i denne vurdering, enten ved at give dem spørgsmål eller ved at have dem til at gøre noget andet der kunne give et praj om hvordan de har det.
 
 Den sidste tilstand der kan være er en kritisk tilstand, hvor det vurderes at patienten er så langt nede at der er risiko for han kan forvolde skade på sig selv eller andre.
 Her er problemet hvornår man vurderer en tilstand til at være alvorligt kritisk og også hvad man rent faktisk skal gøre hvis man når frem til en sådan vurdering.
-Den kritiske vurdering kunne være at man har en grundlinje for hvor lavt eller højt folks sindstilstand kan komme på en scala før den er kritisk, dog er dette nok ikke en god tilgang, da det som altid kan variere meget for hvert individ.
+Den kritiske vurdering kunne være at man har en grundlinje for hvor lavt eller højt folks sindstilstand kan komme på en skala før den er kritisk, dog er dette nok ikke en god tilgang, da det som altid kan variere meget for hvert individ.
 En anden mulighed ville være at se på hvor folk plejer at befinde sig rent tilstandsmæssigt og så ud fra det vurdere hvor langt det er acceptabelt at lade dem svinge fra det.
 Den anden del af dette scenarie er der skal gøre hvis det vurderes at en patient er for langt ude i forhold til det habituelle niveau de plejer at have.
 Det kunne være det valgtes at der skulle kontaktes en ambulance til enhedens nuværende position, dog ville dette nok kun være tilfældet hvis der er meget stor tillid til estimeringerne fra systemet.
