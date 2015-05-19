@@ -7,8 +7,7 @@
 For at gøre systemet fleksibelt så det er let at tilføje moduler til applikationen, har vi udtænkt en modul-baseret arkitektur.\ivan{Dette hensyn bør også omtales i starten af kapitlet. Det er jo helt centralt}
 Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
 Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visninger til det allerede indsamlede data.
-
-\subsection{Forslag til modulariseing}
+\subsubsection{Forslag til modulariseing}
 \paragraph{Komplet pakke}
 En traditionel app samler al funktionalitet i en pakke.
 Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele appen på samme tid.
@@ -35,18 +34,18 @@ Det er en løsning der har mange fordele i forhold til modularisering og svaghed
 
 Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp af selvstændige apps.
 
-\subsection{Beskrivelsesfilen}
+\subsubsection{Beskrivelsesfilen}
 
 Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \cite{json_schema}.
 Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Skema.
 
-\subsection{Typer af moduler}
+\subsubsection{Typer af moduler}
 Der findes som sagt i \cref{sec:arkitektur}, tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visning}.
 Som sagt er sensor moduler, moduler som indsamler data fra telefonens forskellige sensorer og applikationer.
 Endvidere er analyse moduler, moduler som bruger data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
 Visnings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
-\subsection{Moduldefinition}
+\subsubsection{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
 
 Sensor- og analyse-moduler skal gøre data tilrådighed for andre analyse- og visnings-moduler.
@@ -58,7 +57,7 @@ For hver tabel defineres en eller flere kolonner med et beskrivende navn, dataty
 De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til de tilgængelige SQLite datatyper.
 Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
-\subsection{Afhængigheder}
+\subsubsection{Afhængigheder}
 Et analyse- eller visnings-modul kan være afhængigt af andre sensor- eller visnings-moduler.
 Et analysemodul kan aggregere data fra andre analysemoduler mens et visningsmodul er afhængig af det modul det skal vise data fra.
 Derfor skal det defineres for hvert modul hvilke andre moduler det er afhængigt af.
@@ -67,7 +66,7 @@ En hard-dependency er ét andet modul som det pågældende modul ikke kan funger
 En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede moduler skal være til stede på enheden.
 Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en telefon eller fra en wearable.
 
-\subsection{JSON og JSON Schema}
+\subsubsection{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
 JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul.
 For at sikre validiteten af eksternt leverede modul-beskrivelser, udarbejdes der et JSON Skema, som JSON-dokumenter kan holdes op imod og derved verificeres.
@@ -94,7 +93,7 @@ Meta-data er præfikset med \_ (underscore).
       ]}]}
 \end{lstlisting}
 
-\subsection{Implementering}
+\subsubsection{Implementering}
 Som nævnt i \cref{sec:valg_af_android}, implementeres der til Android telefoner.
 Dette sætter nogle begrænsninger ift. valg af løsninger.
 

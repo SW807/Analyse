@@ -1,4 +1,4 @@
-\subsection{Visnings Modul}
+\subsubsection{Visnings Modul}
 
 Som udgangspunkt er \textit{visninger} forskellige visualiseringer af analyse modulernes output.
 
@@ -25,7 +25,7 @@ På denne måde kan der laves visninger der repræsenterer bestemte signaturer, 
 I mange tilfælde vil denne implicitte binding være nok, dog kan det forestilles at analyserne vil være forskellige og til tider komplekse, hvilket kan gøre det nødvendigt at nærmere specificere hvordan den tilgængelige data kan vises.
 Her kunne der tilføjes noget meta-data på analysens tabeller/kolonner, der beskriver den på sådan en måde, at det ville kunne bruges til visninger der ikke nødvendigvis implicit kunne knyttes til det.
 
-\subsection{Eksempel}
+\subsubsection{Eksempel}
 Her bruges light, som er en simpel sensor og analyse, der fra sensoren indhentes løbende lys-niveau (i lux).
 Analysen tager den senest indsamlet data og giver et gennemsnit.
 Det antages at alle tabeller har en tids-kolonne, der beskriver enten hvornår data blev indsat i databasen, eller i nogle tilfælde af analyser overføres tiden fra sensor-data.
@@ -70,7 +70,7 @@ På x-aksen vises tiden (der står INTEGER fordi SQLite ikke har datorepræsenta
 Her bruges det tidsstempel som forventes på alle tabeller.
 Til y-aksen kan bruges alle analyser, som blot har en enkelt kolonne af heltal eller decimal-tal værdi.
 
-\subsection{Administrering af visninger}
+\subsubsection{Administrering af visninger}
 Ligesom sensorer og analyser, skal visninger også administreres af brugeren.
 
 For at holde det så simpelt som muligt, kunne man, ligesom ved sensorer/analyser, have to niveauer af administration.
