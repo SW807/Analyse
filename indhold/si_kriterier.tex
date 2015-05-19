@@ -5,27 +5,24 @@ Disse kriterier dækker over to overordnede områder: i forhold til bruger, og i
 \subsection{Bruger}
 
 \subsubsection{Sikkerhed}
-Da systemet, afhængigt af valgte moduler, kan indeholde person-følsomme data er det vigtigt at denne data er opbevaret sikkert og ikke kan tilgås af udefrakommende processer der ønsker at bruge den data til andet end helbredsestimering.
-\bruno{Moduler er ikke nævnt her endnu.}
+Eftersom systemet kan komme til at arbejde med person-følsomme data, er det vigtigt at denne data opbevares sikkert, så applikationer der ikke har lov til at se ens data ikke har mulighed for dette.
 
 \subsubsection{Stabilitet}
 For at sikre der ikke opstår for mange huller i den indsamlede data, skal systemet køre stabilt, så der kontinuert kan indsamles data.
 Hvis der opstår for mange huller, kan dette give et ufuldstændigt billede af patientens sindstilstand, som måske kan fejl-fortolkes.
 
 \subsubsection{Præcision}
-Ligesom ved huller i indsamlingen af data over tid, er det lige så vigtigt at den data der kommer ind er præcis.
-Dette er især også gældende for den måde som analyse-moduler fortolker den rå data, da fejl i analyser vil kunne give et forkert billede af patientens sindstilstand.
+Ligesom ved huller i indsamlingen af data over tid, er det lige så vigtigt at data der kommer ind er præcis.
+Dette grundes at analyse på upræcis data vil give et upræcist billede af patientens sindstilstand, hvilket kan føre til fejlagtige vurderinger af denne.
 
 \subsection{Platform}
 
 \subsubsection{Fleksibilitet}
-Det skal være nemt at modificere selve platformen (ikke kun tilføjelse af nye moduler), da det stadig er et usikkert område der opereres indenfor.
-Disse usikkerheder gælder både problemområde og den platform der implementeres på (Android).
+Det skal være nemt at modificere funktionalitet til platformen, da platformen skal kunne tilpasses til forskellige individer.
 
 \subsubsection{Mulighed for udvidelse}
-Det skal være muligt at udvide platformen, uden at modificere platformens kodebase.
-Dette skal gøres med moduler.
-Det skal gøres på sådan en måde at personer der ikke er en del af systemet, kan lave og tilføje egne moduler.
+Det skal være muligt at udvide platformens funktionalitet, uden at skulle ændre på selve platformen.
+Det skal gøres på sådan en måde at personer der ikke er en del af systemet, kan lave og tilføje egne dele til platformen.
 Dette giver naturligvis yderligere overvejelser ift. sikkerhed.
 
 \subsection{Evaluering af kriterier}
