@@ -18,12 +18,17 @@ Dette eksperiment vil kunne give et billede af hvor meget pladsforbrug det færd
 Derudover, bør disse eksperimenter udføres for hvert enkelt modul, hvilket vil kunne bruges af brugerne så de selv kan afgøre hvor meget plads de har lyst til at bruge.
 Ydermere, vil det også være fordelagtigt at udvide eksperimentet til at inkludere strømforbrug, idet at dette kan være et problem med de forskellige sensorer der skal logge data konstant.
 
-\section{Data Indsamling}
+\section{Data indsamling}
 Som nævnt før, se \cref{eksperimenter}, vil den mængde data der bliver indsamlet kunnes reduceres.
 For at gøre dette skal man overveje hvilken metode man gerne vil bruge.
 I \cref{eksperimenter} bliver der givet tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ændre på opdateringshastigheden for de forskellige sensorer.
 Ydermere, er dette vigtigt også at overveje de forskellige fordele og ulemper der er ved de forskellige, samt om det kan være en god idé at kombinere de forskellige metoder.
 En kombinering kunne være at gammel data kom op i skyen, hvor imod en oprydning af det nye data kan blive gjort.
+
+\section{Analyse aflastning}
+For at aflaste telefonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
+Dette vil have den effekt at telefonen ikke behøver gøre særlig meget udover at registrere sensor data.
+Dette er også en idé der skal undersøges ordentligt da der kan være problematikker som vi ikke har kendskab til på dette tidspunkt. 
 
 \section{File Provider}
 Som det er lavet lige nu skal platformen hente de ressource filer de forskellige moduler har, for at få fat i deres modul definition.
@@ -38,6 +43,7 @@ Der er forskellige veje man kan følge for at implementere dette.
 Et af disse er de tilladelser som eksisterer i Android, hvor man kan definere nye tilladelser og dette er endda brugt til at give modulerne adgang til Content Provider på dette tidspunkt.
 Hvis dette kunne gøres vil selve Android håndtere tilladelserne og give brugerne valget over hvad de vil have de forskellige moduler skal have adgang til.
 En anden mulighed ville være at gøre det internt i platformen, idet at man kunne definere tilladelser i modul definitionen og baseret på disse give tilladelse til tabeller, men dette har ulempen at det kan blive svære at kontrollere. 
+En tredje mulighed at se på er bare at begrænse skrive adgang til tabellerne, en måde at gøre dette på er ved lave en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler.
 Dette er derfor noget der skal overvejes og arbejdes videre med. 
 
 \section{Kommunikation mellem moduler}
