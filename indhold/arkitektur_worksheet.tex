@@ -78,23 +78,6 @@ Udover at være ensrettet skal \textit{DB Access} også sørge at et komponent k
 Denne del af systemet er ikke implementeret.
 \mikkel{Mere detalje om sikkerhed? Jeg synes ikke vi bare kan lade være med at fortælle om det bare fordi det ikke er implementeret.}
 
-\paragraph{Fremtidig udvikling}
-På nuværende tidspunkt er sikkerhedsdelen ikke implementeret, og alle moduler kan derfor både læse og skrive til alle databasetabeller.
-For at undgå at en udvikler kan lave et modul der ødelægger data for et andet modul er dette nødvendigt.
-Vi forestiller os at der skal laves en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler og derved begrænse skriveadgang til modulet der har oprettet tabellen.
-\mikkel{Burde den her del, der beskriver en mulig løsning ikke bare stå under sikkerhed? Og så kan vi skrive i refleksion at det ikke er lavet.}
-\mikkel{\stefan{skriv eventuelt også i refleksion} Jeg synes ikke vi skal skrive det to steder.
-Jeg synes bare vi skal flytte beskrivelser af alt hvad vi ikke har nået over i refleksion.
-Det er lidt underligt at en del af arkitekturen er en beskrivelse af det vi ikke har fået lavet.}
-
-Det udviklede system anvender en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
-Da der er begrænset plads på en mobiltelefon (se \cref{eksperimenter}) vil denne løsning muligvis udløse en række problemer.
-Det vil derfor være en naturlig udvidelse at lade  DB Access sørge for at uploade data til et eksternt lager hvis der er data der ikke er nødvendigt at lagre på telefonen mere.
-På denne måde begrænser man systemets pladsforbrug.
-
-Eventuelle analyser på al data vil dog i så fald kunne kræve mere plads end telefonen kan tilbyde.
-En mulig løsning herpå kan være at lade den samme server som opbevarer data udføre analyse arbejdet.
-
 \subsection{Moduler}
 Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
 Moduler indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visning af data.
@@ -147,11 +130,6 @@ Moduler med fælles grænseflade vil kunne kombineres.
 Det vil sige at der kan anvendes flere forskellige visningsmoduler til det samme analysemodul, givet at de er kompatible.
 Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analysemoduler.
 
-\paragraph{Fremtidig udvikling}
-
-\stefan{ideer?}
-\mikkel{Samme kommentar som tidligere - jeg synes det er det forkerte sted at have 'fremtidig udvikling'}
-
 \subsection{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
@@ -167,8 +145,3 @@ Manager komponenten indeholder desuden et JSON skema for hver modul-type i modul
 Disse definitioner beskriver formatet for eventuelle nye moduler man måtte ønske at føje til systemet.
 \stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
 
-
-\paragraph{Fremtidig udvikling}
-
-\stefan{ideer?}
-\mikkel{Samme kommentar som tidligere - jeg synes det er det forkerte sted at have 'fremtidig udvikling'}
