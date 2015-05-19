@@ -1,7 +1,7 @@
-I udviklingsforløbet af platformen, var der forskellige beslutninger som blev taget i henhold til hvad der skulle implementeres, og hvad der kunne udvikles videre på.
-At reflektere over disse beslutninger og valg der blev gjort giver det et overblik og forståelse af forløbet og denne refleksion er derfor beskrevet herunder. 
+I udviklingsforløbet af platformen, var der forskellige beslutninger som blev taget i henhold til hvad der skulle implementeres samt hvad der kunne udvikles videre på og generelle overvejelser om platformen.
+At reflektere over disse beslutninger og overvejelser giver det et overblik og forståelse af forløbet og denne refleksion er derfor beskrevet herunder. 
 
-\section{Valg af data kilder}
+%\section{Valg af data kilder}
 %Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet at hvis man for eksempel har data fra et smartwatch og fra en accelerometer på telefonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
 %Men dette blev aldrig lavet, idet at det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
 
@@ -11,7 +11,7 @@ Dette blev dog aldrig helt overvejet hvordan dette skulle gøres.
 Det blev aldrig overvejet af den grund at det ville kræve datavisualiserings-teknikker og -teori, og til sidst på grund af manglende ressourcer. 
 Nogle af de ting man skal overveje før man begynder at lave disse visualiseringsmoduler er hvordan Json skemaet skal opsættes, hvordan man skal vælge hvilket man gerne vil kunne se og til sidst sørge for hvordan det skal implementeres i Android så det er muligt for andre udviklere at lave deres egne visualiseringsmoduler.
 
-\section{Eksperiment}
+\section{Eksperimenter}
 Der blev udført et eksperiment for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
 Når platformen engang er blevet videre udviklet, vil det kræve at man foretager sådan et eksperiment endnu engang. 
 Dette eksperiment vil kunne give et billede af hvor meget pladsforbrug det færdige produkt så vil kunne bruge.
@@ -41,7 +41,12 @@ En anden mulighed ville være at gøre det internt i platformen, idet at man kun
 Dette er derfor noget der skal overvejes og arbejdes videre med. 
 
 \section{Kommunikation mellem moduler}
-% Blabla
+For at undgå at moduler skal dele data gennem content provideren kan man potentielt kommunikere direkte fra modul til modul.
+En fordel ved dette kan være at moduler kan sende deres opsamlede data til andre moduler så man kan undgå helt at gemme data i database.
+På den måde vil man kunne spare en masse plads, men vil komme med den bekostning af at det ikke længere er muligt at rekonstruere en analyse.
+Dette kræver dog en stor ændring i forhold til det der gøres nu, og skal derfor overvejes grundigt om dette er en god idé før det tages i brug.
+
+
 
 \section{Notifikationer}\mikael{Det er fra vores individuelle rapport, passer bedre ind her, skal nok rettes lidt til}
 \lars{Tror ikke den første del her passer ind, men alle reflektionerne om hvordan et modul af denne type skal implementeres er yderst relevante.}
