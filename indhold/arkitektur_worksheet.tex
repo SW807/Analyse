@@ -9,7 +9,7 @@ Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
 På den måde kan adgang kontrolleres på alle moduler, inklusiv de der måtte blive udviklet i fremtiden.
 hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem de installerede moduler.
 
-\section*{Opbygning}
+\section{Opbygning}\label{arkitektur:opbygning}
 Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
 
 Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
@@ -23,7 +23,7 @@ Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 Herunder gives en beskrivelse af hver af de fire komponenter.
 Komponenterne beskrives i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
 
-\subsection*{DB}
+\subsection{DB}
 Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
@@ -31,7 +31,7 @@ Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \texti
 Til dette projekt er valgt en SQLite database da denne er standard i Android.
 
 
-\subsection*{DB Access}
+\subsection{DB Access}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
 Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
@@ -97,7 +97,7 @@ På denne måde begrænser man systemets pladsforbrug.
 Eventuelle analyser på al data vil dog i så fald kunne kræve mere plads end telefonen kan tilbyde.
 En mulig løsning herpå kan være at lade den samme server som opbevarer data udføre analyse arbejdet.
 
-\subsection*{Moduler}
+\subsection{Moduler}
 Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
 Moduler indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visning af data.
 
@@ -154,7 +154,7 @@ Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analyse
 \stefan{ideer?}
 \mikkel{Samme kommentar som tidligere - jeg synes det er det forkerte sted at have 'fremtidig udvikling'}
 
-\subsection*{Manager}\label{subsec:arkitektur-Manager}
+\subsection{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
 Denne administration indebærer blandt andet oprettelse af de database tabeller hvert modul har bedt om i sin beskrivelse, samt start og stop af sensor- og analysemoduler.
