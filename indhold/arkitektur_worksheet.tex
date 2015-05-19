@@ -35,8 +35,7 @@ Til dette projekt er valgt en SQLite database da denne er standard i Android.
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
 Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
-Men det kan være nyttigt at abstrahere over hvor data indsamles og lagres, og er fint i tråd med de krav om generalitet og fleksibilitet for platformen.
-\mikkel{Jeg forstår ikke meningen med den sidste sætning.}
+Grundet denne potentielle opdeling af lager placeringer, kan de være nyttigt at abstrahere over hvor data lagres, og er fint i tråd med de krav om generalitet og fleksibilitet der er for platformen.
 
 Da det er intentionen, at eksterne udviklere skal kunne udvikle moduler til systemet, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
 På denne måde forhindres det at eksterne moduler korrumperer andre modulers data, enten ved et uheld eller med vilje.
@@ -46,7 +45,7 @@ For at imødekomme kravene om både at give ensrettet adgang til moduler og stil
 
 \subparagraph{Facade}
 For at kunne give en ensrettet interface til moduler tager vi inspiration i det strukturelle \textit{facade} design mønster.
-Facade er et design mønter der tilbyder et simpelt interface til et komplekst subsystem \citep{DATGANGOFFOUR}. 
+Facade er et design mønter der tilbyder et simpelt interface til et komplekst subsystem \citep{gamma1994design}. 
 Det er et middel til at få en løsere kobling mellem et system og klienterne der bruger systemet.
 Dette gøres ved at opstille en facade mellem klienterne og subsystemet.
 Facaden sikrer et ensartet interface til brug af subsystemerne, men hvor man abstraherer over disse.
@@ -56,8 +55,7 @@ Af denne årsag vælges facade designmønstret til at abstrahere over lagringen 
 Mønstret er implementeret ved hjælp af Androids indbyggede \textit{Content Provider} konstruktion\citep{contentprovider}.
 En Content Provider indkapsler data og giver adgang til hertil gennem et \textit{Content Resolver} interface.
 Dette interface anvendes til deling af data mellem flere applikationer.
-I vores tilfælde af den data der deles den som DB Access råder over.
-\mikkel{Bør DB Access ikke være implementationen af facade? DB Access råder ikke over data, men håndterer adgang.}
+DN Access er vores implementation af facade som giver adgang til DB.
 \mikkel{\stefan{mere detalje?} Det synes jeg. Der står ikke så meget om hvordan mønstret opnår de plusser det har.}
 
 \subparagraph{Observer}
@@ -79,23 +77,6 @@ Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
 Udover at være ensrettet skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men samtidig have mulighed for at læse fra andre modulers tabeller.
 Denne del af systemet er ikke implementeret.
 \mikkel{Mere detalje om sikkerhed? Jeg synes ikke vi bare kan lade være med at fortælle om det bare fordi det ikke er implementeret.}
-
-\paragraph{Fremtidig udvikling}
-På nuværende tidspunkt er sikkerhedsdelen ikke implementeret, og alle moduler kan derfor både læse og skrive til alle databasetabeller.
-For at undgå at en udvikler kan lave et modul der ødelægger data for et andet modul er dette nødvendigt.
-Vi forestiller os at der skal laves en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler og derved begrænse skriveadgang til modulet der har oprettet tabellen.
-\mikkel{Burde den her del, der beskriver en mulig løsning ikke bare stå under sikkerhed? Og så kan vi skrive i refleksion at det ikke er lavet.}
-\mikkel{\stefan{skriv eventuelt også i refleksion} Jeg synes ikke vi skal skrive det to steder.
-Jeg synes bare vi skal flytte beskrivelser af alt hvad vi ikke har nået over i refleksion.
-Det er lidt underligt at en del af arkitekturen er en beskrivelse af det vi ikke har fået lavet.}
-
-Det udviklede system anvender en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
-Da der er begrænset plads på en mobiltelefon (se \cref{eksperimenter}) vil denne løsning muligvis udløse en række problemer.
-Det vil derfor være en naturlig udvidelse at lade  DB Access sørge for at uploade data til et eksternt lager hvis der er data der ikke er nødvendigt at lagre på telefonen mere.
-På denne måde begrænser man systemets pladsforbrug.
-
-Eventuelle analyser på al data vil dog i så fald kunne kræve mere plads end telefonen kan tilbyde.
-En mulig løsning herpå kan være at lade den samme server som opbevarer data udføre analyse arbejdet.
 
 \subsection{Moduler}
 Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
@@ -149,11 +130,6 @@ Moduler med fælles grænseflade vil kunne kombineres.
 Det vil sige at der kan anvendes flere forskellige visningsmoduler til det samme analysemodul, givet at de er kompatible.
 Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analysemoduler.
 
-\paragraph{Fremtidig udvikling}
-
-\stefan{ideer?}
-\mikkel{Samme kommentar som tidligere - jeg synes det er det forkerte sted at have 'fremtidig udvikling'}
-
 \subsection{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
@@ -169,8 +145,3 @@ Manager komponenten indeholder desuden et JSON skema for hver modul-type i modul
 Disse definitioner beskriver formatet for eventuelle nye moduler man måtte ønske at føje til systemet.
 \stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
 
-
-\paragraph{Fremtidig udvikling}
-
-\stefan{ideer?}
-\mikkel{Samme kommentar som tidligere - jeg synes det er det forkerte sted at have 'fremtidig udvikling'}

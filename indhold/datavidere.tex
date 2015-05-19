@@ -1,0 +1,15 @@
+På nuværende tidspunkt er sikkerhedsdelen ikke implementeret, og alle moduler kan derfor både læse og skrive til alle databasetabeller.
+For at undgå at en udvikler kan lave et modul der ødelægger data for et andet modul er dette nødvendigt.
+Vi forestiller os at der skal laves en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler og derved begrænse skriveadgang til modulet der har oprettet tabellen.
+\mikkel{Burde den her del, der beskriver en mulig løsning ikke bare stå under sikkerhed? Og så kan vi skrive i refleksion at det ikke er lavet.}
+\mikkel{\stefan{skriv eventuelt også i refleksion} Jeg synes ikke vi skal skrive det to steder.
+Jeg synes bare vi skal flytte beskrivelser af alt hvad vi ikke har nået over i refleksion.
+Det er lidt underligt at en del af arkitekturen er en beskrivelse af det vi ikke har fået lavet.}
+
+Det udviklede system anvender en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
+Da der er begrænset plads på en mobiltelefon (se \cref{eksperimenter}) vil denne løsning muligvis udløse en række problemer.
+Det vil derfor være en naturlig udvidelse at lade  DB Access sørge for at uploade data til et eksternt lager hvis der er data der ikke er nødvendigt at lagre på telefonen mere.
+På denne måde begrænser man systemets pladsforbrug.
+
+Eventuelle analyser på al data vil dog i så fald kunne kræve mere plads end telefonen kan tilbyde.
+En mulig løsning herpå kan være at lade den samme server som opbevarer data udføre analyse arbejdet.
