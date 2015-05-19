@@ -1,13 +1,13 @@
-\section{Krav til arkitektur}\label{arkitekturkrav}
-Efter analysen af problemområdet kan vi udlede en række krav til systemets arkitektur. 
-Disse vil i dette afsnit blive beskrevet.
+\section{Arkitektur behov}\label{arkitekturkrav}
+Ved analyse of problemområdet udledes der i følgende afsnit en beskrivelse af behov til arkitekturen for den udviklede platform.
+Med denne beskrivelse dannes der et grundlag for en fælles forståelse af arkitekturens formål.
 
 \subsection{Fleksibilitet}
 Da vi har fundet ud af at symptomerne på affektive lidelser varierer meget fra person til person er vi nødt til at have en platform der understøtter denne tankegang.
 Som nævnt i konfigurationstabellen har vi som vision at platformen skal være modulær og fleksibel som et F-16 fly, hvor man kan hægte moduler på så de passer til den enkelte patient.
-Vi sigter efter en fleksibel platform i flere henseender.
-Vi ønsker en åben platform der muliggør at udviklere nemt kan udvikle moduler der kan benyttes af platformen.
 
+Vi sigter efter en fleksibel platform i flere henseender;
+Vi ønsker en åben platform der muliggør at udviklere nemt kan udvikle moduler der kan benyttes af platformen.
 Med fleksibilitet forstås også fusionering af flere datakilder, således at to moduler kan komme med estimater for eksempelvis søvn, og platformen understøtter at vælge hvilken kilde ønskes brugt.
 Dette kan være brugbart i forbindelse med for eksempel acceleration.
 Accellerometret i en smartphone er muligvis mere præcist end det i et smart watch, men da man har sit smart watch på håndleddet vil denne data i en given kontekst være mere relevant.
@@ -15,9 +15,12 @@ Accellerometret i en smartphone er muligvis mere præcist end det i et smart wat
 
 Platformen skal desuden understøtte kommunikation mellem moduler så data fra et modul nemt og sikkert kan deles med andre moduler.
 Da det er meningen at eksterne udviklere skal kunne lave moduler skal det ikke være muligt at skrive til andre modulers databasetabeller.
+Ved på denne måde at kontrollere adgangsrettighederne til data, forenkles processen med udvikling af nye moduler.
+Det sker fordi man som udvikler af et modul er garanteret, at data kun modificeres af modulet selv.
+Man skal altså således ikke bruge ressourcer på at verificere data i selve modulet.
 \stefan{ikke impl - refleksion}
 
 \subsection{Generalitet}
-Da affektive lidelser er et relativt bredt område er det nødvendigt at kunne registrere af en lang række forskelligartede symptomer.
+Da affektive lidelser er et relativt bredt område er det nødvendigt at kunne foretage registrering af en lang række forskelligartede symptomer.
 Af den grund er det helt centralt at platformen udvikles til at være så generel som mulig, for ellers risikerer vi at udelukke fremtidig udvikling og brug af systemet med hensigt i andre symptom registreringer.
-
+\mikkel{Hvad er forskellen på fleksibilitet og eneralitet?}
