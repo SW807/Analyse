@@ -6,7 +6,7 @@ I vores tilfælde skal det overvejes hvor stor en mængde data der kan lagres og
 For at undersøge hvordan de forskellige datakilder bruger pladsen på en smartphonen opstilles to eksperimenter.
 Hvis pladsforbruget viser sig for stort skal data enten komprimeres, aggregeres eller man bør overveje muligheden for ekstern lagring.
 
-Eksperimenterne blev udført på en Samsung Galaxy S4 hvor følgende datakilder lagrede i den samme SQLite database:
+Eksperimenterne blev udført på en Samsung Galaxy S4 hvor følgende datakilder blev lagret i den samme SQLite database:
 
 \begin{itemize}
 	\item Lyd - En datakilde der oplyser maks amplituden over en periode.
@@ -69,7 +69,7 @@ De enkelte datakilders var fordelt på følgende måde (sorteret efter pladsforb
 \end{tabular} 
 
 Som det ses af tabellen er de store pladssyndere `Accelerometer' og `Gyroskop' datakilderne.
-Dette skyldes at de forespørger konstant og gemmer al data.
+Dette skyldes at de forespørger meget ofte og gemmer al data.
 
 Lyd datakilden gemmer kun maks amplituden over en periode af 1000ms, af denne grund fylder dens data ikke mere end 4\% af databasen.
 Afhængig af hvad man vil analysere vil det være nødvendigt at gemme væsentligt mere end dette.
