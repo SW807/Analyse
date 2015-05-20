@@ -1,12 +1,12 @@
 \section{Pladsforbrug Eksperimenter}\label{eksperimenter}
 Det faktum at der skal indsamles data kommer med den konsekvens at en mængde plads på smartphonen skal bruges.
-På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har vores Samsung Galaxy S4 enheder kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
-Dette er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre.
-I vores tilfælde er det vi skal overveje hvor stor andel datakilde data der kan lagres.
-For at undersøge hvordan de forskellige datakilder bruger pladsen på smartphonen opstilles to eksperimenter.
+På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har en Samsung Galaxy S4 enhed kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
+Pladsforbrug er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre på mobile enheder.
+I vores tilfælde skal det overvejes hvor stor en mængde data der kan lagres og samtidig tillade brugen af andre applikationer på en persons telefon.
+For at undersøge hvordan de forskellige datakilder bruger pladsen på en smartphonen opstilles to eksperimenter.
 Hvis pladsforbruget viser sig for stort skal data enten komprimeres, aggregeres eller man bør overveje muligheden for ekstern lagring.
 
-Eksperimentet blev sat til at køre med følgende datakilder:
+Eksperimenterne blev udført på en Samsung Galaxy S4 hvor følgende datakilder blev lagret i den samme SQLite database:
 
 \begin{itemize}
 	\item Lyd - En datakilde der oplyser maks amplituden over en periode.
@@ -17,13 +17,13 @@ Eksperimentet blev sat til at køre med følgende datakilder:
 	\item Accelerometer - En datakilde der oplyser telefonens acceleration i 3 akser.
 \end{itemize}
 
-Dette udvalg er de datakilder der på eksperiment tidspunktet var kørbare.
-Det er vigtigt at bemærke at de ikke er i deres endelige form og at listen er ikke er komplet.
-Som platformen bliver udviklet vil der komme flere datakilder.
+Dette udvalg er de datakilder der på eksperiment tidspunktet var vurderet som sandsynligvis værende relevante senere i udviklingsforløbet.
+Det er vigtigt at bemærke at de ikke er i deres endelige form og at listen ikke er komplet.
+Som platformen bliver udviklet vil der komme flere datakilder og måske også udelades nogen.
 Disse eksperimenter vil derfor kun kunne give et estimat for pladsforbruget.
 
 Datakilder som Skærm, Nærhed og Placering producerer kun data når der sker ændringer. 
-Derfor blev det første eksperiment udført på en måde der efterligner brugssituation. 
+Derfor blev det første eksperiment udført på en måde der efterligner en potentiel brugssituation. 
 Smartphonen blev bevæget og skærmen blev tændt og slukket flere gange under testperioden.
 Det første eksperiment blev udført over 30 minutter.
 
@@ -69,7 +69,7 @@ De enkelte datakilders var fordelt på følgende måde (sorteret efter pladsforb
 \end{tabular} 
 
 Som det ses af tabellen er de store pladssyndere `Accelerometer' og `Gyroskop' datakilderne.
-Dette skyldes at de forespørger konstant og gemmer al data.
+Dette skyldes at de forespørger meget ofte og gemmer al data.
 
 Lyd datakilden gemmer kun maks amplituden over en periode af 1000ms, af denne grund fylder dens data ikke mere end 4\% af databasen.
 Afhængig af hvad man vil analysere vil det være nødvendigt at gemme væsentligt mere end dette.
@@ -101,13 +101,14 @@ Det er igen Accelerometer og Gyroskop datakilderne der fylder databasen efterful
 Det er naivt at lagre dataet i diskret form, hvorfor diverse metoder til reducering af data som opbevares på smartphonen diskuteres herunder.
 
 \subsection{Muligheder for Begrænsning af Pladsforbrug}
-For ikke at fylde mobil smartphonen op med data fra datakilderne vil det være fornuftigt at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
+For ikke at bruge alt den tilgængelige hukommelse på smartphonen til at lagre data fra vores datakilder, vil det være fornuftigt at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
 
 \subsubsection{Skyen}
 Ved at bruge skyen til at gemme på data kan man holde det aktuelle forbrug på selve smartphonen nede.
 Det vil dog kræve at man synkroniserer fra smartphonen til skyen, der sørger for at kun data der allerede er analyseret bliver slettet fra smartphonen. 
 Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analyse tager.
 Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyse på serversiden.
+Dette vil også muliggøre at have analyser kørende i skyen, hvis den mobile enhed ikke har beregningskraft \lars{bedre ord end beregningskraft} nok.
 
 \subsubsection{Oprydning i Data}\label{sec:opryd}
 Skærm datakilden er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
