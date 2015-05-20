@@ -70,7 +70,7 @@ Det betyder bare at modulet ikke selv kan bestemme hvornår det får ny data.
 Beregningerne kan ske når som helst.
 Det kunne derimod betyde at modulerne ikke selv skal holde styr på hvad der er ny data.
 Har vi andre argumenter mod observer?}
-Hvis et modul skal udføre tunge beregninger vil det være fordelagtigt at kunne udføre disse når brugeren ikke bruger telefonen, eventuelt om natten når telefonen alligevel er sat til strøm.
+Hvis et modul skal udføre tunge beregninger vil det være fordelagtigt at kunne udføre disse når brugeren ikke bruger smartphonen, eventuelt om natten når smartphonen alligevel er sat til strøm.
 Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
 
 \subparagraph{Sikkerhed}
@@ -91,7 +91,7 @@ Modullaget inddeles yderligere i tre konceptuelle lag: \textit{sensor}-, \textit
 Nedenstående beskriver intentionerne bag de forskellige modultyper og deres opgave.
 
 \subparagraph{Sensor}
-\textit{Sensor}laget indeholder moduler der indsamler data fra telefonens (eller tilbehør dertil) forskellige sensorer og applikationer.
+\textit{Sensor}laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
 Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
 Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
 Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
@@ -109,7 +109,7 @@ Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken info
 Denne information anvendes af visualiseringsmodulerne.
 
 Der kan ved analyse af sensordata anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
-Eksempelvis kan analysen foretages om natten hvor telefonen kan sættes til opladning.
+Eksempelvis kan analysen foretages om natten hvor smartphonen kan sættes til opladning.
 
 Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
 Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.

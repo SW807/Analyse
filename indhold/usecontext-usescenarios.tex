@@ -14,7 +14,7 @@ Sikkerheden skal være så patienterne er trygge ved at gemme sine personlige op
 \paragraph{Use Context}
 Konteksten som applikationen skal kunne bruges i er meget bred, da det omfatter hele patientens hverdag.
 Der skal derfor tages højde for at sensorer ikke altid er tilgængelige, og at data forbindelse ikke nødvendigvis er tilgængelig.
-Da applikationen skal logge data om patientens færden skal der håndteres at telefonen kan være i lommen, i hånden og ikke mindst på et bord eller i en jakkelomme der hænger i entreen.
+Da applikationen skal logge data om patientens færden skal der håndteres at smartphonen kan være i lommen, i hånden og ikke mindst på et bord eller i en jakkelomme der hænger i entreen.
 
 \paragraph{Technologies}
 Teknologier der benyttes inkluderer en smartphone og wearables der kan bruges sammen med en smartphone.
@@ -28,18 +28,18 @@ Teknologier der benyttes inkluderer en smartphone og wearables der kan bruges sa
 \lars{vi har muligvis for mange almost ens scenarier}
 Scenarier:
 \begin{itemize}
-	\item Patienten bevæger sig rundt i sin hverdag med telefonen i lommen. 
+	\item Patienten bevæger sig rundt i sin hverdag med smartphonen i lommen. 
 	\begin{itemize}
 		\item Data logges i systemet om gemmes til at kunne blive analyseret.
 	\end{itemize}
 	
-	\item Patienten er taget til familiearrangement og har efterladt telefonen i jakkelommen.
+	\item Patienten er taget til familiearrangement og har efterladt smartphonen i jakkelommen.
 	\begin{itemize}
-		\item Data logges i systemet og filtreres efter hvad der kan bruges selvom telefonen ikke er på patienten.
+		\item Data logges i systemet og filtreres efter hvad der kan bruges selvom smartphonen ikke er på patienten.
 		Brugbar data gemmes.
 	\end{itemize}
 	
-	\item Patienten låner sin telefon til sit barn, der bevæger sig rundt med den hele dagen.
+	\item Patienten låner sin smartphonen til sit barn, der bevæger sig rundt med den hele dagen.
 	\begin{itemize}
 		\item Data logges i systemet og forkastes da de ikke kan bruges til at få information om patienten.
 	\end{itemize}
@@ -69,11 +69,11 @@ Ud fra disse scenarier har vi følgende tilstands klassificerings problematikker
 \end{itemize}
 
 Den første problematik er hvordan man identificerer hvilken kontekst dataindsamlingsenheden befinder sig i, og ud fra denne vurdere hvilke datakilder der stadig bibeholder deres relevans i denne kontekst.
-Eksemplet der et givet i førnævnte scenarie er at patienten har efterladt eller glemt sin telefon i sin jakke, i en sådan situation kunne man forstille sig at datakilder som for eksempel bevægelsesdata eller lydregistrering er ubrugelige.
-Dog skal man også i denne sammenhæng være forsigtig, for hvis man forkaster for meget data når telefonen ikke er på en person, vil det gøre det vanskeligt at lave analyser på perioder hvor præmis for analysen er, at telefonen ikke holdes af en person, hvilket kunne være søvn analyse. 
-Det er dog ikke kun et spørgsmål om at identificere hvornår telefonen ikke er på en person.
+Eksemplet der et givet i førnævnte scenarie er at patienten har efterladt eller glemt sin smartphone i sin jakke, i en sådan situation kunne man forstille sig at datakilder som for eksempel bevægelsesdata eller lydregistrering er ubrugelige.
+Dog skal man også i denne sammenhæng være forsigtig, for hvis man forkaster for meget data når smartphonen ikke er på en person, vil det gøre det vanskeligt at lave analyser på perioder hvor præmis for analysen er, at smartphonen ikke holdes af en person, hvilket kunne være søvn analyse. 
+Det er dog ikke kun et spørgsmål om at identificere hvornår smartphonen ikke er på en person.
 Der skal også identificeres om det er den tiltænkte person der bærer enheden, da i disse situationer giver data der indsamles et indblik i den forkerte persons tilstand og er derfor irrelevant størstedelen af tiltænkte analyser.
-Der er dog en mulighed at det kunne anses som social interaktion at en patient låner sin telefon ud, og derfor kunne sådan information måske bruges i sociale analyser.
+Der er dog en mulighed at det kunne anses som social interaktion at en patient låner sin smartphone ud, og derfor kunne sådan information måske bruges i sociale analyser.
 
 Den anden udfordring, at identificere brugerens tilstand, kræver indsamling af meget data fra mange forskellige kilder for at have et grundlag for en vurdering af disse.
 Hvilke datakilder dette skal være kan variere meget fra individ til individ.

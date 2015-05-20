@@ -41,7 +41,7 @@ Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON S
 
 \subsubsection{Typer af Moduler}
 Der findes som sagt i \cref{sec:arkitektur}, tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visualisering}.
-Som sagt er sensor moduler, moduler som indsamler data fra telefonens forskellige sensorer og applikationer.
+Som sagt er sensor moduler, moduler som indsamler data fra smartphonens forskellige sensorer og applikationer.
 Endvidere er analyse moduler, moduler som bruger data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
 Visualiseringsmodulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
@@ -64,7 +64,7 @@ Derfor skal det defineres for hvert modul hvilke andre moduler det er afhængigt
 Der findes to grader af afhængigheder i systemet: hard- eller soft-dependency.
 En hard-dependency er ét andet modul som det pågældende modul ikke kan fungere uden.
 En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede moduler skal være til stede på enheden.
-Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en telefon eller fra en wearable.
+Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en smartphone eller fra en wearable.
 
 \subsubsection{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
@@ -94,7 +94,7 @@ Meta-data er præfikset med \_ (underscore).
 \end{lstlisting}
 
 \subsubsection{Implementering}
-Som nævnt i \cref{sec:valg_af_android}, implementeres der til Android telefoner.
+Som nævnt i \cref{sec:valg_af_android}, implementeres der til Android smartphones.
 Dette sætter nogle begrænsninger ift. valg af løsninger.
 
 \subsubsection{JSON kontra XML}
