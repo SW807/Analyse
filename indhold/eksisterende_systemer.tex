@@ -3,18 +3,18 @@ Dette afsnit detaljerer eksisterende systemer som allerede implementerer mange a
 Systemerne der vil blive forklaret er Ginger.io, Apple Health, Google Fit, Microsoft Health og Healthvault.
 
 \subsection{Ginger.io}
-Ginger.io er en app til iPhone og Android, beregnet til at assistere patienter med diverse psykiske lidelser.\cite{ginger_dot_io}\cite{gingerio_mit}\cite{gingerio_dailymail}
+Ginger.io er en applikation til iPhone og Android, beregnet til at assistere patienter med diverse psykiske lidelser.\cite{ginger_dot_io}\cite{gingerio_mit}\cite{gingerio_dailymail}
 
 
-App'en er lavet til at assistere i behandlingen for følgende lidelser: depression, angst, bipolær affektiv lidelse og skizofreni.
+Applikationen er lavet til at assistere i behandlingen for følgende lidelser: depression, angst, bipolær affektiv lidelse og skizofreni.
 
-Efter at app'en er installeret, vil den indsamle data, denne data kan så bruges til at sige noget om mobil-brugerens sindsmæssige tilstand.
+Efter at applikationen er installeret, vil den indsamle data, denne data kan så bruges til at sige noget om mobil-brugerens sindsmæssige tilstand.
 Der bliver overordnet set indsamlet to typer data; aktiv og passiv.
-Aktiv data er forespørgsler fra app'en, hvor mobil-brugeren selv skal svare.
+Aktiv data er forespørgsler fra applikationen, hvor mobil-brugeren selv skal svare.
 Passiv data vil blive indsamlet i baggrunden, og består af interaktions- og lokations-data, hvor interaktions-data er mobil-brugerens opkald- og SMS-vaner og lokations-data er opfanget via GPS og accelerometer, for at sige noget om hvor og hvordan mobil-brugeren bevæger og opholder sig.
 
-For at komme i gang med app'en, skal brugeren indtaste relevant information, såsom diagnoser, behandlingsforløb og behandler.
-Ud fra disse informationer vil app'en tilpasse forespørgslerne brugt til indsamling af aktive data.
+For at komme i gang med applikationen, skal brugeren indtaste relevant information, såsom diagnoser, behandlingsforløb og behandler.
+Ud fra disse informationer vil applikationen tilpasse forespørgslerne brugt til indsamling af aktive data.
 Derudover vil passiv data der indsamles i de første dage bruges til at angive brugerens normal-tilstand.
 Herefter vil brugeren modtage notifikationer om ændring i social eller fysisk aktivitet, og i værste tilfælde vil behandler eller anden angivet kontaktperson blive notificeret.
 
@@ -30,10 +30,10 @@ Den overordnede idé er at Ginger.io skal assistere behandlingsprocessen, ved at
 
 \subsubsection{Problemer}
 Som det ser ud nu, er Ginger.io kun tilgængeligt i USA, og kun ved tilmeldte behandlere.
-Derudover fungerer interaktions-data-indsamlingen kun på Android, hvilket betyder at iPhone app'en kun indsamler data omkring lokation, samt aktiv data.
+Derudover fungerer interaktions-data-indsamlingen kun på Android, hvilket betyder at iPhone applikationen kun indsamler data omkring lokation, samt aktiv data.
 
 \subsection{Fitness Trackere}
-Der findes adskillige apps og større systemer til at styre ens fysiske aktivitet og velvære.
+Der findes adskillige applikationer og større systemer til at styre ens fysiske aktivitet og velvære.
 Heriblandt;
 \begin{itemize}
 \item Apple Health\cite{apple_health}
@@ -41,12 +41,12 @@ Heriblandt;
 \item Microsoft Health\cite{ms_health} og HealthVault\cite{ms_health_vault}\cite{ms_health_vault_api}
 \end{itemize}
 
-Ens for disse fitness trackere, i modsætning til enkelte apps, er at de samler informationer fra et væld af forbundne enheder og apps.
+Ens for disse fitness trackere, i modsætning til enkelte applikationer, er at de samler informationer fra et væld af forbundne enheder og applikationer.
 Ydermere kan de indstilles til bestemte mål, og derved løbende fortælle om hvordan det går med at opnå disse mål.
 
 \subsubsection{Apple Health}
-Med Apple Health er det muligt at indsamle information fra andre apps (fx. måltider eller hjertefrekvens), for at samle al data ét sted på sin mobil, eller synce det med en iCloud konto.
-Derudover er det muligt for andre apps at få adgang til Apple Health's data, ved at give tilladelse til forskellige kategorier af data.
+Med Apple Health er det muligt at indsamle information fra andre applikationer (fx. måltider eller hjertefrekvens), for at samle al data ét sted på sin mobil, eller synce det med en iCloud konto.
+Derudover er det muligt for andre applikationer at få adgang til Apple Health's data, ved at give tilladelse til forskellige kategorier af data.
 Skærmbilleder af henholdsvis den oversigt Apple Health kan give, samt de kategorier der indsamles i, kan ses på \cref{eksisterende_systemer:apple_health_ss}.
 
 \begin{figure}
@@ -57,12 +57,12 @@ Skærmbilleder af henholdsvis den oversigt Apple Health kan give, samt de katego
 \end{figure}
 
 \subsubsection{Google Fit}
-Ligesom Apple Health, kan Google Fit samle data fra andre apps.
+Ligesom Apple Health, kan Google Fit samle data fra andre applikationer.
 Derudover kan Google Fit også indsamle data fra andre kilder, såsom wearables.
-Derefter er det muligt at få oversigt over ens aktiviteter og fysiske tilstand, via Googles egen side eller app.
-Det er også muligt at lave sine egne apps, til både indsamling og visualisering, via Google Fit API (Android SDK eller REST web service).
+Derefter er det muligt at få oversigt over ens aktiviteter og fysiske tilstand, via Googles egen side eller applikation.
+Det er også muligt at lave sine egne applikationer, til både indsamling og visualisering, via Google Fit API (Android SDK eller REST web service).
 
-Uden eksterne wearables eller apps, indsamles der kun bevægelses-data fra fx. GPS, hvor Google Fit app'en selv estimerer om man går, løber eller cykler.
+Uden eksterne wearables eller applikationer, indsamles der kun bevægelses-data fra fx. GPS, hvor Google Fit applikationen selv estimerer om man går, løber eller cykler.
 For andet aktivitet skal man manuelt indtaste (fx. roning eller yoga) sammen med varigheden.
 
 Google Fit består af 4 komponenter:
@@ -104,7 +104,7 @@ Der er 4 vigtige koncepter i HealthVault:
 \paragraph{Apple Health}
 Apple Health er naturligvis lukket til iOS.
 Som det er nu, er det ikke muligt at dele helbredsoplysninger direkte med andre personer.
-Som det er nu skal der laves eksterne apps til indsamling af data, Apple Health kan ikke selv tilslutte sig wearables for at indsamle data.
+Som det er nu skal der laves eksterne applikationer til indsamling af data, Apple Health kan ikke selv tilslutte sig wearables for at indsamle data.
 \ivan{Bør checkes, hvad med Watch?}
 
 \paragraph{Google Fit}

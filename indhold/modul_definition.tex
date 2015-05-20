@@ -1,15 +1,15 @@
-%Måde at lave eksterne modul-apps uden at ændre hoved-app
+%Måde at lave eksterne modul-applikationer uden at ændre hoved-applikation.
 %Definere output (tabeller/kolonner), samt input (afhængigheder)
 %Evt. konfigurationsmuligheder for moduler afhængige af det
-%Fleksibel måde at modtage data fra andre moduler, uden at skulle opdatere app(s). Dvs. ikke design-mønstre: observer, mediator, men gennem content provider.
-% modularisering i Android; multiple apps under samme package
+%Fleksibel måde at modtage data fra andre moduler, uden at skulle opdatere applikation(erne). Dvs. ikke design-mønstre: observer, mediator, men gennem content provider.
+% modularisering i Android; multiple applikationer under samme package
 
 For at opfylde kravet om fleksibilitet der er stillet til systemet, har vi udtænkt en modulbaseret arkitektur der gør det let at tilføje moduler til pakken.
 Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
 Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
 \subsubsection{Forslag til modulariseing}
 \paragraph{Komplet Pakke}
-En traditionel app samler al funktionalitet i en pakke.
+En traditionel applikation samler al funktionalitet i en pakke.
 Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele appen på samme tid.
 Desuden bliver det sværere for eksterne udviklere at bidrage til applikationen, da opdateringer skal ske igennem udviklerne af hovedapplikationen.
 
@@ -25,14 +25,14 @@ Den tredje mulighed er at pakke hvert modul i en selvstændig APK \footnote{Andr
 Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet.
 Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
 
-Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræver at en stor mængde af apps skal installeres.
-Derudover er kommunikation mellem apps vanskeligere end internt i en app, men ses som acceptabelt.
-Desuden kan det være træls at skulle installere en større mængde af apps for at have den fornødne funktionalitet.
-Som løsning derpå kunne man med videre arbejde have et indbygget app marked i manageren, og er værd at udforske med mere tid.
+Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræver at en stor mængde af applikationer skal installeres.
+Derudover er kommunikation mellem applikationer vanskeligere end internt i en applikation, men ses som acceptabelt.
+Desuden kan det være træls at skulle installere en større mængde af applikationer for at have den fornødne funktionalitet.
+Som løsning derpå kunne man med videre arbejde have et indbygget applikation marked i manageren, og er værd at udforske med mere tid.
 
 Det er en løsning der har mange fordele i forhold til modularisering og svagheder der kan tolereres, hvorfor denne løsning er valgt. 
 
-Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp af selvstændige apps.
+Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp af selvstændige applikationer.
 
 \subsubsection{Beskrivelsesfilen}
 
@@ -104,14 +104,14 @@ En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsp
 Denne automatiske generering viste sig ikke at være ligetil på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
 
 \subsubsection{Moduler som Applikationer}
-For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres apps via Google Play Store.
-Alle modul-apps, samt hoved-applikationen, deler \textit{package}-navn.
-Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
-Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
+For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres applikationer via Google Play Store.
+Alle modul-applikationer, samt hoved-applikationen, deler \textit{package}-navn.
+Hver modul-applikation har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
+Kommunikation mellem applikationer foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
 
 \subsubsection{Håndtering i Manager}
 Håndteringen af moduler sker i manageren, beskrevet i \cref{subsec:arkitektur-Manager}.
-Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle apps der er installeret under pakken ``dk.aau.cs.psylog''.
+Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle applikationer der er installeret under pakken ``dk.aau.cs.psylog''.
 Manageren læser alle moduldefinitioner efter at have valideret dem op imod JSON skemaet.
 Alle moduler der har opdateret versionsnummer eller er helt nye vil blive håndteret ved at manageren læser tabelinformation ind fra moduldefinitionen og opretter eller ændrer de pågældende tabeller.
 

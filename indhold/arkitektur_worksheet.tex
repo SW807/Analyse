@@ -1,9 +1,9 @@
 \section{Arkitektur}\label{sec:arkitektur}
 Eftersom vi ikke har fundet et eksisterende arkitekturmønster der kan tilgodese behovene opstillet i \cref{arkitekturkrav}, er en særskilt arkitektur blevet konstrueret.
 Denne søger at tilgodese behovene bedst muligt.
-Arkitekturen er lavet ud fra ideen om at apps på android kan kontakte hinanden igennem android systemet. 
+Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem android systemet. 
 Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation.
-Dette udnyttes ved at pakke alle moduler i hver deres selvstændige app.
+Dette udnyttes ved at pakke alle moduler i hver deres selvstændige applikation.
 Ved at anvende en centraliseret database vil det være muligt for moduler at få adgang til data fra andre moduler.
 Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
 På den måde kan adgang kontrolleres på alle moduler, inklusiv de der måtte blive udviklet i fremtiden.
