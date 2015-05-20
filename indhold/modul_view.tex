@@ -2,18 +2,18 @@
 
 Som udgangspunkt er \textit{visninger} forskellige visualiseringer af analyse modulernes output.
 
-De eneste restriktioner der stilles for data der kan læses fra et analyse moduler er de formater der kan gemmes i databasen.
+De eneste restriktioner der stilles for data der kan læses fra et analyse modul er de formater der kan gemmes i databasen.
 Det betyder at det mulige output fra et analyse model er meget fleksibelt, hvilket kræver en tilsvarende fleksibilitet i visningsmodulerne.
 
 En simpel løsning vil være at der for hvert analysemodul skal defineres et visnings modul.
 Herved sikres det at alle analysemoduler har en visning der præcist repræsenterer genererede data.
-Det er dog nemt at problemstillingerne i denne løsningsmodel, da det giver meget lav genanvendelse af eksisterende moduler.
+Det er dog nemt at finde problemstillingerne i denne løsningsmodel, da det giver meget lav genanvendelse af eksisterende moduler.
 Eksempelvis kan man nemt forestille sig forskellige datasæt der kan repræsenteres ved hjælp af en to-dimensional graf.
 En løsning der ville kræve en ny implementation af en sådan visning for hver analyse modul er ikke fleksibel nok.
 
 Alternativt kan visninger beskrive en liste over de analyser de kan anvendes på.
 På den måde kan visninger anvendes på mere end et analyse modul.
-Omend dette løser problemet til en vis grad vil problemet stadig eksistere når der tilføjes nye analyse moduler.
+Omend dette løser problemet til en hvis grad vil problemet stadig eksistere når der tilføjes nye analyse moduler.
 Her vil visningerne enten blot ikke have kendskab til de nye moduler eller de vil skulle opdateres løbende.
 Altså er fleksibiliteten af denne løsning heller ikke god nok.
 Man kan naturligvis også lade alle analyse moduler beskrive en liste over visnings moduler.
@@ -23,7 +23,9 @@ En mere fleksibel metode til håndtering knytningen mellem visninger og analyser
 På denne måde kan der laves visninger der repræsenterer bestemte signaturer, og der opstår en implicit binding mellem visninger og analyser for de hvor de to beskrivelser stemmer overens.
 
 I mange tilfælde vil denne implicitte binding være nok, dog kan det forestilles at analyserne vil være forskellige og til tider komplekse, hvilket kan gøre det nødvendigt at nærmere specificere hvordan den tilgængelige data kan vises.
+Der er også den mulighed at analysemoduler kunne have ekstra database tabeller, der ikke skal vises, som så kunne virke forstyrrende for den implicite binding.
 Her kunne der tilføjes noget meta-data på analysens tabeller/kolonner, der beskriver den på sådan en måde, at det ville kunne bruges til visninger der ikke nødvendigvis implicit kunne knyttes til det.
+Det kunne også være muligt at tilføje information om kriterier for visninger i analysemodulers JSON filer, og så overlade det til Manager komponenten at matche et analysemoduls kriterier med de kriterier visningsmoduler opfylder.
 
 \subsubsection{Eksempel}
 Her bruges light, som er en simpel sensor og analyse, der fra sensoren indhentes løbende lys-niveau (i lux).

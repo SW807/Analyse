@@ -36,19 +36,19 @@ Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp a
 
 \subsubsection{Beskrivelsesfilen}
 
-Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \cite{json_schema}.
+Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \citep{jsonpojo}.
 Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Skema.
 
 \subsubsection{Typer af moduler}
 Der findes som sagt i \cref{sec:arkitektur}, tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visning}.
-Som sagt er sensor moduler, moduler som indsamler data fra telefonens forskellige sensorer og applikationer.
-Endvidere er analyse moduler, moduler som bruger data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
-Visnings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
+Som sagt er sensormoduler, moduler som indsamler data fra telefonens forskellige sensorer og applikationer.
+Endvidere er analysemoduler, moduler der bearbejder data fra enten sensor- eller andre analysemoduler med den hensigt at opnå en opsummering af data som kan bruges af systemet til enten visualisering eller videre bearbejdning af andre analysemoduler.
+Visningsmodulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
 \subsubsection{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
 
-Sensor- og analyse-moduler skal gøre data tilrådighed for andre analyse- og visnings-moduler.
+Sensor- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visnings-moduler.
 For at specificere hvordan data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
 For hvert modul skal der defineres en eller flere tabeller som modulet kan gemme data i.
 For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
@@ -115,4 +115,5 @@ Når der tilføjes eller opdateres et modul detekterer manageren dette ved at fi
 Manageren læser alle moduldefinitioner efter at have valideret dem op imod JSON skemaet.
 Alle moduler der har opdateret versionsnummer eller er helt nye vil blive håndteret ved at manageren læser tabelinformation ind fra moduldefinitionen og opretter eller ændrer de pågældende tabeller.
 
-Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres\als{evt. referer til settings arbejdsark}.
+Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres.
+Denne proces er yderligere beskrevet i \cref{sec:settings}
