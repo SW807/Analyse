@@ -1,84 +1,103 @@
-I udviklingsforløbet af platformen, var der forskellige beslutninger som blev taget i henhold til hvad der skulle implementeres samt hvad der kunne udvikles videre på og generelle overvejelser om platformen.
-At reflektere over disse beslutninger og overvejelser giver det et overblik og forståelse af forløbet og denne refleksion er derfor beskrevet herunder. 
+I udviklingsforløbet af platformen, var der forskellige beslutninger, som blev taget i henhold til hvad der skulle implementeres, samt hvad der kunne udvikles videre på og generelle overvejelser om platformen.
+At reflektere over disse beslutninger og overvejelser skaber overblik og forståelse af forløbet, og er beskrevet herefter.
 
 %\section{Valg af data kilder}
 %Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet at hvis man for eksempel har data fra et smartwatch og fra en accelerometer på smartphonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
 %Men dette blev aldrig lavet, idet at det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
 
 \section{Visualiseringer}
-Data indsamlet og analyseret af forskellige moduler, skulle originalt kunne visualiseres med det formål at give brugere af platformen et overblik over deres sindstilstand.
-Det blev overvejet kort i \cref{sec:visningsmodul}, der diskutere håndteringen af visualiseringsmodulerne skal gøres, men det har ikke været et stor fokus og blev derfor aldrig gennemtænkt. 
-Det blev aldrig gjort færdigt af den grund at det ville kræve datavisualiserings-teknikker og -teori, og til sidst på grund af manglende ressourcer. 
-Udover de ting der blev diskuteret i \cref{sec:visningsmodul} skal man også overveje hvordan brugere skal vælge hvilke visualiseringsmoduler de gerne vil kunne se og hvordan det skal implementeres i Android så det er muligt for andre udviklere at lave deres egne visualiseringsmoduler.
-Ydermere, skal man også overveje hvordan data skal repræsenteres til brugerne, da det gerne skal være let forståeligt og gennemskueligt for målgruppen. 
+Data indsamlet og analyseret af forskellige moduler, skulle originalt kunne visualiseres, med det formål at give brugere af platformen et overblik over deres sindstilstand.
+I \cref{modul_definition}, blev der diskuteret hvordan håndteringen af visualiserings-modulerne skal foretages.
+Dette er et emne der bør udforskes ved videre arbejde, men er ikke foretaget på nuværende tidspunkt da det blev dømt for tidstagende.
+Ved videre arbejde bør datavisualiserings-teknikker og -teori undersøges nærmere.
 
-\section{Eksperimenter}
-Der blev udført et eksperiment for at få en idé over hvor meget plads der kræves for at kunne benytte platformen, hvilket er beskrevet i \cref{eksperimenter}.
-Når platformen engang er blevet videre udviklet, vil det kræve at man foretager sådan et eksperiment endnu engang. 
-Dette eksperiment vil kunne give et billede af hvor meget pladsforbrug det færdige produkt så vil kunne bruge.
-Derudover, bør disse eksperimenter udføres for hvert enkelt modul, hvilket vil kunne bruges af brugerne så de selv kan afgøre hvor meget plads de har lyst til at bruge.
-Ydermere, vil det også være fordelagtigt at udvide eksperimentet til at inkludere strømforbrug, idet at dette kan være et problem med de forskellige sensorer der skal logge data konstant.
+Udover diskussion om hvilke krav der skal være til visualiserings-moduler, beskrevet i \cref{modul_definition}, skal man også overveje hvordan brugere skal vælge hvilke visualiserings-moduler de gerne vil kunne se, og hvordan de skal vises i manageren.
 
-For at gøre eksperimenterne mere nøjagtigt, vil det være en idé at kunne udføre eksperimenterne på en smartphone der er i brug, for på den måde at kunne afgøre hvor meget det vil bruge i normale tilfælde.
-Derudover, kan eksperimenterne også udføres på en sådan måde at platformen bruger så mange ressourcer som overhovedet muligt og derved give brugerne en idé om hvad applikationen maksimalt kræver. 
+En mulighed er at have en administrationsside til visualiseringer, der minder om indstillingssiden til valg af dataindsamlings- og analysemoduler.
+Eksempelvis kan man forestille sig en kobling mellem disse moduler og visualiseringerne, sådan at for hvert modul kan man angive hvilke visualiseringer man vil benytte.
+Koblingen ville her gå på visualiseringer der passer til de enkelte datasæt som modulerne tilbyder.
 
-\section{Data Indsamling}
-Som nævnt før, se \cref{eksperimenter}, vil den mængde data der bliver indsamlet kunnes reduceres.
-For at gøre dette skal man overveje hvilken metode man gerne vil bruge.
-I \cref{eksperimenter} bliver der givet tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ændre på opdateringshastigheden for de forskellige sensorer.
-Ydermere, er dette vigtigt også at overveje de forskellige fordele og ulemper der er ved de forskellige, samt om det kan være en god idé at kombinere de forskellige metoder.
-En kombinering kunne være at gammel data kom op i skyen, hvor imod en oprydning af det nye data kan blive gjort.
+En anden mulighed er at visualiserings-modulerne der er installeret, er dem der bliver vist i manageren, og specificerer selv hvilke moduler de virker til.
+Dette er en mere enkel løsning at implementere, til gengæld tilbyder den knap så stor fleksibilitet i forhold til udviklingen af nye analysemoduler, da man så er nødsaget til at skulle opdatere specifikationen for de pågældende visualiserings-moduler.
+
+% Hvordan skal visualiseringerne så vises i mangageren?
+En anden diskussion går på hvorledes visualiseringerne skal vises i manageren.
+En enkel måde at gøre dette på er som en liste der bliver præsenteret på forsiden af manageren.
+Der vil med denne løsning være mulighed for at ændre rækkefølgen af modulerne ved at trække visualiseringerne til en anden position i listen.
+En ulempe ved denne løsning er at den ikke tilbyder kategorisering af visualiseringer.
+
+En inddeling af visualiseringerne i forskellige kategorier ved hjælp af faner er et alternativ der kan benyttes.
+Dette sikrer at hvis man har mange visualiseringer bliver det nemmere at abstrahere over disse, da man kan nøjes med at se på en kategori ad gangen, eksempelvis søvn eller social aktivitet.
+
+Endvidere er der en overvejelse der går på at udvikle visualiseringer der er forståelige og gennemskuelige for målgruppen, men dette betragtes som et ansvar for den enkelte visualiserings-udvikler og er dermed ikke noget platformen bør takle.
+Platformen benyttes af udvikleren, men hvordan de enkelte visualiseringer skal se ud er op til den enkelte udvikler.
+
+De præsenterede muligheder er ikke fastlagte, og opfordres til at blive diskuteret yderligere ved videre arbejde, så den mest hensigtsmæssige løsning opnås.
+
+\section{Dataindsamling}
+Som nævnt i \cref{eksperimenter}, vil mængden af data der indsamles kunne blive reduceret.
+Der nævnes tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ved at ændre på opdateringshastigheden for de forskellige sensorer.
+I den sammenhæng er det vigtigt at vægte fordele og ulemper for metoderne, samt om det er muligt at kombinere de forskellige metoder.
+En kombinering man kunne forstille sig er at lagre gammelt data i skyen, hvorimod ny data lagres lokalt, men hvor al data komprimeres.
+Hvordan dette skal implementeres er et åbent spørgsmål, men bør udforskes videre.
+Som udgangspunkt har vi lavet et interface, som modulerne kan benytte, i form af DBAccess, så disse ændringer ville være backend ændringer og dermed ville de ikke komme til at påvirke de enkelte moduler.
+
+En anden tankegang til at reducere plads er ved at ændre arkitekturen så man kan kommunikere modul til modul uden nødvendigvis at lagre i en database.
+En fordel ved dette kan være at moduler kan sende deres opsamlede data til andre moduler, så man kan undgå helt at gemme data i databasen for visse mellemleds-moduler.
+På den måde vil man kunne spare en masse plads, men det vil komme på bekostning af at det ikke længere er muligt at rekonstruere en analyse. En måde dette kunne implementeres på, uden at gå på kompromis med modulariteten, er at benytte sig af et observer designmønster som beskrevet i \cref{subsec:DBACCESS}.
+Dog er det en stor ændring i forhold til den nuværende arkitektur, men er et alternativ man med fordel kunne benytte sig af til at gøre datadeling mellem moduler mindre pladskrævende.
 
 \section{Analyse Aflastning}
 For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
 Dette vil have den effekt at smartphonen ikke behøver gøre særlig meget udover at registrere sensor data.
-Dette er også en idé der skal undersøges ordentligt da der kan være problematikker som vi ikke har kendskab til på dette tidspunkt. 
+Dette er også en idé der bør undersøges videre, hvor man også skal have problematikker såsom sikkerhed og kommunikationstid i mente.
 
-\section{File Provider}
-Som det er lavet lige nu skal platformen hente de ressource filer de forskellige moduler har, for at få fat i deres modul definition.
-Dette gør at andre applikationer også har rettigheder til at hente ressource filerne og dette vil kunne give problemer senere, hvis man laver et ikke open-source modul.
-Til at undgå denne deling af filer vil man kunne benytte en file provider der kan gøre det muligt at dele en bestemt fil til en anden applikation.
-Dette skal derfor tilføjes til alle moduler så de kan dele deres modul definition kun med platformen. 
+\section{Eksperimenter}
+Der blev udført eksperimenter, for at få en idé over hvor meget plads der kræves for at kunne benytte platformen, hvilket er beskrevet i \cref{eksperimenter}.
+Imidlertid er der foreslået diverse forbedringer til at minimere pladsforbruget, og når disse forbedringer implementeres, bør en ny række af eksperimenter foretages, til at verificere at løsningerne har den ønskede effekt.
+Endvidere, vil det være fordelagtigt at udvide eksperimenterne til at inkludere strømforbrug, da dette også er et problem som kan forekomme ved konstant datalogning.
 
-\section{Database Rettigheder}\label{databaserettigheder}
-Som det er nu med den Content Provider der er defineret i platformen, giver dette hvert modul adgang til alt data som ligger i databasen.
-Dette er unødvendigt åbent og giver alt for bred adgang til de forskellige moduler, så i stedet for dette skal der ved videre arbejde laves en måde så man kan begrænse hvilke moduler der har adgang til hvilken data.
-Der er forskellige veje man kan følge for at implementere dette.  
-Et af disse er de tilladelser som eksisterer i Android, hvor man kan definere nye tilladelser og dette er endda brugt til at give modulerne adgang til Content Provider på dette tidspunkt.
-Hvis dette kunne gøres vil selve Android håndtere tilladelserne og give brugerne valget over hvad de vil have de forskellige moduler skal have adgang til.
-En anden mulighed ville være at gøre det internt i platformen, idet at man kunne definere tilladelser i modul definitionen og baseret på disse give tilladelse til tabeller, men dette har ulempen at det kan blive svære at kontrollere. 
-En tredje mulighed at se på er bare at begrænse skrive adgang til tabellerne, en måde at gøre dette på er ved lave en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler.
-Dette er derfor noget der skal overvejes og arbejdes videre med. 
+\section{Alternativ Moduldefinitions-deling}
+Med den nuværende implementering skal platformen hente ressourcefilerne for de enkelte moduler, for at læse deres moduldefinitioner.
+Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket kan give problemer, hvis man laver et ikke open-source modul.
+Til at undgå denne deling af filer, blev der undersøgt om en file provider kunne implementeres, der kan gøre det muligt at dele en bestemt fil til en anden applikation.
 
-\section{Kommunikation mellem Moduler}
-For at undgå at moduler skal dele data gennem content provideren kan man potentielt kommunikere direkte fra modul til modul.
-En fordel ved dette kan være at moduler kan sende deres opsamlede data til andre moduler så man kan undgå helt at gemme data i database.
-På den måde vil man kunne spare en masse plads, men vil komme med den bekostning af at det ikke længere er muligt at rekonstruere en analyse.
-Dette kræver dog en stor ændring i forhold til det der gøres nu, og skal derfor overvejes grundigt om dette er en god idé før det tages i brug.
+Brug af en sådan file provider kræver dog at platformen på forhånd skal vide hvilke moduler den skal benytte en file provider af.
+Dette mindsker modulariteten af platformen, da man ville begrænse moduler der kan bruges til en fastsat mængde, hvorfor denne løsning ikke blev brugt.
+
+Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes, der ikke mindsker modulariteten, bør denne benyttes.
+
+\section{Databaserettigheder}\label{databaserettigheder}
+Med den nuværende implementering af DBAcess har hvert modul adgang til alt data som ligger i databasen.
+Dette er unødvendigt åbent og giver for bred adgang til de forskellige modulers data.
+For at gøre løsningen mere sikker, bør der med videre arbejde implementeres en måde til at begrænse hvilke moduler, der har adgang til hvilket data.
+
+En ønsket mulighed er at gøre det internt i platformen, idet at man kan definere tilladelser i moduldefinitionen og baseret på disse give tilladelse til tabeller. 
+Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke kan blive orienteret om hvilket modul benytter den, dette er en begrænsning fra Androids side.
+
+En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
+
 
 \section{Interaktive Moduler}
 En idé som ikke blev undersøgt var at udvikle interaktive moduler.
-Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at test folks reaktionsevne.
-Dette kunne gøres fordi at ved affektive lidelser ser man nogen gange den slags symptomer. 
+Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at teste reaktionsevne.
+Dette kunne være en god idé, da man ved affektive lidelser nogle gange ser den slags symptomer.
 
 \section{Notifikationer}
 En ting som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
-Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber ift. at forstyrre en evt. patient med psykiske problemer.
-Dog blev det så fundet ud af senere, ifm. styregruppemødet at patienterne var interesseret i dette, da de var meget interesseret i at få at vide så tidligt som muligt hvis de var under forværring i deres tilstand.
+Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber i.f.t. at forstyrre en evt. patient med psykiske problemer.
+Dog erfarede vi senere, ifm. styregruppemødet, at patienterne er interesseret i dette, da de er meget interesseret i at få at vide så tidligt som muligt, hvis de er under forværring i deres tilstand.
 
-Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår end forværring eller har været et drastisk stigning/fald ift. sensor/analyse.
-Den anden slags information kunne være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
-Det andet eksempel på en notifikation kunne få brugeren til at reflektere over sin situation, hvis der for eksempel kunne ses et tydeligt fald i søvnkvalitet eller antal sociale interaktioner, men uden at direkte sige noget om en evt. forværring.
+Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår en forværring eller at der har været en drastisk stigning/fald i.f.t. sensor/analyse.
+Den anden slags information kan være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
+Det andet eksempel på en notifikation kunne få brugeren til at reflektere over sin situation, hvis der for eksempel kunne ses et tydeligt fald i søvnkvalitet eller antal sociale interaktioner, men uden direkte at sige noget om en evt. forværring.
 
 \subsection{Huskekort}
 I interviewet med psykolog Janne Rasmussen blev huskekort nævnt.
-Disse dækkede over nogle fysiske huskekort som patienten havde på sin person, hvorpå der stod en form for instruktioner der kunne assistere i svære situationer; hvor dette eksempelvis kunne være at ringe til en ven inden en svær beslutning skulle træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
+Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven inden en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
 
-Disse kunne på samme måde som benævnt ovenover også implementeres som notifikationer.
-På denne måde kunne der foreslås en lystbetonet aktivitet hvis analyser antydede en stressende dag.
+Disse kan på samme måde som benævnt ovenover også implementeres som notifikationer.
+På denne måde kan der foreslås en lystbetonet aktivitet hvis analyser antyder en stressende dag.
 Dette er især interessant ved fysisk sensor/analyse hvor stress antageligvis kan opdages i øjeblikket og et passende huskekort kan præsenteres.
 
-Disse huskekort vil dog nødvendigvis skulle udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.
-
-\section{Settings}
-\lars{måske skrive noget om det at slå moduler til/fra. Her tænkes på hvis en bruger vil have en analyse slået til, så skal brugeren selv vide hvilke dependencies den analyse har. Her kunne man måske tænke at click på et modul også slår alle dens dependencies til, måske med en confirmation box først.}
+Disse huskekort skal dog nødvendigvis udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.

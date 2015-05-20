@@ -23,7 +23,7 @@
 %frontmatter
 \pagestyle{empty} %disable headers and footers
 \pagenumbering{roman} %use roman page numbering in the frontmatter
-%\input{sections/frontpage.tex}
+\input{frontpage.tex}
 %\input{sections/colophon.tex}
 \listoftodos
 \cleardoublepage
@@ -37,6 +37,7 @@
 \pdfbookmark[0]{Indholdsfortegnelse}{label:contents}
 \pagestyle{fancy} %enable headers and footers again
 \setcounter{tocdepth}{1}
+\setcounter{secnumdepth}{3}
 \tableofcontents
 
 %\input{sections/preface.tex}
@@ -70,6 +71,7 @@ Til sidst vælges en platform på baggrund af ovenstående.
 
 \chapter{Essence}
 For at danne et bedre overblik over projekt, problem og løsning er der brugt en række teknikker som er stillet til rådighed i Essence \cite{art:essence}.
+\mikael{Hej Ivan, (hvordan) skal vi citere Essence?}
 Dette udkast af Essence er brugt i forbindelse med undervisningen i kurset Software Innovation på Aalborg Universitet, under bogens forfatter Ivan Aaen.
 Dette kapitel vil tage udgangspunkt i de 4 \textit{views} fra Essence; \textit{Paradigm, Product, Project og Process}.
 Der er dog lagt vægt på de elementer som knytter sig til problem og overordnet idé, da produkt i større detalje vil blive præsenteret senere.
@@ -93,9 +95,8 @@ Dette afsnit detaljerer hvilke kilder af data som kan bruges til dette projekt, 
 \chapter{Platform}
 \input{indhold/platform-meta}
 \input{indhold/motivation-platform}
-\input{indhold/arkitekturmoenstre}
-
 \input{indhold/arkitektur_worksheet}
+
 \section{Komponenter}
 \input{indhold/komponenter}
 \subsection{Manager}
