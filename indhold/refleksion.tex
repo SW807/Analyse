@@ -1,3 +1,62 @@
+I udviklingsforløbet af platformen, var der forskellige beslutninger som blev taget i henhold til hvad der skulle implementeres samt hvad der kunne udvikles videre på og generelle overvejelser om platformen.
+At reflektere over disse beslutninger og overvejelser giver det et overblik og forståelse af forløbet og denne refleksion er derfor beskrevet herunder. 
+
+%\section{Valg af data kilder}
+%Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet at hvis man for eksempel har data fra et smartwatch og fra en accelerometer på telefonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
+%Men dette blev aldrig lavet, idet at det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
+
+\section{Visualiseringer}
+Data indsamlet og analyseret af forskellige moduler, skulle originalt kunne visualiseres med det formål at give brugere af platformen et overblik over deres sindstilstand.
+Dette blev dog aldrig helt overvejet hvordan dette skulle gøres. 
+Det blev aldrig overvejet af den grund at det ville kræve datavisualiserings-teknikker og -teori, og til sidst på grund af manglende ressourcer. 
+Nogle af de ting man skal overveje før man begynder at lave disse visualiseringsmoduler er hvordan Json skemaet skal opsættes, hvordan man skal vælge hvilket man gerne vil kunne se og til sidst sørge for hvordan det skal implementeres i Android så det er muligt for andre udviklere at lave deres egne visualiseringsmoduler.
+
+\section{Eksperimenter}
+Der blev udført et eksperiment for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
+Når platformen engang er blevet videre udviklet, vil det kræve at man foretager sådan et eksperiment endnu engang. 
+Dette eksperiment vil kunne give et billede af hvor meget pladsforbrug det færdige produkt så vil kunne bruge.
+Derudover, bør disse eksperimenter udføres for hvert enkelt modul, hvilket vil kunne bruges af brugerne så de selv kan afgøre hvor meget plads de har lyst til at bruge.
+Ydermere, vil det også være fordelagtigt at udvide eksperimentet til at inkludere strømforbrug, idet at dette kan være et problem med de forskellige sensorer der skal logge data konstant.
+
+\section{Data indsamling}
+Som nævnt før, se \cref{eksperimenter}, vil den mængde data der bliver indsamlet kunnes reduceres.
+For at gøre dette skal man overveje hvilken metode man gerne vil bruge.
+I \cref{eksperimenter} bliver der givet tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ændre på opdateringshastigheden for de forskellige sensorer.
+Ydermere, er dette vigtigt også at overveje de forskellige fordele og ulemper der er ved de forskellige, samt om det kan være en god idé at kombinere de forskellige metoder.
+En kombinering kunne være at gammel data kom op i skyen, hvor imod en oprydning af det nye data kan blive gjort.
+
+\section{Analyse aflastning}
+For at aflaste telefonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
+Dette vil have den effekt at telefonen ikke behøver gøre særlig meget udover at registrere sensor data.
+Dette er også en idé der skal undersøges ordentligt da der kan være problematikker som vi ikke har kendskab til på dette tidspunkt. 
+
+\section{File Provider}
+Som det er lavet lige nu skal platformen hente de ressource filer de forskellige moduler har, for at få fat i deres modul definition.
+Dette gør at andre applikationer også har rettigheder til at hente ressource filerne og dette vil kunne give problemer senere, hvis man laver et ikke open-source modul.
+Til at undgå denne deling af filer vil man kunne benytte en file provider der kan gøre det muligt at dele en bestemt fil til en anden applikation.
+Dette skal derfor tilføjes til alle moduler så de kan dele deres modul definition kun med platformen. 
+
+\section{Database rettigheder}
+Som det er nu med den Content Provider der er defineret i platformen, giver dette hvert modul adgang til alt data som ligger i databasen.
+Dette er unødvendigt åbent og giver alt for bred adgang til de forskellige moduler, så i stedet for dette skal der ved videre arbejde laves en måde så man kan begrænse hvilke moduler der har adgang til hvilken data.
+Der er forskellige veje man kan følge for at implementere dette.  
+Et af disse er de tilladelser som eksisterer i Android, hvor man kan definere nye tilladelser og dette er endda brugt til at give modulerne adgang til Content Provider på dette tidspunkt.
+Hvis dette kunne gøres vil selve Android håndtere tilladelserne og give brugerne valget over hvad de vil have de forskellige moduler skal have adgang til.
+En anden mulighed ville være at gøre det internt i platformen, idet at man kunne definere tilladelser i modul definitionen og baseret på disse give tilladelse til tabeller, men dette har ulempen at det kan blive svære at kontrollere. 
+En tredje mulighed at se på er bare at begrænse skrive adgang til tabellerne, en måde at gøre dette på er ved lave en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler.
+Dette er derfor noget der skal overvejes og arbejdes videre med. 
+
+\section{Kommunikation mellem moduler}
+For at undgå at moduler skal dele data gennem content provideren kan man potentielt kommunikere direkte fra modul til modul.
+En fordel ved dette kan være at moduler kan sende deres opsamlede data til andre moduler så man kan undgå helt at gemme data i database.
+På den måde vil man kunne spare en masse plads, men vil komme med den bekostning af at det ikke længere er muligt at rekonstruere en analyse.
+Dette kræver dog en stor ændring i forhold til det der gøres nu, og skal derfor overvejes grundigt om dette er en god idé før det tages i brug.
+
+\section{Interaktive moduler}
+En idé som ikke blev undersøgt var at udvikle interaktive moduler.
+Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at test folks reaktionsevne.
+Dette kunne gøres fordi at ved affektive lidelser ser man nogen gange den slags symptomer. 
+
 \section{Notifikationer}\mikael{Det er fra vores individuelle rapport, passer bedre ind her, skal nok rettes lidt til}
 \lars{Tror ikke den første del her passer ind, men alle reflektionerne om hvordan et modul af denne type skal implementeres er yderst relevante.}
 En naturlig udvikling af det udviklede survey modul ville være, i stedet for at indhente oplysninger fra brugeren, at præsentere dem.
@@ -19,7 +78,7 @@ Modulerne kan defineres som en del af samme applikation for derved at kunne anve
 Skulle man yderligere ønske at præsentere information i et spørgsmål ville det kræve en sammensmeltning af de to typer moduler.
 En sådan kombination af moduler er problematisk under den nuværende arkitektur, da den vil kræve både input og output i samme modul.
 
-\section{huskekort}
+\section{Huskekort}
 \mikael{Tidligere vores indiviuel rapport: huskekort - som får patienten til at cykle en tur, yoga etc. - enten at appen selv finder ud af det eller at det er psykologen der løbende kan lægge dem ind.}
 
 \section{Settings}
