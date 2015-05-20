@@ -4,7 +4,11 @@ Behovene beskrives herunder i form af følgende nøgleord: \textit{modulær}, \t
 
 \subsection{Modulær}
 I \cref{sec:affektivelidelser} beskrives det at symptomerne på affektive lidelser varierer meget.
-Derfor skal arkitekturen være modulær, fordi der skal være plads til detektering af alle de forskellige symptomer.
+Derfor skal arkitekturen understøtte muligheden for at detektere alle de forskellige symptomer.
+Det er dog ikke nødvendigt altid at detektere alle symptomer, da de konkrete symptomer varierer fra person til person.
+Denne varians gør at en modulær opbygning er nødvendig, da dette vil gøre det muligt nemt at modificere funktionaliteten så den kun går efter at identificere den konkrete brugers symptomer.
+
+Ydermere vil en modulær arkitektur også gøre det nemt at udskifte enkelte dele af funktionalitet, hvis der nye og bedre teorier inden for de forskellige områder.
 
 \subsection{Fleksibel}
 Arkitekturen skal være fleksibel så den kan tilpasses til patienten.
