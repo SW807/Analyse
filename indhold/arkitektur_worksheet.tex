@@ -5,7 +5,7 @@ Dette afsnit præsenterer arkitekturen som er udarbejdet på baggrund af de spec
 Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ifht. arkitektur.
 
 Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
-Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation.\cite{android_service}
+Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \cite{android_service}.
 Dette udnyttes ved at pakke alle moduler i hver deres selvstændige applikation.
 Ved at anvende en centraliseret database vil det være muligt for moduler at få adgang til data fra andre moduler.
 Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
@@ -34,7 +34,7 @@ Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en SQLite database da denne er standard i Android.\cite{android_database}
+Til dette projekt er valgt en SQLite database da denne er standard i Android \cite{android_database}.
 
 
 \subsection{DB Access}
