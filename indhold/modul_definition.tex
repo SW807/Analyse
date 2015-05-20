@@ -8,19 +8,19 @@ For at opfylde kravet om fleksibilitet der er stillet til systemet, har vi udtæ
 Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
 Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
 \subsubsection{Forslag til modulariseing}
-\paragraph{Komplet pakke}
+\paragraph{Komplet Pakke}
 En traditionel app samler al funktionalitet i en pakke.
 Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele appen på samme tid.
 Desuden bliver det sværere for eksterne udviklere at bidrage til applikationen, da opdateringer skal ske igennem udviklerne af hovedapplikationen.
 
-\paragraph{Import af kode}
+\paragraph{Import af Kode}
 En anden mulighed er at inkludere et scripting sprog med applikationen og gøre det muligt at udvikle script der kan agere modul.
 Denne løsning kræver et meget kraftigt scripting sprog hvis alle Androids muligheder skal stilles til rådighed.
 Hvis scripts på den anden side skal skrives direkte i java vil der være nogle sikkerhedshensyn som vil gøre det svært at kontrollere hvad moduler kan og ikke kan.
 For eksempel vil det være vanskeligt at kontrollere hvilke database tabeller der er adgang til.
 Sikkerhedsproblemet er stort, men kunne sikkert løses med nok tid og ressourcer.
 
-\paragraph{Selvstændig app}
+\paragraph{Selvstændig Applikation}
 Den tredje mulighed er at pakke hvert modul i en selvstændig APK \footnote{Androids pakkeformat}.
 Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet.
 Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
@@ -36,10 +36,10 @@ Det følgende vil forklare detaljerne i implementationen af moduler ved hjælp a
 
 \subsubsection{Beskrivelsesfilen}
 
-Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \cite{json_schema}.
+Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \citep{jsonpojo}.
 Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Skema.
 
-\subsubsection{Typer af moduler}
+\subsubsection{Typer af Moduler}
 Der findes som sagt i \cref{sec:arkitektur}, tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visualisering}.
 Som sagt er sensor moduler, moduler som indsamler data fra telefonens forskellige sensorer og applikationer.
 Endvidere er analyse moduler, moduler som bruger data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
@@ -48,12 +48,12 @@ Visualiseringsmodulerne bruges til visualisering af den rå sensor-data eller de
 \subsubsection{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
 
-Sensor- og analyse-moduler skal gøre data tilrådighed for andre analyse- og visualiserings-moduler.
+Sensor- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visualiserings-moduler.
 For at specificere hvordan data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
 For hvert modul skal der defineres en eller flere tabeller som modulet kan gemme data i.
 For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
 
-\subsubsection{Data typer}
+\subsubsection{Data Typer}
 De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til de tilgængelige SQLite datatyper.
 Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
@@ -103,16 +103,17 @@ Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af en
 En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
 Denne automatiske generering viste sig ikke at være ligetil på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
 
-\subsubsection{Moduler som apps}
+\subsubsection{Moduler som Applikationer}
 For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres apps via Google Play Store.
 Alle modul-apps, samt hoved-applikationen, deler \textit{package}-navn.
 Hver modul-app har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
 Kommunikation mellem apps foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
 
-\subsubsection{Håndtering i manager}
+\subsubsection{Håndtering i Manager}
 Håndteringen af moduler sker i manageren, beskrevet i \cref{subsec:arkitektur-Manager}.
 Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle apps der er installeret under pakken ``dk.aau.cs.psylog''.
 Manageren læser alle moduldefinitioner efter at have valideret dem op imod JSON skemaet.
 Alle moduler der har opdateret versionsnummer eller er helt nye vil blive håndteret ved at manageren læser tabelinformation ind fra moduldefinitionen og opretter eller ændrer de pågældende tabeller.
 
-Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres\als{evt. referer til settings arbejdsark}.
+Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres.
+Denne proces er yderligere beskrevet i \cref{sec:settings}

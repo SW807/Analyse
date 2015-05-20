@@ -1,5 +1,4 @@
-\subsubsection{Visualiserings Modul}
-
+\subsubsection{Visualiserings Modul}\label{sec:visningsmodul}
 Som udgangspunkt er \textit{visualiseringer} forskellige visualiseringer af analyse modulernes output.
 
 De eneste restriktioner der stilles for data der kan læses fra et analyse moduler er de formater der kan gemmes i databasen.
@@ -7,14 +6,14 @@ Det betyder at det mulige output fra et analyse model er meget fleksibelt, hvilk
 
 En simpel løsning vil være at der for hvert analysemodul skal defineres et visualiserings modul.
 Herved sikres det at alle analysemoduler har en visualisering der præcist repræsenterer genererede data.
-Det er dog nemt at problemstillingerne i denne løsningsmodel, da det giver meget lav genanvendelse af eksisterende moduler.
+Det er dog nemt at finde problemstillingerne i denne løsningsmodel, da det giver meget lav genanvendelse af eksisterende moduler.
 Eksempelvis kan man nemt forestille sig forskellige datasæt der kan repræsenteres ved hjælp af en to-dimensional graf.
 En løsning der ville kræve en ny implementation af en sådan visualisering for hver analyse modul er ikke fleksibel nok.
 
 Alternativt kan visualiseringer beskrive en liste over de analyser de kan anvendes på.
 På den måde kan visualiseringer anvendes på mere end et analyse modul.
 Omend dette løser problemet til en vis grad vil problemet stadig eksistere når der tilføjes nye analyse moduler.
-Her vil visualiseringerne enten blot ikke have kendskab til de nye moduler eller de vil skulle opdateres løbende.
+Her vil visualiseringerne enten ikke have kendskab til de nye moduler eller de vil skulle opdateres løbende.
 Altså er fleksibiliteten af denne løsning heller ikke god nok.
 Man kan naturligvis også lade alle analyse moduler beskrive en liste over visualiserings moduler.
 Men denne opbygning vil give samme problemstilling som beskrevet herover.
@@ -23,7 +22,9 @@ En mere fleksibel metode til håndtering knytningen mellem visualiseringer og an
 På denne måde kan der laves visualiseringer der repræsenterer bestemte signaturer, og der opstår en implicit binding mellem visualiseringer og analyser for de hvor de to beskrivelser stemmer overens.
 
 I mange tilfælde vil denne implicitte binding være nok, dog kan det forestilles at analyserne vil være forskellige og til tider komplekse, hvilket kan gøre det nødvendigt at nærmere specificere hvordan den tilgængelige data kan vises.
+Der er også den mulighed at analysemoduler kunne have ekstra database tabeller, der ikke skal vises, som så kunne virke forstyrrende for den implicite binding.
 Her kunne der tilføjes noget meta-data på analysens tabeller/kolonner, der beskriver den på sådan en måde, at det ville kunne bruges til visualiseringer der ikke nødvendigvis implicit kunne knyttes til det.
+Det kunne også være muligt at tilføje information om kriterier for visualiseringer i analysemodulers JSON filer, og så overlade det til Manager komponenten at matche et analysemoduls kriterier med de kriterier visningsmoduler opfylder.
 
 \subsubsection{Eksempel}
 Her bruges light, som er en simpel sensor og analyse, der fra sensoren indhentes løbende lys-niveau (i lux).
@@ -70,7 +71,7 @@ På x-aksen vises tiden (der står INTEGER fordi SQLite ikke har datorepræsenta
 Her bruges det tidsstempel som forventes på alle tabeller.
 Til y-aksen kan bruges alle analyser, som blot har en enkelt kolonne af heltal eller decimal-tal værdi.
 
-\subsubsection{Administrering af visualiseringer}
+\subsubsection{Administrering af Visualiseringer}
 Ligesom sensorer og analyser, skal visualiseringer også administreres af brugeren.
 
 For at holde det så simpelt som muligt, kunne man, ligesom ved sensorer/analyser, have to niveauer af administration.
