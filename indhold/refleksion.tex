@@ -61,29 +61,24 @@ En idé som ikke blev undersøgt var at udvikle interaktive moduler.
 Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at test folks reaktionsevne.
 Dette kunne gøres fordi at ved affektive lidelser ser man nogen gange den slags symptomer. 
 
-\section{Notifikationer}\mikael{Det er fra vores individuelle rapport, passer bedre ind her, skal nok rettes lidt til}
-\lars{Tror ikke den første del her passer ind, men alle reflektionerne om hvordan et modul af denne type skal implementeres er yderst relevante.}
-En naturlig udvikling af det udviklede survey modul ville være, i stedet for at indhente oplysninger fra brugeren, at præsentere dem.
-Altså at kunne notificere brugeren med information.
-Dette kunne enten ske på faste tidspunkter eller ved at et analyse modul registrerer en ændring i et af de monitorerede adfærdsmønstre.
-Ligeledes kan patienten modtage en status-notifikation, der fx kan beskrive en opsummering over hans sociale aktivitet målt over den seneste uge.
+\section{Notifikationer}
+En ting som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
+Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber ift. at forstyrre en evt. patient med psykiske problemer.
+Dog blev det så fundet ud af senere, ifm. styregruppemødet at patienterne var interesseret i dette, da de var meget interesseret i at få at vide så tidligt som muligt hvis de var under forværring i deres tilstand.
 
-\paragraph{Det Udviklede Modul}
-Survey modulet tillader at indsamle information fra brugeren via en række forskellige typer spørgsmål (se \cref{survey:spg}).
-Modulet fungerer herved som et sensor modul der anvender brugerens respons som dets input.
-Modulet adskiller sig dog fra andre sensor moduler idet det anvender en grafisk brugergrænseflade til at indsamle information.
-Givet relationen mellem de forskellige moduler (sensor-, analyse- og visningsmoduler) introducerer ovenstående en ny problemstilling.
+Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår end forværring eller har været et drastisk stigning/fald ift. sensor/analyse.
+Den anden slags information kunne være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
+Det andet eksempel på en notifikation kunne få brugeren til at reflektere over sin situation, hvis der for eksempel kunne ses et tydeligt fald i søvnkvalitet eller antal sociale interaktioner, men uden at direkte sige noget om en evt. forværring.
 
-Da information kun kan overføres fra sensor til analyse og videre til visning, og ikke i den modsatte retning, vil notifikationer skulle implementeres som et visningsmodul.
-Kun på denne måde kan en notifikation præsentere information fra underliggende lag.
-Det betyder at notifikationer og spørgsmål vil skulle udvikles som to separate moduler.
-Modulerne kan defineres som en del af samme applikation for derved at kunne anvende samme kode-base, men vil i sidste ende skulle fungere som to moduler.
+\subsection{Huskekort}
+I interviewet med psykolog Janne Rasmussen blev huskekort nævnt.
+Disse dækkede over nogle fysiske huskekort som patienten havde på sin person, hvorpå der stod en form for instruktioner der kunne assistere i svære situationer; hvor dette eksempelvis kunne være at ringe til en ven inden en svær beslutning skulle træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
 
-Skulle man yderligere ønske at præsentere information i et spørgsmål ville det kræve en sammensmeltning af de to typer moduler.
-En sådan kombination af moduler er problematisk under den nuværende arkitektur, da den vil kræve både input og output i samme modul.
+Disse kunne på samme måde som benævnt ovenover også implementeres som notifikationer.
+På denne måde kunne der foreslås en lystbetonet aktivitet hvis analyser antydede en stressende dag.
+Dette er især interessant ved fysisk sensor/analyse hvor stress antageligvis kan opdages i øjeblikket og et passende huskekort kan præsenteres.
 
-\section{Huskekort}
-\mikael{Tidligere vores indiviuel rapport: huskekort - som får patienten til at cykle en tur, yoga etc. - enten at appen selv finder ud af det eller at det er psykologen der løbende kan lægge dem ind.}
+Disse huskekort vil dog nødvendigvis skulle udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.
 
 \section{Settings}
 \lars{måske skrive noget om det at slå moduler til/fra. Her tænkes på hvis en bruger vil have en analyse slået til, så skal brugeren selv vide hvilke dependencies den analyse har. Her kunne man måske tænke at click på et modul også slår alle dens dependencies til, måske med en confirmation box først.}
