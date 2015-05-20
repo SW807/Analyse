@@ -4,7 +4,11 @@ Behovene beskrives herunder i form af følgende nøgleord: \textit{modulær}, \t
 
 \subsection{Modulær}
 I \cref{sec:affektivelidelser} beskrives det at symptomerne på affektive lidelser varierer meget.
-Derfor skal arkitekturen være modulær, fordi der skal være plads til detektering af alle de forskellige symptomer.
+Derfor skal arkitekturen understøtte muligheden for at detektere alle de forskellige symptomer.
+Det er dog ikke nødvendigt altid at detektere alle symptomer, da de konkrete symptomer varierer fra person til person.
+Denne varians gør at en modulær opbygning er nødvendig, da dette vil gøre det muligt nemt at modificere funktionaliteten så den kun går efter at identificere den konkrete brugers symptomer.
+
+Ydermere vil en modulær arkitektur også gøre det nemt at udskifte enkelte dele af funktionalitet, hvis der nye og bedre teorier inden for de forskellige områder.
 
 \subsection{Fleksibel}
 Arkitekturen skal være fleksibel så den kan tilpasses til patienten.
@@ -15,7 +19,12 @@ Accelerometret i en smartphone er muligvis mere præcist end det i et smart watc
 Det skal derfor være muligt at vælge denne.
 
 \subsection{Kombinerbar}%fusion
-Arkitekturens moduler skal være kombinerbar således at det er muligt at kombinere flere moduler som fx sige noget om patientens sociale aktivitet eller søvn.
+Arkitekturens moduler skal være kombinerbar således at det er muligt at kombinere flere moduler som fx siger noget om patientens sociale aktivitet eller søvn.
+
+Data fra en sensor skal altså kunne bearbejdes af andre moduler der kan udnytte den information i forbindelse med en analyse.
+
+Kombinerbare moduler sørger for at indhentning af data og analyse af data let kan separeres.
+Derved er det ikke er nødvendigt for de enkelte moduler at udføre indhentningen af data.
 
 \subsection{Kommunikation}
 Platformen skal desuden understøtte kommunikation mellem moduler så data fra et modul nemt og sikkert kan deles med andre moduler.
