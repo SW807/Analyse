@@ -1,110 +1,119 @@
-\section{Plads Eksperimenter}
-\lars{Overvej om dette er korrekt placering}
-På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har vores Samsung Galaxy S4 enheder kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
-Dette er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre.
-I vores tilfælde er det vi skal overveje hvor stor andel sensor data der kan lagres.
-For at undersøge hvordan de forskellige sensorer bruger pladsen på smartphonen opstilles to eksperimenter.
+\section{Pladsforbrug Eksperimenter}\label{eksperimenter}
+Det faktum at der skal indsamles data kommer med den konsekvens at en mængde plads på smartphonen skal bruges.
+På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har en Samsung Galaxy S4 enhed kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
+Pladsforbrug er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre på mobile enheder.
+I vores tilfælde skal det overvejes hvor stor en mængde data der kan lagres og samtidig tillade brugen af andre applikationer på en persons telefon.
+For at undersøge hvordan de forskellige datakilder bruger pladsen på en smartphonen opstilles to eksperimenter.
 Hvis pladsforbruget viser sig for stort skal data enten komprimeres, aggregeres eller man bør overveje muligheden for ekstern lagring.
 
-PsyLog blev sat til at køre med følgende moduler tændt: `Lyd', `Skærm', `Nærhed', `Placering', `Gyroskop' og `Accelerometer'.
+Eksperimenterne blev udført på en Samsung Galaxy S4 hvor følgende datakilder blev lagret i den samme SQLite database:
 
-Dette udvalg er de moduler der på eksperiment tidspunktet var kørbare.
-Det er vigtigt at bemærke at de ikke er i deres endelige form og at listen er ikke er komplet.
-Der vil i fremtiden komme flere sensorer og der vil komme analysemoduler der analyserer data og muligvis gemmer denne analyse.
-Disse eksperimenter vil derfor kun kunne give et indblik i hvordan de forskellige moduler opfører sig og give et estimat for pladsforbruget.
+\begin{itemize}
+	\item Lyd - En datakilde der oplyser maks amplituden over en periode.
+	\item Skærm - En datakilde der oplyser når skærmen slukkes og tændes.
+	\item Nærhed - En datakilde der oplyser afstanden fra telefonen.
+	\item Placering - En datakilde der oplyser telefonens nuværende placering.
+	\item Gyroskop - En datakilde der oplyser telefonens rotation.
+	\item Accelerometer - En datakilde der oplyser telefonens acceleration i 3 akser.
+\end{itemize}
 
-Moduler som Skærm, Nærhed og Placering producerer kun data når der sker ændringer. 
-Derfor blev det første eksperiment udført på en måde der efterligner brugssituation. 
+Dette udvalg er de datakilder der på eksperiment tidspunktet var vurderet som sandsynligvis værende relevante senere i udviklingsforløbet.
+Det er vigtigt at bemærke at de ikke er i deres endelige form og at listen ikke er komplet.
+Som platformen bliver udviklet vil der komme flere datakilder og måske også udelades nogen.
+Disse eksperimenter vil derfor kun kunne give et estimat for pladsforbruget.
+
+Datakilder som Skærm, Nærhed og Placering producerer kun data når der sker ændringer. 
+Derfor blev det første eksperiment udført på en måde der efterligner en potentiel brugssituation. 
 Smartphonen blev bevæget og skærmen blev tændt og slukket flere gange under testperioden.
 Det første eksperiment blev udført over 30 minutter.
 
 Det andet eksperiment blev udført over en weekend, hvor smartphonen lå stille.
-Dette eksperiment burde vise et minimumsforbrug for sensorerne.
+Dette eksperiment burde vise et minimumsforbrug for datakilderne.
 
 \paragraph{Forespørgselshastighed}
-Pladsen som modulerne bruger vil naturligvis afhænge af hvor ofte modulerne forespørger sensorerne for data.
+Pladsen som datakilder bruger vil naturligvis afhænge af hvor ofte datakilderne forespørger for data.
 
-I Android er der forskellige metoder til at angive forespørgselshastigheden på en sensor.
+I Android er der forskellige metoder til at angive forespørgselshastigheden på en datakilde.
 Der findes fire konstanter der kan benyttes til at angive hastigheder der passer i forskellige kontekster \cite{sensormonitor}.
 
 \begin{itemize}
-	\item SENSOR\_DELAY\_FASTEST forespørger hele tiden.
+	\item SENSOR\_DELAY\_FASTEST forespørger så hurtigt som muligt.
 	\item SENSOR\_DELAY\_GAME forespørger hver 20. ms, og er beregnet til spil.
-	\item SENSOR\_DELAY\_UI forespørger hver 60. ms og er tilstrækkeligt til brug i userinterfaces.
+	\item SENSOR\_DELAY\_UI forespørger hver 60. ms og er tilstrækkeligt til brug i brugergrænseflader.
 	\item SENSOR\_DELAY\_NORMAL forespørger hver 200. ms er tilstrækkeligt til at opfange ændringer i skærm orientering.
 \end{itemize}
+
 Det er muligt at angive opdateringen i ticks hvis man vil have en langsommere opdatering.
-Det skal bemærkes at disse angivelser kun benyttes som et hint til smartphonen, det kan ikke garanteres at sensoren bliver forespurgt med det angivne interval.
+Det skal bemærkes at disse angivelser kun benyttes som et hint til smartphonen, det kan ikke garanteres at data bliver forespurgt med det angivne interval.
 I dette eksperiment er SENSOR\_DELAY\_NORMAL benyttet.
 
-
 \subsection{Resultater}
-Til analyse af pladsforbruget blev programmet ``SQLite analyzer'' benyttet \cite{sqliteanalyzer}.
+Til analyse af pladsforbruget blev programmet \textit{SQLite-analyzer} benyttet \cite{sqliteanalyzer}.
 SQLite-analyzer viser statistik for en SQLite database inklusiv data for de enkelte tabeller.
 
 \paragraph{30 minutters eksperiment}
-Efter 30 minutter fyldte databasen 1156459 bytes ($\sim 1.15$ MB).
-Under antagelsen at sensorerne vil fortsætte med at generere data i den samme hastighed vil det efter 24 timer fylde omkring 55 MB. 
+Efter 30 minutter fyldte databasen $1\,156\,459$ bytes ($\approx1.15$ MB).
+Under antagelsen at datakilderne vil fortsætte med at generere data med den samme hastighed vil det efter 24 timer fylde omkring $\approx55$ MB. 
 
-De enkelte sensorers tabeller var fordelt på følgende måde (sorteret efter pladsforbrug),
+De enkelte datakilders var fordelt på følgende måde (sorteret efter pladsforbrug),
 
 \begin{tabular}{|c|c|c|c|}
-	\hline Modul 			& Plads forbrugt i bytes	& Antal datapunkter  & \% af databasen \\
-	\hline Accelerometer 	& 609266 / $\sim 609$ KB	& 12434 			 & 51.1 \\ 
-	\hline Gyroskop 		& 495018 / $\sim 495$ KB	& 10146 			 & 41.6\\ 
-	\hline Lyd 				& 42648  / $\sim 42$ KB		& 1706 			 	 & 4.3 \\ 
-	\hline Placering 		& 4751 	 / $\sim 4$ KB		& 91 				 & 0.92 \\ 
-	\hline Nærhed    		& 3173 	 / $\sim 3$ KB		& 135 				 & 0.31 \\ 
-	\hline Skærm 			& 1242 	 / $\sim 1$	KB		& 54				 & 0.31 \\ 
+	\hline Datakilde		& Plads forbrug i bytes				& Antal datapunkter  & \% af databasen \\
+	\hline Accelerometer 	& $609\,266$ B / $\approx609$ KB	& $12\,434$ 		 & $51.1$ \\ 
+	\hline Gyroskop 		& $495\,018$ B / $\approx495$ KB	& $10\,146$ 		 & $41.6$\\ 
+	\hline Lyd 				& $42\,648$ B / $\approx42$ KB		& $1\,706$ 			 & $4.3$ \\ 
+	\hline Placering 		& $4\,751$ B / $\approx4$ KB		& $91$ 				 & $0.92$ \\ 
+	\hline Nærhed    		& $3\,173$ B / $\approx3$ KB		& $135$ 			 & $0.31$ \\ 
+	\hline Skærm 			& $1\,242$ B / $\approx1$	KB		& $54$				 & $0.31$ \\ 
 	\hline 
 \end{tabular} 
 
-Som det ses af tabellen er de store pladssyndere `Accelerometer' og `Gyroskop' modulerne.
-Dette skyldes at de forespørger konstant og gemmer al data.
+Som det ses af tabellen er de store pladssyndere `Accelerometer' og `Gyroskop' datakilderne.
+Dette skyldes at de forespørger meget ofte og gemmer al data.
 
-Lyd modulet gemmer kun maks amplituden over en periode af 1000ms, af denne grund fylder Lyd modulets data i denne test ikke mere end 4\% af databasen.
+Lyd datakilden gemmer kun maks amplituden over en periode af 1000ms, af denne grund fylder dens data ikke mere end 4\% af databasen.
 Afhængig af hvad man vil analysere vil det være nødvendigt at gemme væsentligt mere end dette.
 
-Placerings modulet er fra Android konstrueret så den kun forespørger når der er en tilstrækkelig ændring i placeringen.
+Placerings datakilden forespørger kun når der er en tilstrækkelig ændring i placeringen.
 
-Nærhed sensoren ændrer sig kun når man sætter noget ind foran den, og der er derfor få datapunkter i dennes tabel.
-Det samme gælder for Skærm sensoren der kun registrerer en ændring når skærmen enten tændes eller slukkes.	
+Nærhed datakilden ændrer sig kun når man sætter noget ind foran den, og der er derfor få datapunkter i dennes tabel.
+Det samme gælder for Skærm datakilden der kun registrerer en ændring når skærmen enten tændes eller slukkes.	
 
 \paragraph{Eksperiment over weekend}
-
 Eksperimentet blev udført fra kl. 13:35 fredag eftermiddag til kl. 08:23 mandag morgen, hvilket giver en total varighed på 66 timer og 48 minutter.
 
-I denne periode blev databasen fyldt med 136523139 bytes (136 MB) hvilket svarer til 1018829 bytes (1 MB) pr. halve time eller 49 MB i døgnet.
+I denne periode blev databasen fyldt med  $136\,523\,139$ bytes ($\approx136$ MB) hvilket svarer til $1\,018\,829$ bytes ($\approx1$ MB) pr. halve time eller $\approx49$ MB i døgnet.
 
 \begin{tabular}{|c|c|c|c|}
-	\hline Modul 		 & Plads forbrugt i bytes	  	& Antal datapunkter & \% af databasen \\
-	\hline Accelerometer & 65493057 / 65 MB   			& 1336593    		& 47.6 \\ 
-	\hline Gyroskop 	 & 64930232 / 64 MB  			& 1335216   		& 47.6\\ 
-	\hline Lyd 		  	 & 5476680  / 5  MB  			& 227991     		& 4.4 \\ 
-	\hline Placering 	 & 622494 	/ 622 KB			& 11971      		& 0.45 \\ 
-	\hline Nærhed    	 & 3173 	/ 3 KB				& 135 				& 0.003 \\ 
-	\hline Skærm 		 & 138           				& 6          		& 0.003 \\ 
+	\hline Datakilde	 & Plads forbrug i bytes	  			& Antal datapunkter 	& \% af databasen \\
+	\hline Accelerometer & $65\,493\,057$ B / $\approx65$ MB   	& $1\,336\,593$    		& $47.6$ \\ 
+	\hline Gyroskop 	 & $64\,930\,232$ B / $\approx64$ MB  	& $1\,335\,216$   		& $47.6$ \\ 
+	\hline Lyd 		  	 & $5\,476\,680$ B / $\approx5$  MB  	& $227\,991$     		& $4.4$ \\ 
+	\hline Placering 	 & $622\,494$ B	/ $\approx622$ KB		& $11\,971$      		& $0.45$ \\ 
+	\hline Nærhed    	 & $3\,173$ B	/ $\approx3$ KB			& $135$ 				& $0.003$ \\ 
+	\hline Skærm 		 & $138$ B          					& $6$          			& $0.003$ \\ 
 	\hline 
 \end{tabular} 
 
-Denne tabel ligner ikke overraskende den tabel der blev produceret af eksperimentet på 30 minutter.
-Det er igen Accelerometer og Gyroskop modulerne der fylder databasen efterfulgt af Lyd modulet der bruger væsentligt mindre, og til sidst de resterende moduler der næsten ikke bruger noget plads.
+Denne tabel er meget lig den tabel der blev produceret af eksperimentet på 30 minutter.
+Det er igen Accelerometer og Gyroskop datakilderne der fylder databasen efterfulgt af Lyd datakilden der bruger væsentligt mindre, og til sidst de resterende datakilder der bruger ubetydelige mængde af plads.
 
 Det er naivt at lagre dataet i diskret form, hvorfor diverse metoder til reducering af data som opbevares på smartphonen diskuteres herunder.
 
 \subsection{Muligheder for Begrænsning af Pladsforbrug}
-For ikke at fylde mobil smartphonen op med data fra modulerne vil det være fornuftigt at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
+For ikke at bruge alt den tilgængelige hukommelse på smartphonen til at lagre data fra vores datakilder, vil det være fornuftigt at begrænse pladsforbruget, hvilket kan gøres på forskellige måder, nogle af måderne er beskrevet herefter.
 
 \subsubsection{Skyen}
 Ved at bruge skyen til at gemme på data kan man holde det aktuelle forbrug på selve smartphonen nede.
 Det vil dog kræve at man synkroniserer fra smartphonen til skyen, der sørger for at kun data der allerede er analyseret bliver slettet fra smartphonen. 
-Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analyse modulerne er afhængige af.
-Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyser på serversiden.
+Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data analyse tager.
+Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyse på serversiden.
+Dette vil også muliggøre at have analyser kørende i skyen, hvis den mobile enhed ikke har beregningskraft \lars{bedre ord end beregningskraft} nok.
 
 \subsubsection{Oprydning i Data}\label{sec:opryd}
-Skærm tændt modulet er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
-En udvidelse af de andre moduler kan gøre at de virker ligedan. 
-For eksempel er accelerometerdata kun interessante når der sker en vis svingning i acceleration.
+Skærm datakilden er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
+En modificering af hvordan data indsamles af de andre datakilder kan gøre at de virker ligedan. 
+For eksempel er accelerometer data kun interessante når der sker en vis svingning i acceleration.
 Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at data gemmes i databasen.
 Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt.
 Hvilket er algoritmer til at reducere antal af punkter der bruges til at estimere en kurve, det er dog lossy data komprimerings metoder, hvorfor man også kunne overveje lossless data komprimering.
@@ -112,15 +121,15 @@ Et eksempel på en sådan lossless datakomprimering er run-length encoding.
 Run-length encoding udnytter at hvis man har en sekvens af punkter med samme værdi ville disse kunne komprimeres til blot at angive antallet af punkter og med hvilken værdi disse punkter har.
 
 \subsubsection{Opdateringshastighed}
-Som nævnt under opsætningen til forsøget bruges Android konstanter til at angive hvor hurtigt en sensor skal opdatere.
+Som nævnt under opsætningen til forsøget bruges Android konstanter til at angive hvor hurtigt en datakilde skal opdatere.
 Disse konstanter er beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.
 Vores kontekst er at logge brugerens færden, og 5 gange i sekundet er ikke nødvendigt.
 Der kan derfor spares en del plads ved enten at opdatere langsommere generelt, eller ved at ændre opdateringshastigheden løbende i takt med at der kommer mere relevant data.
 Det skal dog overvejes om den nedsatte præcision kommer til at have en effekt på de analyser der skal bruge data.
-Vi tager det forbehold at opdateringshastigheden kan variere afhængig af datatypen og er noget der bør overvejes på sensor modul basis.
+Vi tager det forbehold at opdateringshastigheden kan variere afhængig af datatypen og er noget der bør overvejes for hvert datakilde.
 
 \subsection{Konklusion}
-Når smartphonen ikke er i brug vil det valgte udsnit af moduler generere 49 MB data i døgnet mens aktiv brug af smartphonen vil få dette forbrug op på 55 MB.
+Når smartphonen ikke er i brug vil det valgte udsnit af datakilder generere 49 MB data i døgnet mens aktiv brug af smartphonen vil få dette forbrug op på 55 MB.
 
 De store syndere er accelerometret og gyroskopet der begge er sat til at gemme data 5 gange i sekundet.
 Det vil derfor være en god idé at udvikle en strategi for begrænsning af hvor meget data som opbevares på smartphonen.
@@ -128,5 +137,5 @@ Her er foreslået enten oprydning af data som går ud på kun at gemme det data 
 En anden mulighed er at nedsætte opdateringshastigheden så der ikke gemmes så ofte.
 En tredje mulighed er at aggregere data, eksempelvis ved brug af run-length encoding eller ved blot at lagre ændring i værdi.
 
-Implementation af en eller flere af disse strategier vil kunne reducere den gemte data, men det vil muligvis stadig være for meget til at data kan holdes på smartphonen i længere perioder.
+Hvis en eller flere af disse strategier bliver taget i brug vil det kunne reducere størrelsen på den gemte data, men det vil muligvis stadig være for meget til at data kan holdes på smartphonen i længere perioder.
 Hvis et sådant problem stadig eksisterer, er en udvidelse med server klient arkitektur en mulighed idet at hvis data kan gemmes, analyseres og visualiseres på en server, kan belastningen på smartphonen reduceres meget, dog kommer dette med andre bekymringer så som brug af internet og båndbredde.

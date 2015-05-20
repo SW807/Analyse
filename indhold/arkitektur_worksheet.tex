@@ -1,21 +1,27 @@
 \section{Arkitektur}\label{sec:arkitektur}
-Eftersom vi ikke har fundet et eksisterende arkitekturmønster der kan tilgodese behovene opstillet i \cref{arkitekturkrav}, er en særskilt arkitektur blevet konstrueret.
-Denne søger at tilgodese behovene bedst muligt.
-Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet. 
-Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation.
+Dette afsnit præsenterer arkitekturen som er udarbejdet på baggrund af de specificerede behov i \cref{arkitekturkrav}.
+
+\paragraph{Platform}
+Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ifht. arkitektur.
+
+Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
+Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \cite{android_service}.
 Dette udnyttes ved at pakke alle moduler i hver deres selvstændige applikation.
 Ved at anvende en centraliseret database vil det være muligt for moduler at få adgang til data fra andre moduler.
 Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
 På den måde kan adgang kontrolleres på alle moduler, inklusiv de der måtte blive udviklet i fremtiden.
-hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem de installerede moduler.
+Hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem de installerede moduler.
 
 \section{Opbygning}\label{arkitektur:opbygning}
-Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
+Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB\footnote{Database} access} og \textit{DB}.
+For at opfylde de specificerede behov i \cref{arkitekturkrav}, nærmere nøgleordene \textit{modulær}(se \cref{arkitekturkrav::modulaer}) og \textit{fleksibel}(se \cref{arkitekturkrav::fleksibel}) er arkitekturen opbygget af moduler der opsamler data, analyser denne data og viser den uafhængige af hinanden.
+Disse moduler kan vælges til eller fra i \textit{manager}'en.
+
 
 Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{ArkitekturVisio}
+	\centering						%  l   b   r	t
+	\includegraphics[scale=0.5, trim = 1cm 17.5cm 1cm 1cm, clip]{ArkitekturLucidChart}
 	\caption{Systemets arkitektur}
   \label{arkitektur_udkast_1}
 \end{figure}
@@ -28,17 +34,17 @@ Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en SQLite database da denne er standard i Android.
+Til dette projekt er valgt en SQLite database da denne er standard i Android \cite{android_database}.
 
 
 \subsection{DBAccess}\label{subsec:DBACCESS}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
 Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
-Grundet denne potentielle opdeling af lager placeringer, kan de være nyttigt at abstrahere over hvor data lagres, og er fint i tråd med de krav om generalitet og fleksibilitet der er for platformen.
+Grundet denne potentielle opdeling af lager placeringer, kan de være nyttigt at abstrahere over hvor data lagres.
 
-Da det er intentionen, at eksterne udviklere skal kunne udvikle moduler til systemet, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
-På denne måde forhindres det at eksterne moduler korrumperer andre modulers data, enten ved et uheld eller med vilje.
+For at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
+På denne måde forhindres det at eksterne moduler modificerer andre modulers data.
 
 \paragraph{Design} 
 For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder har vi undersøgt eksisterende mønstre der vil kunne opfylde disse krav.
@@ -55,7 +61,7 @@ Af denne årsag vælges facade designmønstret til at abstrahere over lagringen 
 Mønstret er implementeret ved hjælp af Androids indbyggede \textit{Content Provider} konstruktion\citep{contentprovider}.
 En Content Provider indkapsler data og giver adgang til hertil gennem et \textit{Content Resolver} interface.
 Dette interface anvendes til deling af data mellem flere applikationer.
-DN Access er vores implementation af facade som giver adgang til DB.
+DB Access er vores implementering af facade som giver adgang til DB.
 \mikkel{\stefan{mere detalje?} Det synes jeg. Der står ikke så meget om hvordan mønstret opnår de plusser det har.}
 
 \subparagraph{Observer}
@@ -77,6 +83,7 @@ Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
 Udover at være ensrettet skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men samtidig have mulighed for at læse fra andre modulers tabeller.
 Denne del af systemet er ikke implementeret.
 \mikkel{Mere detalje om sikkerhed? Jeg synes ikke vi bare kan lade være med at fortælle om det bare fordi det ikke er implementeret.}
+\bruno{Hvad skal der være mere om?}
 
 \subsection{Moduler}
 Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
