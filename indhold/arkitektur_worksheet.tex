@@ -41,10 +41,10 @@ Til dette projekt er valgt en SQLite database da denne er standard i Android.\ci
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
 Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
-Grundet denne potentielle opdeling af lager placeringer, kan de være nyttigt at abstrahere over hvor data lagres, og er fint i tråd med de krav om generalitet og fleksibilitet der er for platformen.
+Grundet denne potentielle opdeling af lager placeringer, kan de være nyttigt at abstrahere over hvor data lagres.
 
-Da det er intentionen, at eksterne udviklere skal kunne udvikle moduler til systemet, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
-På denne måde forhindres det at eksterne moduler korrumperer andre modulers data, enten ved et uheld eller med vilje.
+For at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
+På denne måde forhindres det at eksterne moduler modificerer andre modulers data.
 
 \paragraph{Design} 
 For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder har vi undersøgt eksisterende mønstre der vil kunne opfylde disse krav.
