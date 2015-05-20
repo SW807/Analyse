@@ -7,25 +7,29 @@ At reflektere over disse beslutninger og overvejelser giver det et overblik og f
 
 \section{Visualiseringer}
 Data indsamlet og analyseret af forskellige moduler, skulle originalt kunne visualiseres med det formål at give brugere af platformen et overblik over deres sindstilstand.
-Dette blev dog aldrig helt overvejet hvordan dette skulle gøres. 
-Det blev aldrig overvejet af den grund at det ville kræve datavisualiserings-teknikker og -teori, og til sidst på grund af manglende ressourcer. 
-Nogle af de ting man skal overveje før man begynder at lave disse visualiseringsmoduler er hvordan Json skemaet skal opsættes, hvordan man skal vælge hvilket man gerne vil kunne se og til sidst sørge for hvordan det skal implementeres i Android så det er muligt for andre udviklere at lave deres egne visualiseringsmoduler.
+Det blev overvejet kort i \cref{sec:visningsmodul}, der diskutere håndteringen af visualiseringsmodulerne skal gøres, men det har ikke været et stor fokus og blev derfor aldrig gennemtænkt. 
+Det blev aldrig gjort færdigt af den grund at det ville kræve datavisualiserings-teknikker og -teori, og til sidst på grund af manglende ressourcer. 
+Udover de ting der blev diskuteret i \cref{sec:visningsmodul} skal man også overveje hvordan brugere skal vælge hvilke visualiseringsmoduler de gerne vil kunne se og hvordan det skal implementeres i Android så det er muligt for andre udviklere at lave deres egne visualiseringsmoduler.
+Ydermere, skal man også overveje hvordan data skal repræsenteres til brugerne, da det gerne skal være let forståeligt og gennemskueligt for målgruppen. 
 
 \section{Eksperimenter}
-Der blev udført et eksperiment for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
+Der blev udført et eksperiment for at få en idé over hvor meget plads der kræves for at kunne benytte platformen, hvilket er beskrevet i \cref{eksperimenter}.
 Når platformen engang er blevet videre udviklet, vil det kræve at man foretager sådan et eksperiment endnu engang. 
 Dette eksperiment vil kunne give et billede af hvor meget pladsforbrug det færdige produkt så vil kunne bruge.
 Derudover, bør disse eksperimenter udføres for hvert enkelt modul, hvilket vil kunne bruges af brugerne så de selv kan afgøre hvor meget plads de har lyst til at bruge.
 Ydermere, vil det også være fordelagtigt at udvide eksperimentet til at inkludere strømforbrug, idet at dette kan være et problem med de forskellige sensorer der skal logge data konstant.
 
-\section{Data indsamling}
+For at gøre eksperimenterne mere nøjagtigt, vil det være en idé at kunne udføre eksperimenterne på en telefon der er i brug, for på den måde at kunne afgøre hvor meget det vil bruge i normale tilfælde.
+Derudover, kan eksperimenterne også udføres på en sådan måde at platformen bruger så mange ressourcer som overhovedet muligt og derved give brugerne en idé om hvad applikationen maksimalt kræver. 
+
+\section{Data Indsamling}
 Som nævnt før, se \cref{eksperimenter}, vil den mængde data der bliver indsamlet kunnes reduceres.
 For at gøre dette skal man overveje hvilken metode man gerne vil bruge.
 I \cref{eksperimenter} bliver der givet tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ændre på opdateringshastigheden for de forskellige sensorer.
 Ydermere, er dette vigtigt også at overveje de forskellige fordele og ulemper der er ved de forskellige, samt om det kan være en god idé at kombinere de forskellige metoder.
 En kombinering kunne være at gammel data kom op i skyen, hvor imod en oprydning af det nye data kan blive gjort.
 
-\section{Analyse aflastning}
+\section{Analyse Aflastning}
 For at aflaste telefonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
 Dette vil have den effekt at telefonen ikke behøver gøre særlig meget udover at registrere sensor data.
 Dette er også en idé der skal undersøges ordentligt da der kan være problematikker som vi ikke har kendskab til på dette tidspunkt. 
@@ -36,7 +40,7 @@ Dette gør at andre applikationer også har rettigheder til at hente ressource f
 Til at undgå denne deling af filer vil man kunne benytte en file provider der kan gøre det muligt at dele en bestemt fil til en anden applikation.
 Dette skal derfor tilføjes til alle moduler så de kan dele deres modul definition kun med platformen. 
 
-\section{Database rettigheder}
+\section{Database Rettigheder}
 Som det er nu med den Content Provider der er defineret i platformen, giver dette hvert modul adgang til alt data som ligger i databasen.
 Dette er unødvendigt åbent og giver alt for bred adgang til de forskellige moduler, så i stedet for dette skal der ved videre arbejde laves en måde så man kan begrænse hvilke moduler der har adgang til hvilken data.
 Der er forskellige veje man kan følge for at implementere dette.  
@@ -46,13 +50,13 @@ En anden mulighed ville være at gøre det internt i platformen, idet at man kun
 En tredje mulighed at se på er bare at begrænse skrive adgang til tabellerne, en måde at gøre dette på er ved lave en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler.
 Dette er derfor noget der skal overvejes og arbejdes videre med. 
 
-\section{Kommunikation mellem moduler}
+\section{Kommunikation mellem Moduler}
 For at undgå at moduler skal dele data gennem content provideren kan man potentielt kommunikere direkte fra modul til modul.
 En fordel ved dette kan være at moduler kan sende deres opsamlede data til andre moduler så man kan undgå helt at gemme data i database.
 På den måde vil man kunne spare en masse plads, men vil komme med den bekostning af at det ikke længere er muligt at rekonstruere en analyse.
 Dette kræver dog en stor ændring i forhold til det der gøres nu, og skal derfor overvejes grundigt om dette er en god idé før det tages i brug.
 
-\section{Interaktive moduler}
+\section{Interaktive Moduler}
 En idé som ikke blev undersøgt var at udvikle interaktive moduler.
 Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at test folks reaktionsevne.
 Dette kunne gøres fordi at ved affektive lidelser ser man nogen gange den slags symptomer. 

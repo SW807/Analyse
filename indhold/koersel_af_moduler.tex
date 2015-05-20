@@ -1,7 +1,7 @@
 Der er overordnet to måder hvorpå moduler køres; enten styrer de selv deres kørsel (kontinuerte kørende moduler) eller så administreres de af Managerens \texttt{TaskRunner}, som er en \texttt{Service} der startes når mobilen tændes.
 Både sensor- og analyse-moduler kan køre på disse to forskellige måder.
 
-\paragraph{Kontinuerligt kørende moduler}
+\paragraph{Kontinuerligt Kørende Moduler}
 Til moduler der skal køres kontinuert, startes deres \texttt{Service} så snart modulet aktiveres i indstillinger, hvorefter det selv administrerer hvornår og hvor ofte det udfører sin opgave.
 Fordelen ved dette er at vi sparer kommunikations-overhead, da der ikke konstant skal kommunikeres mellem Manager og kontinuert-kørende moduler.
 

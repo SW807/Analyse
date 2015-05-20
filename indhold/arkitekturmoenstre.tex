@@ -1,4 +1,4 @@
-\section{Eksisterende mønstre}
+\section{Eksisterende Mønstre}
 Ved implementation af platformen vil det være fordelagtigt at anvende et eksisterende mønster til at beskrive systemets arkitektur.
 Ved at anvende et eksisterende mønster vil mange strukturelle udfordringer kunne undgås.
 Herunder beskrives eksisterende arkitekturmønstre og der foretages en vurdering af hvorvidt mønstrene kan anvendes, givet behovene beskrevet i \cref{arkitekturkrav}.
@@ -12,7 +12,7 @@ Baseret på disse ville denne arkitektur nok ikke fungere.
 \mikkel{Vi mangler en beskrivelse af selve arkitekturen.}
 \stefan{kilde?}
 \subsection{Standalone}
-En anden arkitektur ville være en \textbf{standalone} applikation som indeholder alt sensor indsamling, analyse og visning i samme applikation.
+En anden arkitektur ville være en \textbf{standalone} applikation som indeholder alt sensor indsamling, analyse og visualisering i samme applikation.
 Dette har fordelen at det er nemmere at programmere end 15 forskellige applikationer, men kommer med ulempen at applikationen kunne ende med at blive meget stor.
 Det er selvfølgelig muligt for udefrakommende udviklere at implementere ny funktionalitet til denne hvis de har fri adgang til kildekoden, men dette vil nok danne med problemer med Google Play Store idet at hvis 30 forskellige udviklere tilføjer ny funktionalitet til applikationen ville dette påkræve at hvis denne skal bruges af flere ville der være flere versioner af den samme applikation uploadet af forskellige udviklere og dette gør det på samme tid svære at udvikle videre på andres arbejde da alting er samlet i en applikation og ikke over flere.
 På grund af dette ville denne arkitektur ikke gøre det let at implementere og bruge ny funktionalitet.
