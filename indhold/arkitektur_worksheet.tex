@@ -90,15 +90,15 @@ Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
 Moduler indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
 
 \paragraph{Design}
-Til hvert enkelt modul hører en modulbeskrivelse (se \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
+Til hvert enkelt modul hører en modulbeskrivelse (beskrevet i \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
 Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
 
-Modullaget inddeles yderligere i tre konceptuelle lag: \textit{sensor}-, \textit{analyse}- og \textit{visualiserings}moduler.
+Modullaget inddeles yderligere i tre konceptuelle lag: \textit{data}-, \textit{analyse}- og \textit{visualiserings}-moduler.
 
 Nedenstående beskriver intentionerne bag de forskellige modultyper og deres opgave.
 
-\subparagraph{Sensor}
-\textit{Sensor}laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
+\subparagraph{Data}
+\textit{Data}-laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
 Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
 Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
 Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
