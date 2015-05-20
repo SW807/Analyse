@@ -9,10 +9,10 @@ smartphone - telefon - mobiltelefon - mobil telefon, hvad skal vi bruge? smartph
 bruger intervention -> brugerintervention  (y)
 polysomnografi -> polisomnografi  ++++ det er et ord (y)
 søvn kvalitet -> søvnkvalitet (y)
-depressions periode -> depressions-periode    (same for mani)
-fokusgruppemøde -> fokusgruppeinterview
+depressions periode -> depressions-periode    (same for mani) (y)
+fokusgruppemøde -> fokusgruppeinterview (y)
 søvn periode -> søvnperiode
-stilstands periode -> stilstandperiode
-bruger int
-fokus gruppe
- periode
+stilstands periode -> stilstandperiode (y)
+bruger int (y)
+fokus gruppe (y)
+ periode (y)
