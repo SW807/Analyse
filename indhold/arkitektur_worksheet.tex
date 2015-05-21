@@ -2,7 +2,7 @@
 Dette afsnit præsenterer arkitekturen som er udarbejdet på baggrund af de specificerede behov i \cref{arkitekturkrav}.
 
 \paragraph{Platform}
-Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ifht. arkitektur.
+Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ift. arkitektur.
 
 Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
 Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \cite{android_service}.
@@ -47,37 +47,14 @@ For at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::ko
 På denne måde forhindres det at eksterne moduler modificerer andre modulers data.
 
 \paragraph{Design} 
-For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder har vi undersøgt eksisterende mønstre der vil kunne opfylde disse krav.
+For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder er der blevet valgt at benytte facade designmønster \citep[s.~185]{gamma1994design}.
 
-\subparagraph{Facade}
-For at kunne give en ensrettet interface til moduler tager vi inspiration i det strukturelle \textit{facade} design mønster.
-Facade er et design mønter der tilbyder et simpelt interface til et komplekst subsystem \citep{gamma1994design}. 
-Det er et middel til at få en løsere kobling mellem et system og klienterne der bruger systemet.
-Dette gøres ved at opstille en facade mellem klienterne og subsystemet.
-Facaden sikrer et ensartet interface til brug af subsystemerne, men hvor man abstraherer over disse.
-At implementere dette sikrer også større modularitet idet ændringer i subsystemerne ikke kræver ændring i klienterne, da de blot bruger facaden der kan justere for disse ændringer.
+Grunden til at facade er benyttet er fordi det giver en kobling mellem moduler og databasen.
+Denne kobling sker gennem et interface der sørger for modulerne kun skal opfylde nogle få krav for at få deres data gemt i databasen, samt for at få data fra andre moduler.
+Endvidere, sørger den kobling for at skabe en specifik og sikker kommunikation mellem moduler sker nemt og sikkert, hvilket er nødvendigt for at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}.
 
-Af denne årsag vælges facade designmønstret til at abstrahere over lagringen af data.
-Mønstret er implementeret ved hjælp af Androids indbyggede \textit{Content Provider} konstruktion\citep{contentprovider}.
-En Content Provider indkapsler data og giver adgang til hertil gennem et \textit{Content Resolver} interface.
-Dette interface anvendes til deling af data mellem flere applikationer.
-DB Access er vores implementering af facade som giver adgang til DB.
-\mikkel{\stefan{mere detalje?} Det synes jeg. Der står ikke så meget om hvordan mønstret opnår de plusser det har.}
-
-\subparagraph{Observer}
-For at moduler kan tilgå hinandens data uden at have adgang til at tilføje eller ændre i det har vi brug for en model til at dele data.
-Med observer mønstret kan man hver gang der er ny data sende opdateringen ud til alle de moduler der har brug for den nye information \citep[p.~244]{gamma1994design}.
-
-Altså vil moduler kunne abonnere på informationer fra andre moduler.
-Ved brug af dette mønster vil hvert modul der abonnerer på en datakilde kunne udføre sine beregninger i det øjeblik informationerne bliver tilgængelig.
-Det betyder at det ikke er muligt for modulet selv at bestemme hvornår tunge beregninger skal udføres.
-\mikkel{Nej det gør det ikke.
-Det betyder bare at modulet ikke selv kan bestemme hvornår det får ny data.
-Beregningerne kan ske når som helst.
-Det kunne derimod betyde at modulerne ikke selv skal holde styr på hvad der er ny data.
-Har vi andre argumenter mod observer?}
-Hvis et modul skal udføre tunge beregninger vil det være fordelagtigt at kunne udføre disse når brugeren ikke bruger smartphonen, eventuelt om natten når smartphonen alligevel er sat til strøm.
-Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
+Derudover, sørger facade designmønstret også for at hvis man ønsker en ændring i modulerne kræver det ikke en ændring i manageren,
+Ved at kunne ændre på modulerne uden at ændre på manageren gør at system bliver mere modulært, hvilket er et af behovene for arkitekturen, se \cref{arkitekturkrav::modulaer}.
 
 \subparagraph{Sikkerhed}
 Udover at være ensrettet skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men samtidig have mulighed for at læse fra andre modulers tabeller.
@@ -86,14 +63,15 @@ Denne del af systemet er ikke implementeret.
 \bruno{Hvad skal der være mere om?}
 
 \subsection{Moduler}
-Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
-Moduler indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
+Denne komponent befinder sig i et lag for sig selv og indeholder tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
+Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
 
-\paragraph{Design}
-Til hvert enkelt modul hører en modulbeskrivelse (beskrevet i \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
-Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
+Dette afsnit beskriver hvordan modulerne er defineret og en beskrivelse af de tre typer moduler.
+Men først en begrundelse for valget af dette lag på baggrund af behovene i \cref{arkitekturkrav}.
 
-Modullaget inddeles yderligere i tre konceptuelle lag: \textit{data}-, \textit{analyse}- og \textit{visualiserings}-moduler.
+\paragraph{Begrundelse for valg}
+For at opfylde nøgleordet \textit{modulær}(se \cref{arkitekturkrav::modulaer}) er det valgt lave et lag der indeholder moduler, så det er let at tilføje og fjerne moduler.
+Dette kunne fx være i en situation hvor der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
 
 Nedenstående beskriver intentionerne bag de forskellige modultyper og deres opgave.
 

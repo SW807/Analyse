@@ -35,40 +35,39 @@ Platformen benyttes af udvikleren, men hvordan de enkelte visualiseringer skal s
 De præsenterede muligheder er ikke fastlagte, og opfordres til at blive diskuteret yderligere ved videre arbejde, så den mest hensigtsmæssige løsning opnås.
 
 \section{Dataindsamling}
-Som nævnt i \cref{eksperimenter}, vil mængden af data der indsamles kunne blive reduceret.
+Som nævnt i \cref{eksperimenter}, blev der udført eksperimenter for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
+Ydermere siger den at mængden af data der indsamles kan blive reduceret.
 Der nævnes tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ved at ændre på opdateringshastigheden for de forskellige sensorer.
 I den sammenhæng er det vigtigt at vægte fordele og ulemper for metoderne, samt om det er muligt at kombinere de forskellige metoder.
 En kombinering man kunne forstille sig er at lagre gammelt data i skyen, hvorimod ny data lagres lokalt, men hvor al data komprimeres.
 Hvordan dette skal implementeres er et åbent spørgsmål, men bør udforskes videre.
 Som udgangspunkt har vi lavet et interface, som modulerne kan benytte, i form af DBAccess, så disse ændringer ville være backend ændringer og dermed ville de ikke komme til at påvirke de enkelte moduler.
 
+
 En anden tankegang til at reducere plads er ved at ændre arkitekturen så man kan kommunikere modul til modul uden nødvendigvis at lagre i en database.
 En fordel ved dette kan være at moduler kan sende deres opsamlede data til andre moduler, så man kan undgå helt at gemme data i databasen for visse mellemleds-moduler.
 På den måde vil man kunne spare en masse plads, men det vil komme på bekostning af at det ikke længere er muligt at rekonstruere en analyse. En måde dette kunne implementeres på, uden at gå på kompromis med modulariteten, er at benytte sig af et observer designmønster som beskrevet i \cref{subsec:DBACCESS}.
 Dog er det en stor ændring i forhold til den nuværende arkitektur, men er et alternativ man med fordel kunne benytte sig af til at gøre datadeling mellem moduler mindre pladskrævende.
+
+Når en eller flere af disse er implementeret, er det en god idé at gentage eksperimenterne for at verificere at løsningerne har den ønskede effekt, og på samme tid vil det være fordelagtigt at udvide eksperimenterne til at inkludere andre faktorer såsom batteri forbrug.
 
 \section{Analyse Aflastning}
 For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
 Dette vil have den effekt at smartphonen ikke behøver gøre særlig meget udover at registrere sensor data.
 Dette er også en idé der bør undersøges videre, hvor man også skal have problematikker såsom sikkerhed og kommunikationstid i mente.
 
-\section{Eksperimenter}
-Der blev udført eksperimenter, for at få en idé over hvor meget plads der kræves for at kunne benytte platformen, hvilket er beskrevet i \cref{eksperimenter}.
-Imidlertid er der foreslået diverse forbedringer til at minimere pladsforbruget, og når disse forbedringer implementeres, bør en ny række af eksperimenter foretages, til at verificere at løsningerne har den ønskede effekt.
-Endvidere, vil det være fordelagtigt at udvide eksperimenterne til at inkludere strømforbrug, da dette også er et problem som kan forekomme ved konstant datalogning.
-
 \section{Alternativ Moduldefinitions-deling}
 Med den nuværende implementering skal platformen hente ressourcefilerne for de enkelte moduler, for at læse deres moduldefinitioner.
-Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket kan give problemer, hvis man laver et ikke open-source modul.
-Til at undgå denne deling af filer, blev der undersøgt om en file provider kunne implementeres, der kan gøre det muligt at dele en bestemt fil til en anden applikation.
+Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket muligvis kan give problemer.
 
-Brug af en sådan file provider kræver dog at platformen på forhånd skal vide hvilke moduler den skal benytte en file provider af.
-Dette mindsker modulariteten af platformen, da man ville begrænse moduler der kan bruges til en fastsat mængde, hvorfor denne løsning ikke blev brugt.
+Til at undgå denne metode af deling, bør der ved videre arbejde blive set på andre metoder til at dele filer.
+En mulig metode var at bruge en file provider.
+En file provider kan gøre det muligt at dele en bestemt fil og er den officielle måde at dele filer på i Android.
 
-Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes, der ikke mindsker modulariteten, bør denne benyttes.
+Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning er ikke idéel idet at det er ikke sådan man skal dele file mellem applikationer på Android.
 
 \section{Databaserettigheder}\label{databaserettigheder}
-Med den nuværende implementering af DBAcess har hvert modul adgang til alt data som ligger i databasen.
+Med den nuværende implementering af DBAccess har hvert modul adgang til alt data som ligger i databasen.
 Dette er unødvendigt åbent og giver for bred adgang til de forskellige modulers data.
 For at gøre løsningen mere sikker, bør der med videre arbejde implementeres en måde til at begrænse hvilke moduler, der har adgang til hvilket data.
 
@@ -77,16 +76,15 @@ Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke k
 
 En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
 
-
 \section{Interaktive Moduler}
 En idé som ikke blev undersøgt var at udvikle interaktive moduler.
 Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at teste reaktionsevne.
 Dette kunne være en god idé, da man ved affektive lidelser nogle gange ser den slags symptomer.
 
 \section{Notifikationer}
-En ting som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
+Noget som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
 Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber i.f.t. at forstyrre en evt. patient med psykiske problemer.
-Dog erfarede vi senere, ifm. styregruppemødet, at patienterne er interesseret i dette, da de er meget interesseret i at få at vide så tidligt som muligt, hvis de er under forværring i deres tilstand.
+Dog erfarede vi senere, i forbindelse med styregruppemødet, at patienterne er meget interesseret i at få at vide så tidligt som muligt om de er under forværring i deres tilstand.
 
 Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår en forværring eller at der har været en drastisk stigning/fald i.f.t. sensor/analyse.
 Den anden slags information kan være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
@@ -94,7 +92,7 @@ Det andet eksempel på en notifikation kunne få brugeren til at reflektere over
 
 \subsection{Huskekort}
 I interviewet med psykolog Janne Rasmussen blev huskekort nævnt.
-Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven inden en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
+Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven før en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
 
 Disse kan på samme måde som benævnt ovenover også implementeres som notifikationer.
 På denne måde kan der foreslås en lystbetonet aktivitet hvis analyser antyder en stressende dag.
