@@ -68,7 +68,7 @@ Dette kunne fx være i en situation hvor der kommer nye sensorer på markedet, e
 \input{indhold/modul_definition}
 \input{indhold/modul_view}
 
-\subparagraph{Data}
+\subsubsection{Data}
 \textit{Data}-laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
 Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
 Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
@@ -78,7 +78,7 @@ Et eksempel på et sensormodul er indsamling af data fra accelerometret.
 Modulet får data fra accelerometret og gemmer det i sin database. 
 For ikke at gemme unødvendige mængder data vil modulet kun gemme et datapunkt når det er forskelligt fra det forrige målte punkt.
 
-\subparagraph{Analyse}
+\subsubsection{Analyse}
 \textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
 Herefter udføres en analyse af det indsamlede data med \textit{''forståelig information''} som resultat.
 I denne process vil der kunne forekomme tab af data.
@@ -92,7 +92,7 @@ Eksempelvis kan analysen foretages om natten hvor smartphonen kan sættes til op
 Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
 Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
 
-\subparagraph{Visualisering}
+\subsubsection{Visualisering}
 \textit{Visualiserings}laget indeholder moduler der visualiserer analyserede data.
 Som en del af et visualiseringsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
 Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visualisering anvendes på den enkelte analyse.
@@ -109,17 +109,30 @@ Det vil sige at der kan anvendes flere forskellige visualiseringsmoduler til det
 Tilsvarende kan det samme visualiseringsmoduler anvendes til flere forskellige analysemoduler.
 
 \subsection{Manager}\label{subsec:arkitektur-Manager}
+Dette afsnit begrunder valget af denne komponent.
+Derefter beskrives komponenten.
+
+\paragraph{Begrundelse for valg}
+For at opfylde nøgleordet \textit{fleksibel}(\cref{arkitekturkrav::fleksibel}), er der tilføjet en komponent kaldet manager.
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
 Denne administration indebærer blandt andet oprettelse af de database tabeller hvert modul har bedt om i sin beskrivelse, samt start og stop af sensor- og analysemoduler.
 Sidstnævnte sker ud fra definitioner givet i beskrivelserne af de enkelte moduler.
-Desuden er det også gennem manageren brugeren for vist den information de leder efter.
-
+Desuden er det også gennem manageren brugeren får vist den information de leder efter.
+\bruno{Ref til moduledefinition når den er done}
 \paragraph{Design}
 Ved at sammenholde visualiseringer og analyser kan manageren beskrive for brugeren hvilke data der kan fremvises og med hvilke visualiseringer det kan ske.
 Manageren har desuden en prædefineret brugerflade der anvender ovenstående kombinationer til at vise brugeren de relevante informationer.
 
 Manager komponenten indeholder desuden et JSON skema for hver modul-type i moduler komponenten.
 Disse definitioner beskriver formatet for eventuelle nye moduler man måtte ønske at føje til systemet.
-\stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
+
+\subsubsection{Beskrivelse af manageren}
+\input{indhold/komponent-manager}
+\paragraph{Udførsel af moduler}
+\input{indhold/koersel_af_moduler}
+\paragraph{Indstillinger}\label{sec:settings}
+\input{indhold/indstilliinger_arbejdsblad}
+\paragraph{JSON-Parser}\label{subsub:JSONparser}\mikkel{Find på bedre navn}
+\input{indhold/JSON-parser}
 

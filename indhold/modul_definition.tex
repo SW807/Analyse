@@ -2,32 +2,49 @@
 Dette afsnit beskriver de forskellig forslag til et modulbaseret lag.
 Derefter et rationale for valget af et forslag på baggrund af behovene for arkitekturen, beskrevet i \cref{arkitekturkrav}.
 Til sidst bliver løsningen beskrevet.
-\subsubsection{Forslag til modulært lag}
+\subsubsection{Forslag til Modulært Lag}
+For at kunne vælge et modulært lag som opfylder de behov arkitekturen er der her givet eksempler på hvordan laget kan se ud. 
+Hvorefter et valg af hvilket modulært lag der vælges vil blive beskrevet.
+
 \paragraph{Komplet Pakke}
 En traditionel applikation samler al funktionalitet i en pakke.
 Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele appen på samme tid.
 Desuden bliver det sværere for eksterne udviklere at bidrage til applikationen, da opdateringer skal ske igennem udviklerne af hovedapplikationen.
 
 \paragraph{Import af Kode}
-En anden mulighed er at inkludere et scripting sprog med applikationen og gøre det muligt at udvikle script der kan agere modul.
+En anden mulighed er at inkludere et scripting sprog med applikationen og gøre det muligt at udvikle scripts der kan agere modul.
 Denne løsning kræver et meget kraftigt scripting sprog hvis alle Androids muligheder skal stilles til rådighed.
-Hvis scripts på den anden side skal skrives direkte i java vil der være nogle sikkerhedshensyn som vil gøre det svært at kontrollere hvad moduler kan og ikke kan.
-For eksempel vil det være vanskeligt at kontrollere hvilke database tabeller der er adgang til.
-Sikkerhedsproblemet er stort, men kunne sikkert løses med nok tid og ressourcer.
+Hvis scripts på den anden side skal skrives direkte i Java vil der være nogle sikkerhedshensyn som vil gøre det svært at kontrollere hvad moduler kan og ikke kan.
 
 \paragraph{Selvstændig Applikation}
 Den tredje mulighed er at pakke hvert modul i en selvstændig APK\footnote{Androids pakkeformat} \citep{misc:apk}.
 Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet.
-Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
 
 Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræver at en stor mængde af applikationer skal installeres.
-Derudover er kommunikation mellem applikationer vanskeligere end internt i en applikation, men ses som acceptabelt.
 Desuden kan det være træls at skulle installere en større mængde af applikationer for at have den fornødne funktionalitet.
 Som løsning derpå kunne man med videre arbejde have et indbygget applikation marked i manageren, og er værd at udforske med mere tid.
 
-Det er en løsning der har mange fordele i forhold til modularisering og svagheder der kan tolereres, hvorfor denne løsning er valgt. 
+\subsubsection{Valg af Modulært Lag}
+For at vælge den en måde at lave det modulære lag på, er det vigtigt at kigge på de behov der er for arkitekturen.
 
-Det følgende vil forklare detaljerne i implementeringen af moduler ved hjælp af selvstændige applikationer.
+Løsningen den komplette pakke giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
+Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
+Derudover, gør løsningen også så at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændret på systemet.
+På grund af disse begrænsninger er denne løsning ikke valgt
+
+Den næste løsning der blev kigget på er import af kode.
+Løsningen kræver at man udvikler et meget kraftigt scripting sprog der gør at alle Androids funktionalitet står til rådighed, hvilket er meget tidskrævende.
+Denne løsning er dog modulær, idet man selv kan vælge hvilke moduler man vil gøre brug af.
+Desuden er løsningen også med til at gøre det mere enkelt at udvikle sit eget modul.
+Denne løsning er en mulighed der kan benyttes.
+
+Den sidste løsning der er at have selvstændige applikationer.
+Ved denne løsning er det muligt, ligesom ved import af kode, at kunne vælge mellem hvilke moduler man vil gøre brug af.
+Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler da de er hver deres applikation.
+Dog er dette ikke en stor ulempe på grund af den måde DBAccess er designet.
+Eftersom løsningen gør systemet mere modulært og da ulempe ved rørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes
+
+Eftersom der skal vælges en måde at gøre dette på, vælges løsningen der benytter selvstændige applikationer af den grund at denne løsning er mindre tidskrævende end import af kode.
 
 
 
@@ -39,6 +56,46 @@ Der findes tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visua
 Sensor moduler indsamler data fra smartphonens forskellige sensorer og applikationer.
 Endvidere bruger analyse moduler data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data, som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
 Visualiserings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
+
+\subparagraph{Data}
+\textit{Data}-laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
+Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
+Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
+Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
+
+Et eksempel på et sensormodul er indsamling af data fra accelerometret.
+Modulet får data fra accelerometret og gemmer det i sin database. 
+For ikke at gemme unødvendige mængder data vil modulet kun gemme et datapunkt når det er forskelligt fra det forrige målte punkt.
+
+\subparagraph{Analyse}
+\textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
+Herefter udføres en analyse af det indsamlede data med \textit{''forståelig information''} som resultat.
+I denne process vil der kunne forekomme tab af data.
+Herved opnås en opsummering af det indsamlede data, der skaber værdifuld information for brugeren.
+Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
+Denne information anvendes af visualiseringsmodulerne.
+
+Der kan ved analyse af sensordata anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
+Eksempelvis kan analysen foretages om natten hvor smartphonen kan sættes til opladning.
+
+Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
+Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
+
+\subparagraph{Visualisering}
+\textit{Visualiserings}laget indeholder moduler der visualiserer analyserede data.
+Som en del af et visualiseringsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
+Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visualisering anvendes på den enkelte analyse.
+
+Et eksempel på et visualiseringsmodul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
+Dette kunne være en graf der fortæller hvor dyb søvn man har været i, eller en simpel farvet indikator hvis farve viser hvor godt man har sovet de sidste par dage.
+
+Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visualiserings}modul.
+
+Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
+Sammensætningen af analyse- og visualiseringsmoduler sker ved en beskrivelse af deres grænseflade.
+Moduler med fælles grænseflade vil kunne kombineres.
+Det vil sige at der kan anvendes flere forskellige visualiseringsmoduler til det samme analysemodul, givet at de er kompatible.
+Tilsvarende kan det samme visualiseringsmoduler anvendes til flere forskellige analysemoduler.
 
 \paragraph{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
