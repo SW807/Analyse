@@ -41,11 +41,6 @@ Tanken er at de moduler man har valgt, er dem der kører på smartphonen.
 For at scanne mobilen for de moduler der er installeret bruges JSONParser der tager vare af dette, hvilket bliver beskrevet herunder.
 Dette giver udslag i en række moduler der har afhængigheder af andre moduler.
 JSONParseren giver som resultat en liste af moduler. Disse scannes så igennem for at finde deres afhængigheder.
-Disse afhængigheder bruges så til at konstruere events (OnChange) til at fortælle de moduler der skal have besked når et givent modul aktiveres eller deaktiveres.
+Disse afhængigheder bruges så til at konstruere events til at fortælle de moduler der skal have besked når et givent modul aktiveres eller deaktiveres.
 Ved at lave en sådan række er der implicit konstrueret en dependency graph.
 Resultatet af dette er et slags hierarki hvor et modul på det lavest liggende niveau medfører en kæde af deaktiveringer af moduler der eksplicit og implicit afhænger af dette modul.
-
-%indstillinger, onPause start og stop sensorer
-Efter afhængighederne er enkodet i programmet mangler der at håndteres hvordan sensorer skal startes og stoppes fra indstillingsmenuen.
-Til at håndtere dette bruger vi Androids allerede udviklet start- og stopService.
-Der vælges så at starte og stoppe de fornødne sensorer i onPause, da det typisk er når man forlader en indstillingsmenu at man gerne vil have at indstillingerne træder i kraft, og sikre også at man ikke skal klikke på ekstra knapper for at indstillingerne træder i kraft.

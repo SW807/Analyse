@@ -49,7 +49,7 @@ Eftersom der skal vælges en måde at gøre dette på, vælges løsningen der be
 
 
 
-\subsubsection{Beskrivelse af Løsning}\label{modul_definition}
+\subsubsection{Beskrivelse af Modulært Lag}\label{modul_definition}
 Her vil den implementerede løsning blive gennemgået.
 
 \paragraph{Typer af Moduler}
@@ -59,38 +59,38 @@ Endvidere bruger analyse moduler data fra enten sensor eller andre analyse modul
 Visualiserings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
 \subparagraph{Data}
-\textit{Data}-laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
+\textit{Data}-moduler indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
 Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
 Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
 Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
 
-Et eksempel på et sensormodul er indsamling af data fra accelerometret.
+Et eksempel på et data-modul er indsamling af data fra accelerometret.
 Modulet får data fra accelerometret og gemmer det i sin database. 
 For ikke at gemme unødvendige mængder data vil modulet kun gemme et datapunkt når det er forskelligt fra det forrige målte punkt.
 
 \subparagraph{Analyse}
-\textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
+\textit{Analyse}-moduler bruger data fra et antal data-moduler samt eventuelle andre analysemoduler.
 Herefter udføres en analyse af det indsamlede data med \textit{''forståelig information''} som resultat.
-I denne process vil der kunne forekomme tab af data.
+I denne proces vil der kunne forekomme tab af data.
 Herved opnås en opsummering af det indsamlede data, der skaber værdifuld information for brugeren.
 Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
-Denne information anvendes af visualiseringsmodulerne.
+Denne information anvendes af visualiserings-modulerne.
 
-Der kan ved analyse af sensordata anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
+Der kan ved analyse af data anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
 Eksempelvis kan analysen foretages om natten hvor smartphonen kan sættes til opladning.
 
 Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
-Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
+Dette modul vil bruge flere data-moduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
 
 \subparagraph{Visualisering}
-\textit{Visualiserings}laget indeholder moduler der visualiserer analyserede data.
-Som en del af et visualiseringsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
+\textit{Visualiserings}-moduler bruges til at vise analyseret data.
+Som en del af et visualiserings-moduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
 Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visualisering anvendes på den enkelte analyse.
 
-Et eksempel på et visualiseringsmodul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
+Et eksempel på et visualiserings-modul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
 Dette kunne være en graf der fortæller hvor dyb søvn man har været i, eller en simpel farvet indikator hvis farve viser hvor godt man har sovet de sidste par dage.
 
-Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visualiserings}modul.
+Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}-modul der viser resultatet i et graf \textit{visualiserings}-modul.
 
 Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
 Sammensætningen af analyse- og visualiseringsmoduler sker ved en beskrivelse af deres grænseflade.
@@ -122,28 +122,28 @@ Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men de
 \paragraph{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
 JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul.
-For at sikre validiteten af eksternt leverede modul-beskrivelser, udarbejdes der et JSON Skema, som JSON-dokumenter kan holdes op imod og derved verificeres.
-Det anvendte JSON Skema kan findes i \cref{app:json_schema}.
+For at sikre validiteten af eksternt leverede modul-beskrivelser, er der udarbejdet nogle JSON Schemas, som JSON-dokumenter holdes op imod og derved verificeres.
+De anvendte JSON Schemas kan findes i \cref{app:json_schema}.
 
-\subparagraph{Eksempel} på en modul-beskrivelse.
+\subparagraph{Eksempel} Accelerometer modul-definitionen kan ses her.
 Meta-data er præfikset med \_ (underscore).
 \begin{lstlisting}
 {
   "name": "accelerometer",
+  "_userfriendlyname": "Accelerometer",
   "_version": 1.0,
+  "_description":"Maaler og opbevarer acceleration i tre akser.",
   "tables": [
-    { "name": "accelerations",
+    {
+      "name": "accelerations",
       "columns": [
-        { "name": "accX",
-          "dataType": "REAL",
-          "_unit": "g" },
-        { "name": "accY",
-          "dataType": "REAL",
-          "_unit": "g" },
-        { "name": "accZ",
-          "dataType": "REAL",
-          "_unit": "g" }
-      ]}]}
+        { "name": "accX", "dataType": "REAL", "_unit": "g"},
+        { "name": "accY", "dataType": "REAL", "_unit": "g"},
+        { "name": "accZ", "dataType": "REAL", "_unit": "g"}
+      ]
+    }
+  ]
+}
 \end{lstlisting}
 
 \paragraph{Implementering}
