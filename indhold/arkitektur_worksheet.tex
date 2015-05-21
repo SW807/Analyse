@@ -109,11 +109,16 @@ Det vil sige at der kan anvendes flere forskellige visualiseringsmoduler til det
 Tilsvarende kan det samme visualiseringsmoduler anvendes til flere forskellige analysemoduler.
 
 \subsection{Manager}\label{subsec:arkitektur-Manager}
+Dette afsnit begrunder valget af denne komponent.
+Derefter beskrives komponenten.
+
+\paragraph{Begrundelse for valg}
+For at opfylde nøgleordet \textit{fleksibel}(\cref{arkitekturkrav::fleksibel}), er der tilføjet en komponent kaldet manager.
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
 Den står for at administrere de installerede moduler ud fra de beskrivelser der er givet for de enkelte moduler.
 Denne administration indebærer blandt andet oprettelse af de database tabeller hvert modul har bedt om i sin beskrivelse, samt start og stop af sensor- og analysemoduler.
 Sidstnævnte sker ud fra definitioner givet i beskrivelserne af de enkelte moduler.
-Desuden er det også gennem manageren brugeren for vist den information de leder efter.
+Desuden er det også gennem manageren brugeren får vist den information de leder efter.
 
 \paragraph{Design}
 Ved at sammenholde visualiseringer og analyser kan manageren beskrive for brugeren hvilke data der kan fremvises og med hvilke visualiseringer det kan ske.
