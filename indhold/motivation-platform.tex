@@ -1,6 +1,6 @@
 \section{Arkitektur Behov}\label{arkitekturkrav}
 Ved analyse af problemområdet udledes der i følgende afsnit en beskrivelse af behov til arkitekturen for den udviklede platform.
-Behovene beskrives herunder i form af følgende nøgleord: \textit{modulær}, \textit{fleksibel}, \textit{kombinerbar} og \textit{kommunikation}.
+Behovene beskrives herunder i form af følgende nøgleord: \textit{modulær}, \textit{fleksibel}, \textit{kombinerbar} og \textit{kommunikation}, og svarer til kriterierne introduceret i \cref{firstsubseckriterier}.
 
 \subsection{Modulær}\label{arkitekturkrav::modulaer}
 I \cref{sec:affektivelidelser} beskrives det at symptomerne på affektive lidelser varierer meget.
@@ -8,19 +8,27 @@ Derfor skal arkitekturen understøtte muligheden for at detektere alle de forske
 Det er dog ikke nødvendigt altid at detektere alle symptomer, da de konkrete symptomer varierer fra person til person.
 Denne varians gør at en modulær opbygning er nødvendig, da dette vil gøre det muligt nemt at modificere funktionaliteten så den kun går efter at identificere den konkrete brugers symptomer.
 
+<<<<<<< HEAD
 Ydermere vil en modulær arkitektur også gøre det nemt at udskifte enkelte dele af funktionalitet, hvis der for eksempel kommer nye og bedre teorier inden for de forskellige områder.
 
 \subsection{Fleksibel}\label{arkitekturkrav::fleksibel}
 Arkitekturen skal være fleksibel så den kan tilpasses til patienten.
 Dette kunne fx være en mulighed for at patienten kan styre hvilke moduler der er aktive.
+=======
+Ydermere, vil en modulær arkitektur også gøre det nemt at udskifte enkelte dele af funktionalitet, hvis der er nye og bedre teorier inden for de forskellige områder.
+
+\subsection{Fleksibel}\label{arkitekturkrav::fleksibel}
+Arkitekturen skal være fleksibel så den kan tilpasses til patienten.
+Dette kunne f.eks. være en mulighed for patienten at styre hvilke moduler der er aktive.
+>>>>>>> 16f3121c45c71a64a9006daee7e1bb0644b05a44
 
 Arkitekturen skal også være fleksibel i forbindelse med valg af lignende sensorer.
-Dette kunne for eksempel være valget af accelerometer hvis patienten både har en smartphone og et smart watch.
-Accelerometret i en smartphone er muligvis mere præcist end det i et smart watch, men da man har sit smart watch på håndleddet vil denne data i en given kontekst være mere relevant.
+Dette kunne for eksempel være valget af accelerometer hvis patienten både har en smartphone og et smartwatch.
+Accelerometret i en smartphone er muligvis mere præcist end det i et smartwatch, men da man har sit smartwatch på håndleddet vil data i en given kontekst være mere relevant.
 Det skal derfor være muligt at systemet giver mulighed for valget mellem disse to.
 
 \subsection{Kombinerbar}\label{arkitekturkrav::kombinerbar}
-Arkitekturens moduler skal være kombinerbar således at det er muligt at kombinere flere moduler som fx siger noget om patientens sociale aktivitet eller søvn.
+Arkitekturens moduler skal være kombinerbar, således at det er muligt at kombinere flere moduler som f.eks. siger noget om patientens sociale aktivitet eller søvn.
 
 Data fra en sensor skal altså kunne bearbejdes af andre moduler der kan udnytte den information i forbindelse med en analyse.
 
@@ -41,7 +49,6 @@ Dette er dog ikke blevet implementeret, men bliver diskuteret yderligere i \cref
 For at opsummere ønsker vi en arkitektur der er opbygget af moduler.
 Det skal være muligt at udvikle moduler uafhængigt af hinanden.
 Arkitekturen skal være fleksibel så det er muligt at til- og fra-vælge moduler for den individuelle bruger.
-Desuden skal modulerne være kombinerbar i en sådan forstand så det er muligt at fx bruge moduler andre har udviklet sammen med ens egne moduler.
+Desuden skal modulerne være kombinerbar i en sådan forstand at det er muligt at eksempelvis bruge moduler andre har udviklet sammen med ens egne moduler.
 Til sidst skal arkitekturen understøtte nem og sikker kommunikation mellem modulerne.
-
 
