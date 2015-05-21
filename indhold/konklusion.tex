@@ -6,19 +6,19 @@ Tankegangen om at have en række moduler man kan hægte på platformen fungerer 
 Derudover lød udfordringen på at udvikle en applikation til at overvåge adfærd for unipolare og bipolare patienter og gøre dem opmærksomme på adfærdsændringer.
 Denne udfordring er ikke løst, men der er påbegyndt en løsning af problemet.
 Fokus har gået på dataindsamlings- og analyse-aspektet af platformen, hvor det er blevet gjort muligt at udvikle moduler dertil, jævnfør tidligere nævnte udviklede moduler.
-Vi kan konkludere at platformen har været tilstrækkelig modular og fleksibel til de udviklede moduler, men det er muligt at forbedringer kan foretages,
+Vi kan konkludere at platformen har været tilstrækkelig modular og fleksibel til de udviklede moduler, men det er muligt at forbedringer kan foretages.
 Det skulle dog være nemt at udvide platformen uden at skulle ændre på implementeringen af de enkelte moduler, da et facade designmønster er benyttet.
 Platformen danner dermed grundlaget for videre arbejde, da med platformen udviklet bør der ved videre arbejde fokuseres på moduler til den efterfølgende registrering af ændring i adfærd og visualisering af analyser, baseret på analyseresulaterne af tidligere nævnte udviklede moduler.
 
 Da fokus har været at facilitere dataindsamlings- og analyseaspektet af platformen mangler der at blive udforsket hvorledes visualiserings-moduler skal faciliteres.
 Vi er klar over denne mangel, men det blev bedømt vigtigere at fokusere på at gøre det nemt at indsamle relevant data først, inden at der blev lagt fokus på hvordan man skulle visualisere data.
 
-Yderemere er der en række kriterier der skal konkluderes på.
+Ydermere, er der en række kriterier der skal konkluderes på.
 Følgende kriterier der konkluderes på er de samme kriterier som blev opstillet i \cref{sec:process} og blev holdt i mente til udviklingen af platformen, beskrevet i \cref{arkitekturkrav}.
 \begin{description}[style=nextline]
 	\item[Modulær]
 	Platformen er udviklet med primært fokus på at være modulær, og det kan konkluderes at den er det.
-	Hele arkitekturen er opbygget på sådan en facon at der er en manager applikation, og en række separate moduler som kan kan bruges i manageren.
+	Hele arkitekturen er opbygget på sådan en facon at der er en manager applikation, og en række separate moduler, som kan kan bruges i manageren.
 	Dette understøttes af den fælles datagrænseflade i form af DBAccess og moduldefinitionerne.  
 	Det er muligt at specificere at man er afhængig af blot et modul af en mængde af disse.
 	Eksempelvis er det muligt for et analyse modul at afhænge af minimum et accelerationsmodul, om dette så bliver fra en smartwatch datakilde eller det indbyggede accelerometer i mobilen afhænger af den enkelte patients installerede moduler.
