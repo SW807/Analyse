@@ -4,10 +4,11 @@ Først beskrives den overordnede opbygning.
 Derefter beskrives komponenterne mere detaljeret.
 
 \paragraph{Platform}
-Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ift. arkitektur.
+Projektet har valgt at bruge Android som platform, se \cref{sec:valg_af_android}, hvilket også lægger op til nogle overvejelser ift. arkitektur.
 
 Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
 Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \citep{android_service}.
+\lars{tror ikke dette bør nævnes, da det sådanset er hvad den næste section indeholder}
 Dette udnyttes ved at pakke alle moduler i hver deres selvstændige applikation.
 Ved at anvende en centraliseret database vil det være muligt for moduler at få adgang til data fra andre moduler.
 Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
@@ -62,7 +63,7 @@ Dette interface gør at moduler kontakter databasen på en ensrettet måde.
 Denne komponent befinder sig i et lag for sig selv og indeholder tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
 Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
 
-Dette afsnit beskriver hvordan modulerne er defineret og en beskrivelse af de tre typer moduler.
+Dette afsnit beskriver hvordan modulerne er defineret og giver en beskrivelse af de tre typer moduler.
 Men først en begrundelse for valget af dette lag på baggrund af behovene i \cref{arkitekturkrav}.
 
 \paragraph{Begrundelse for valg}
