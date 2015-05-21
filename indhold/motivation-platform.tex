@@ -14,9 +14,10 @@ Ydermere vil en modulær arkitektur også gøre det nemt at udskifte enkelte del
 Arkitekturen skal være fleksibel så den kan tilpasses til patienten.
 Dette kunne fx være en mulighed for patienten at styre hvilke moduler der aktive.
 
-Arkitekturen skal også være fleksibel i forbindelse med fx valg af accelerometer.
+Arkitekturen skal også være fleksibel i forbindelse med valg af lignende sensorer.
+Dette kunne for eksempel være valget af accelerometer hvis patienten både har en smartphone og et smart watch.
 Accelerometret i en smartphone er muligvis mere præcist end det i et smart watch, men da man har sit smart watch på håndleddet vil denne data i en given kontekst være mere relevant.
-Det skal derfor være muligt at vælge denne.
+Det skal derfor være muligt at systemet giver mulighed for valget mellem disse to.
 
 \subsection{Kombinerbar}\label{arkitekturkrav::kombinerbar}
 Arkitekturens moduler skal være kombinerbar således at det er muligt at kombinere flere moduler som fx siger noget om patientens sociale aktivitet eller søvn.
@@ -33,7 +34,8 @@ Ved på denne måde at kontrollere adgangsrettighederne til data, forenkles proc
 Det sker fordi man som udvikler af et modul er garanteret, at data kun modificeres af modulet selv.
 Man skal altså således ikke bruge ressourcer på at verificere data i selve modulet.
 Dette er dog ikke blevet implementeret, men bliver diskuteret yderligere i \cref{databaserettigheder}.
-
+\stefan{jeg foreslår en navneændring til ``Adskillelse'' eller ``sikkerhed''}
+\stefan{behøver vi snakke om at det ikke er blevet implementeret når det kun er et behov?}
 
 \subsection{Opsummering}
 For at opsummere ønsker vi en arkitektur der er opbygget af moduler.
