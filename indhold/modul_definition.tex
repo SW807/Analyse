@@ -1,13 +1,8 @@
-%Måde at lave eksterne modul-applikationer uden at ændre hoved-applikation.
-%Definere output (tabeller/kolonner), samt input (afhængigheder)
-%Evt. konfigurationsmuligheder for moduler afhængige af det
-%Fleksibel måde at modtage data fra andre moduler, uden at skulle opdatere applikation(erne). Dvs. ikke design-mønstre: observer, mediator, men gennem content provider.
-% modularisering i Android; multiple applikationer under samme package
 
-For at opfylde kravet om fleksibilitet der er stillet til systemet, har vi udtænkt en modulbaseret arkitektur der gør det let at tilføje moduler til pakken.
-Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
-Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
-\subsubsection{Forslag til modulariseing}
+Dette afsnit beskriver de forskellig forslag til et modulbaseret lag.
+Derefter et rationale for valget af et forslag på baggrund af behovene for arkitekturen, beskrevet i \cref{arkitekturkrav}.
+Til sidst bliver løsningen beskrevet.
+\subsubsection{Forslag til modulært lag}
 \paragraph{Komplet Pakke}
 En traditionel applikation samler al funktionalitet i en pakke.
 Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele appen på samme tid.
@@ -21,7 +16,7 @@ For eksempel vil det være vanskeligt at kontrollere hvilke database tabeller de
 Sikkerhedsproblemet er stort, men kunne sikkert løses med nok tid og ressourcer.
 
 \paragraph{Selvstændig Applikation}
-Den tredje mulighed er at pakke hvert modul i en selvstændig APK \footnote{Androids pakkeformat}.
+Den tredje mulighed er at pakke hvert modul i en selvstændig APK\footnote{Androids pakkeformat}.\bruno{kilde på androids pakkeformat}
 Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet.
 Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
 
@@ -34,18 +29,18 @@ Det er en løsning der har mange fordele i forhold til modularisering og svaghed
 
 Det følgende vil forklare detaljerne i implementeringen af moduler ved hjælp af selvstændige applikationer.
 
-\subsubsection{Beskrivelsesfilen}
 
-Til dette er der valgt at bruge JavaScript Object Notation (JSON) samt JSON Skema \citep{jsonpojo}.
-Eksemplerne der bruges herefter vil derfor være i henholdsvis JSON eller JSON Skema.
 
-\subsubsection{Typer af Moduler}
-Der findes som sagt i \cref{sec:arkitektur}, tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visualisering}.
-Som sagt er sensor moduler, moduler som indsamler data fra smartphonens forskellige sensorer og applikationer.
-Endvidere er analyse moduler, moduler som bruger data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
-Visualiseringsmodulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
+\subsubsection{Beskrivelse af Løsning}\label{modul_definition}
+Her vil den implementerede løsning blive gennemgået.
 
-\subsubsection{Moduldefinition}
+\paragraph{Typer af Moduler}
+Der findes tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visualisering}.
+Sensor moduler indsamler data fra smartphonens forskellige sensorer og applikationer.
+Endvidere bruger analyse moduler data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data, som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
+Visualiserings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
+
+\paragraph{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
 
 Sensor- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visualiserings-moduler.
@@ -53,11 +48,11 @@ For at specificere hvordan data skal gemmes, samt hvad der er tilgængeligt for 
 For hvert modul skal der defineres en eller flere tabeller som modulet kan gemme data i.
 For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
 
-\subsubsection{Data Typer}
+\paragraph{Data Typer}
 De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til de tilgængelige SQLite datatyper.
 Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
-\subsubsection{Afhængigheder}
+\paragraph{Afhængigheder}
 Et analyse- eller visualiserings-modul kan være afhængigt af andre sensor- eller visualiserings-moduler.
 Et analysemodul kan aggregere data fra andre analysemoduler mens et visualiseringsmodul er afhængig af det modul det skal vise data fra.
 Derfor skal det defineres for hvert modul hvilke andre moduler det er afhængigt af.
@@ -66,7 +61,7 @@ En hard-dependency er ét andet modul som det pågældende modul ikke kan funger
 En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede moduler skal være til stede på enheden.
 Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en smartphone eller fra en wearable.
 
-\subsubsection{JSON og JSON Schema}
+\paragraph{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
 JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul.
 For at sikre validiteten af eksternt leverede modul-beskrivelser, udarbejdes der et JSON Skema, som JSON-dokumenter kan holdes op imod og derved verificeres.
@@ -93,23 +88,23 @@ Meta-data er præfikset med \_ (underscore).
       ]}]}
 \end{lstlisting}
 
-\subsubsection{Implementering}
+\paragraph{Implementering}
 Som nævnt i \cref{sec:valg_af_android}, implementeres der til Android smartphones.
 Dette sætter nogle begrænsninger ift. valg af løsninger.
 
-\subsubsection{JSON kontra XML}
+\subparagraph{JSON kontra XML}
 XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
 Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af en parser ud fra skemaet.
 En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
 Denne automatiske generering viste sig ikke at være ligetil på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
 
-\subsubsection{Moduler som Applikationer}
+\subparagraph{Moduler som Applikationer}
 For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres applikationer via Google Play Store.
 Alle modul-applikationer, samt hoved-applikationen, deler \textit{package}-navn.
 Hver modul-applikation har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
 Kommunikation mellem applikationer foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
 
-\subsubsection{Håndtering i Manager}
+\subparagraph{Håndtering i Manager}
 Håndteringen af moduler sker i manageren, beskrevet i \cref{subsec:arkitektur-Manager}.
 Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle applikationer der er installeret under pakken ``dk.aau.cs.psylog''.
 Manageren læser alle moduldefinitioner efter at have valideret dem op imod JSON skemaet.

@@ -1,4 +1,5 @@
-\subsubsection{Visualiserings Modul}\label{sec:visningsmodul}
+\paragraph{Visualiserings Modul}\label{sec:visningsmodul}
+\mikael{Synes dette er en blanding af design overvejelser og refleksion, især eftersom dette på ingen måde er implementeret. Desuden er det også uendeligt langt ift. at der ingen dybere beskrivelse er af data (sensor) eller analyse moduler.}
 Som udgangspunkt er \textit{visualiseringer} forskellige visualiseringer af analyse modulernes output.
 
 De eneste restriktioner der stilles for data der kan læses fra analysemoduler, er de formater der kan gemmes i databasen.
@@ -26,7 +27,7 @@ Der er også den mulighed at analysemoduler kunne have ekstra database tabeller,
 Her kunne der tilføjes noget meta-data på analysens tabeller/kolonner, der beskriver den på sådan en måde, at det ville kunne bruges til visualiseringer der ikke nødvendigvis implicit kunne knyttes til det.
 Det kunne også være muligt at tilføje information om kriterier for visualiseringer i analysemodulers JSON filer, og så overlade det til Manager komponenten at matche et analysemoduls kriterier med de kriterier visualiseringsmoduler opfylder.
 
-\subsubsection{Eksempel}
+\subparagraph{Eksempel}
 Her bruges light, som er en simpel sensor og analyse, der fra sensoren indhentes løbende lys-niveau (i lux).
 Analysen tager den senest indsamlet data og giver et gennemsnit.
 Det antages at alle tabeller har en tids-kolonne, der beskriver enten hvornår data blev indsat i databasen, eller i nogle tilfælde af analyser overføres tiden fra sensor-data.
@@ -71,7 +72,7 @@ På x-aksen vises tiden (der står INTEGER fordi SQLite ikke har datorepræsenta
 Her bruges det tidsstempel som forventes på alle tabeller.
 Til y-aksen kan bruges alle analyser, som blot har en enkelt kolonne af heltal eller decimal-tal værdi.
 
-\subsubsection{Administrering af Visualiseringer}
+\paragraph{Administrering af Visualiseringer}
 Ligesom sensorer og analyser, skal visualiseringer også administreres af brugeren.
 
 For at holde det så simpelt som muligt, kunne man, ligesom ved sensorer/analyser, have to niveauer af administration.
