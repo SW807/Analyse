@@ -1,45 +1,49 @@
 % A description of use context and selected use scenarios (see Essence-book Chapter 13).
 
 
-\section{Paradigm view}
-I dette view undersøges hvordan \textit{the Challenge} bliver set fra brugerens perspektiv.
-Teknikker til denne undersøgelse inkluderer at definere applikationens problem domæne ved hjælp af \textit{Use context} og \textit{Use scenarios}.
+\section{Paradigm View}
+\textit{Paradigm} bruges her til at undersøge problemet; herunder problemområde og scenarier.
 
-\lars{tror dette er noget der skal overvejes til hvert scenario}
-\paragraph{Stakeholders}
+\subsection{Reflection}
+Patienter der er diagnosticeret med unipolar eller bipolar affektiv lidelse vil have tilbagevendende perioder af henholds mani og/eller depression.
+Det kan være et problem hvis tilstanden for en patient er under begyndende forværring og dette ikke opdages i tide, da det kan føre til en manisk eller depressiv periode.
+Det kan være svært for patienten selv at opdage denne ændring i adfærd, da det kan være en blød overgang samt svært at acceptere.
+Desuden kan der gå flere år mellem perioder, hvilket kan gøre at det ikke er noget der overhovedet overvejes af patienten.
+Dette ville også kunne gøre at patienten heller ikke overvejer lægehjælp, hvorfor en periode heller ikke vil detekteres på denne måde.
+Ved at bruge en mobiltelefon til passivt at indsamle data omkring patienten, kunne der holdes øje med ændringer i denne data, som vil kunne sige noget om adfærdsændringer.
+Herefter ville patienten kunne gøres opmærksom på disse, og måske undgå større forværring.
+
+\subsection{Stakeholders}
 I dette projekt er patienterne den vigtigste \textit{stakeholder}, da det er patienterne der skal bruge applikationen i hverdagen.
 Applikationen skal derfor udvikles på patienternes præmisser.
 Sikkerheden skal være så patienterne er trygge ved at gemme sine personlige oplysninger i applikationen, og brugerfladen skal udvikles så forskellige patienter kan anvende den.
 
-\paragraph{Use context}
+\subsection{Scenarios}
+Her undersøges hvordan \textit{the Challenge} bliver set fra brugerens perspektiv.
+Teknikker til denne undersøgelse inkluderer at udforske applikationens problem domæne ved hjælp af \textit{Use context} og \textit{Use scenarios}.
+
+\paragraph{Use Context}
 Konteksten som applikationen skal kunne bruges i er meget bred, da det omfatter hele patientens hverdag.
 Der skal derfor tages højde for at sensorer ikke altid er tilgængelige, og at data forbindelse ikke nødvendigvis er tilgængelig.
-Da applikationen skal logge data om patientens færden skal der håndteres at telefonen kan være i lommen, i hånden og ikke mindst på et bord eller i en jakkelomme der hænger i entreen.
-
-\paragraph{Technologies}
-Teknologier der benyttes inkluderer en smartphone og wearables der kan bruges sammen med en smartphone.
-
-\paragraph{Problems and needs}
-\stefan{taget fra s. 83. Ved ikke om vi skal skrive noget her - fra essence - bare intern kommentar}
+Da applikationen skal logge data om patientens færden skal der håndteres at smartphonen kan være i lommen, i hånden og ikke mindst på et bord eller i en jakkelomme der hænger i entréen.
 
 \paragraph{Use Scenarios}
 \textit{Use scenarios} bruges til at udforske ideer og muligheder i forhold til brugerens brug af systemet.
 
-\lars{vi har muligvis for mange almost ens scenarier}
-Scenarier:
+\subparagraph{Scenarier:}
 \begin{itemize}
-	\item Patienten bevæger sig rundt i sin hverdag med telefonen i lommen. 
+	\item Patienten bevæger sig rundt i sin hverdag med smartphonen i lommen. 
 	\begin{itemize}
 		\item Data logges i systemet om gemmes til at kunne blive analyseret.
 	\end{itemize}
 	
-	\item Patienten er taget til familiearrangement og har efterladt telefonen i jakkelommen.
+	\item Patienten er taget til familiearrangement og har efterladt smartphonen i jakkelommen.
 	\begin{itemize}
-		\item Data logges i systemet og filtreres efter hvad der kan bruges selvom telefonen ikke er på patienten.
+		\item Data logges i systemet og filtreres efter hvad der kan bruges selvom smartphonen ikke er på patienten.
 		Brugbar data gemmes.
 	\end{itemize}
 	
-	\item Patienten låner sin telefon til sit barn, der bevæger sig rundt med den hele dagen.
+	\item Patienten låner sin smartphonen til sit barn, der bevæger sig rundt med den hele dagen.
 	\begin{itemize}
 		\item Data logges i systemet og forkastes da de ikke kan bruges til at få information om patienten.
 	\end{itemize}
@@ -69,11 +73,11 @@ Ud fra disse scenarier har vi følgende tilstands klassificerings problematikker
 \end{itemize}
 
 Den første problematik er hvordan man identificerer hvilken kontekst dataindsamlingsenheden befinder sig i, og ud fra denne vurdere hvilke datakilder der stadig bibeholder deres relevans i denne kontekst.
-Eksemplet der et givet i førnævnte scenarie er at patienten har efterladt eller glemt sin telefon i sin jakke, i en sådan situation kunne man forstille sig at datakilder som for eksempel bevægelsesdata eller lydregistrering er ubrugelige.
-Dog skal man også i denne sammenhæng være forsigtig, for hvis man forkaster for meget data når telefonen ikke er på en person, vil det gøre det vanskeligt at lave analyser på perioder hvor præmis for analysen er, at telefonen ikke holdes af en person, hvilket kunne være søvn analyse. 
-Det er dog ikke kun et spørgsmål om at identificere hvornår telefonen ikke er på en person.
+Eksemplet der et givet i førnævnte scenarie er at patienten har efterladt eller glemt sin smartphone i sin jakke, i en sådan situation kunne man forstille sig at datakilder som for eksempel bevægelsesdata eller lydregistrering er ubrugelige.
+Dog skal man også i denne sammenhæng være forsigtig, for hvis man forkaster for meget data når smartphonen ikke er på en person, vil det gøre det vanskeligt at lave analyser på perioder hvor præmis for analysen er, at smartphonen ikke holdes af en person, hvilket kunne være søvn analyse. 
+Det er dog ikke kun et spørgsmål om at identificere hvornår smartphonen ikke er på en person.
 Der skal også identificeres om det er den tiltænkte person der bærer enheden, da i disse situationer giver data der indsamles et indblik i den forkerte persons tilstand og er derfor irrelevant størstedelen af tiltænkte analyser.
-Der er dog en mulighed at det kunne anses som social interaktion at en patient låner sin telefon ud, og derfor kunne sådan information måske bruges i sociale analyser.
+Der er dog en mulighed at det kunne anses som social interaktion at en patient låner sin smartphone ud, og derfor kunne sådan information måske bruges i sociale analyser.
 
 Den anden udfordring, at identificere brugerens tilstand, kræver indsamling af meget data fra mange forskellige kilder for at have et grundlag for en vurdering af disse.
 Hvilke datakilder dette skal være kan variere meget fra individ til individ.

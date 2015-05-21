@@ -1,26 +1,115 @@
-\section{Notifikationer}\mikael{Det er fra vores individuelle rapport, passer bedre ind her, skal nok rettes lidt til}
-\lars{Tror ikke den første del her passer ind, men alle reflektionerne om hvordan et modul af denne type skal implementeres er yderst relevante.}
-En naturlig udvikling af det udviklede survey modul ville være, i stedet for at indhente oplysninger fra brugeren, at præsentere dem.
-Altså at kunne notificere brugeren med information.
-Dette kunne enten ske på faste tidspunkter eller ved at et analyse modul registrerer en ændring i et af de monitorerede adfærdsmønstre.
-Ligeledes kan patienten modtage en status-notifikation, der fx kan beskrive en opsummering over hans sociale aktivitet målt over den seneste uge.
+I udviklingsforløbet af platformen, var der forskellige beslutninger, som blev taget i henhold til hvad der skulle implementeres, samt hvad der kunne udvikles videre på og generelle overvejelser om platformen.
+At reflektere over disse beslutninger og overvejelser skaber overblik og forståelse af forløbet, og er beskrevet herefter.
 
-\paragraph{Det udviklede modul}
-Survey modulet tillader at indsamle information fra brugeren via en række forskellige typer spørgsmål (se \cref{survey:spg}).
-Modulet fungerer herved som et sensor modul der anvender brugerens respons som dets input.
-Modulet adskiller sig dog fra andre sensor moduler idet det anvender en grafisk brugergrænseflade til at indsamle information.
-Givet relationen mellem de forskellige moduler (sensor-, analyse- og visningsmoduler) introducerer ovenstående en ny problemstilling.
+%\section{Valg af data kilder}
+%Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet at hvis man for eksempel har data fra et smartwatch og fra en accelerometer på smartphonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
+%Men dette blev aldrig lavet, idet at det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
 
-Da information kun kan overføres fra sensor til analyse og videre til visning, og ikke i den modsatte retning, vil notifikationer skulle implementeres som et visningsmodul.
-Kun på denne måde kan en notifikation præsentere information fra underliggende lag.
-Det betyder at notifikationer og spørgsmål vil skulle udvikles som to separate moduler.
-Modulerne kan defineres som en del af samme applikation for derved at kunne anvende samme kode-base, men vil i sidste ende skulle fungere som to moduler.
+\section{Visualiseringer}
+Data indsamlet og analyseret af forskellige moduler, skulle originalt kunne visualiseres, med det formål at give brugere af platformen et overblik over deres sindstilstand.
+I \cref{modul_definition}, blev der diskuteret hvordan håndteringen af visualiserings-modulerne skal foretages.
+Dette er et emne der bør udforskes ved videre arbejde, men er ikke foretaget på nuværende tidspunkt da det blev dømt for tidstagende.
+Ved videre arbejde bør datavisualiserings-teknikker og -teori undersøges nærmere.
 
-Skulle man yderligere ønske at præsentere information i et spørgsmål ville det kræve en sammensmeltning af de to typer moduler.
-En sådan kombination af moduler er problematisk under den nuværende arkitektur, da den vil kræve både input og output i samme modul.
+Udover diskussion om hvilke krav der skal være til visualiserings-moduler, beskrevet i \cref{modul_definition}, skal man også overveje hvordan brugere skal vælge hvilke visualiserings-moduler de gerne vil kunne se, og hvordan de skal vises i manageren.
 
-\section{huskekort}
-\mikael{Tidligere vores indiviuel rapport: huskekort - som får patienten til at cykle en tur, yoga etc. - enten at appen selv finder ud af det eller at det er psykologen der løbende kan lægge dem ind.}
+En mulighed er at have en administrationsside til visualiseringer, der minder om indstillingssiden til valg af dataindsamlings- og analysemoduler.
+Eksempelvis kan man forestille sig en kobling mellem disse moduler og visualiseringerne, sådan at for hvert modul kan man angive hvilke visualiseringer man vil benytte.
+Koblingen ville her gå på visualiseringer der passer til de enkelte datasæt som modulerne tilbyder.
 
-\section{Settings}
-\lars{måske skrive noget om det at slå moduler til/fra. Her tænkes på hvis en bruger vil have en analyse slået til, så skal brugeren selv vide hvilke dependencies den analyse har. Her kunne man måske tænke at click på et modul også slår alle dens dependencies til, måske med en confirmation box først.}
+En anden mulighed er at visualiserings-modulerne der er installeret, er dem der bliver vist i manageren, og specificerer selv hvilke moduler de virker til.
+Dette er en mere enkel løsning at implementere, til gengæld tilbyder den knap så stor fleksibilitet i forhold til udviklingen af nye analysemoduler, da man så er nødsaget til at skulle opdatere specifikationen for de pågældende visualiserings-moduler.
+
+% Hvordan skal visualiseringerne så vises i mangageren?
+En anden diskussion går på hvorledes visualiseringerne skal vises i manageren.
+En enkel måde at gøre dette på er som en liste der bliver præsenteret på forsiden af manageren.
+Der vil med denne løsning være mulighed for at ændre rækkefølgen af modulerne ved at trække visualiseringerne til en anden position i listen.
+En ulempe ved denne løsning er at den ikke tilbyder kategorisering af visualiseringer.
+
+En inddeling af visualiseringerne i forskellige kategorier ved hjælp af faner er et alternativ der kan benyttes.
+Dette sikrer at hvis man har mange visualiseringer bliver det nemmere at abstrahere over disse, da man kan nøjes med at se på en kategori ad gangen, eksempelvis søvn eller social aktivitet.
+
+Endvidere er der en overvejelse der går på at udvikle visualiseringer der er forståelige og gennemskuelige for målgruppen, men dette betragtes som et ansvar for den enkelte visualiserings-udvikler og er dermed ikke noget platformen bør takle.
+Platformen benyttes af udvikleren, men hvordan de enkelte visualiseringer skal se ud er op til den enkelte udvikler.
+
+De præsenterede muligheder er ikke fastlagte, og opfordres til at blive diskuteret yderligere ved videre arbejde, så den mest hensigtsmæssige løsning opnås.
+
+\section{Dataindsamling}
+Som nævnt i \cref{eksperimenter}, blev der udført eksperimenter for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
+Ydermere siger den at mængden af data der indsamles kan blive reduceret.
+Der nævnes tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ved at ændre på opdateringshastigheden for de forskellige sensorer.
+I den sammenhæng er det vigtigt at vægte fordele og ulemper for metoderne, samt om det er muligt at kombinere de forskellige metoder.
+En kombinering man kunne forstille sig er at lagre gammelt data i skyen, hvorimod ny data lagres lokalt, men hvor al data komprimeres.
+Hvordan dette skal implementeres er et åbent spørgsmål, men bør udforskes videre.
+Som udgangspunkt har vi lavet et interface, som modulerne kan benytte, i form af DBAccess, så disse ændringer ville være backend ændringer og dermed ville de ikke komme til at påvirke de enkelte moduler.
+
+
+En anden tankegang til at reducere plads er ved at ændre arkitekturen så man kan kommunikere modul til modul uden nødvendigvis at lagre i en database.
+En fordel ved dette kan være at moduler kan sende deres opsamlede data til andre moduler, så man kan undgå helt at gemme data i databasen for visse mellemleds-moduler.
+På den måde vil man kunne spare en masse plads, men det vil komme på bekostning af at det ikke længere er muligt at rekonstruere en analyse. En måde dette kunne implementeres på, uden at gå på kompromis med modulariteten, er at benytte sig af et observer designmønster som beskrevet i \cref{subsec:DBACCESS}.
+Dog er det en stor ændring i forhold til den nuværende arkitektur, men er et alternativ man med fordel kunne benytte sig af til at gøre datadeling mellem moduler mindre pladskrævende.
+
+Når en eller flere af disse er implementeret, er det en god idé at gentage eksperimenterne for at verificere at løsningerne har den ønskede effekt, og på samme tid vil det være fordelagtigt at udvide eksperimenterne til at inkludere andre faktorer såsom batteri forbrug.
+
+\section{Analyse Aflastning}
+For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
+Dette vil have den effekt at smartphonen ikke behøver gøre særlig meget udover at registrere sensor data.
+Dette er også en idé der bør undersøges videre, hvor man også skal have problematikker såsom  og kommunikationstid i mente.
+
+\section{Alternativ Moduldefinitions-deling}
+Med den nuværende implementering skal platformen hente ressourcefilerne for de enkelte moduler, for at læse deres moduldefinitioner.
+Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket muligvis kan give problemer.
+
+Til at undgå denne metode af deling, bør der ved videre arbejde blive set på andre metoder til at dele filer.
+En mulig metode var at bruge en fileprovider.
+En file provider kan gøre det muligt at dele en bestemt fil og er den officielle måde at dele filer på i Android.
+Vi nåede dog frem til at brugen af fileprovider havde en væsentlig ulempe.
+Det var nødvendigt for platformen at vide hvilke fileproviders der skulle bruges, hvilket gør platformen væsentlig mindre modulær, da tilføjelse af et modul også vil kræve ændring i platformen.
+
+Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning ikke er idéel idet at det ikke er sådan man skal dele filer mellem applikationer på Android.
+
+\section{Databaserettigheder}\label{databaserettigheder}
+Med den nuværende implementering af DBAccess har hvert modul adgang til alt data som ligger i databasen.
+Dette er unødvendigt åbent og giver for bred adgang til de forskellige modulers data.
+For at gøre løsningen mere sikker, bør der med videre arbejde implementeres en måde til at begrænse hvilke moduler, der har adgang til hvilket data.
+
+En ønsket mulighed er at gøre det internt i platformen, idet at man kan definere tilladelser i moduldefinitionen og baseret på disse give tilladelse til tabeller. 
+Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke kan blive orienteret om hvilket modul benytter den, dette er en begrænsning fra Androids side.
+
+En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
+
+\section{Interaktive Moduler}
+En idé som ikke blev undersøgt var at udvikle interaktive moduler.
+Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at teste reaktionsevne.
+Dette kunne være en god idé, da man ved affektive lidelser nogle gange ser den slags symptomer.
+Et sådant modul ville klassificeres som en mellemting mellem et visualiserings modul og et sensor modul.
+Visualisering da modulet skal vise noget til brugeren og sensor da den giver data der kan bruges af analysemoduler til at få et indblik i folks tilstand.
+
+\section{Notifikationer}
+Noget som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
+Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber i.f.t. at forstyrre en evt. patient med psykiske problemer.
+Dog erfarede vi senere, i forbindelse med styregruppemødet, at patienterne er meget interesseret i at få at vide så tidligt som muligt om de er under forværring i deres tilstand.
+
+Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår en forværring eller at der har været en drastisk stigning/fald i.f.t. sensor/analyse.
+Den anden slags information kan være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
+Det andet eksempel på en notifikation kunne få brugeren til at reflektere over sin situation, hvis der for eksempel kunne ses et tydeligt fald i søvnkvalitet eller antal sociale interaktioner, men uden direkte at sige noget om en evt. forværring.
+
+\subsection{Huskekort}
+I interviewet med psykolog Janne Rasmussen blev huskekort nævnt.
+Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven før en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
+
+Disse kan på samme måde som benævnt ovenover også implementeres som notifikationer.
+På denne måde kan der foreslås en lystbetonet aktivitet hvis analyser antyder en stressende dag.
+Dette er især interessant ved fysisk sensor/analyse hvor stress antageligvis kan opdages i øjeblikket og et passende huskekort kan præsenteres.
+
+Disse huskekort skal dog nødvendigvis udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.
+
+\section{Kontekst}
+Konteksten for brugen af applikationen er ikke blevet arbejdet med.
+Man kunne forstille sig at der kunne være indbyggede moduler til at registrere hvilket kontekst telefonen befinder sig i.
+Dette kunne være at finde ud af om telefonen befinder sig på en person eller om den er i en jakkelommer, på et natbord eller lignende.
+Hvis det er muligt at klassificere konteksten, kan det være yderst brugbar information for analysemoduler, til at hjælpe dem med at afgøre hvordan forskellige former af data skal behandles.
+Her kunne man for eksempel forstille sig at lyd data var yderst relevant hvis enheden var på en person, men irrelevant hvis den lå i en jakkelomme.
+Der er også den mulighed at platformen ud fra konteksten vælger hvilke datakilder der stadig er relevante at se på, men en sådan måde at beslutte på vil reducere platformens modularitet, så det vil være bedre at overlade det til det enkelte modul at beslutte hvad der er relevant for den givne kontekst.
+
+Dog vides det ikke om en sådan klassificering kan opnå den fornødne præcision, men undersøgelse af det vil bestemt være værd at overveje.

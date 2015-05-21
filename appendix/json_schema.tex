@@ -1,71 +1,171 @@
-\chapter{JSON Schema}\label{app:json_schema}
-\begin{lstlisting}
+\chapter{JSON Schemas}\label{app:json_schema}
+
+\begin{lstlisting}[caption=Module]
 {
-  "id": "http://psylog.cs.aau.dk/module-schema#",
   "$schema": "http://json-schema.org/draft-04/schema#",
   "title": "Module",
   "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.Module",
   "properties": {
-    "name": {
-      "type": "string"
-    },
+    "name": { "type": "string" },
+    "_userfriendlyname": { "type": "string" },
     "_version": {
       "type": "number",
       "minimum": 0.0,
       "exclusiveMinimum": true
     },
+    "_description":{ "type": "string" }
+  },
+  "required": [ "name", "_version" ],
+  "additionalProperties": false
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=DataModule]
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "DataModule",
+  "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.DataModule",
+  "extends": { "$ref": "module.schema.json" },
+  "properties": {
     "tables": {
       "type": "array",
-      "items": { "$ref": "#/definitions/table" },
+      "items": { "$ref": "table.schema.json" },
       "minItems": 1,
       "uniqueItems": true
     },
+    "task": { "$ref": "task.schema.json", "description": "If no task is supplied, defaults to continuous" }
+  },
+  "required": ["name", "_version"],
+  "additionalProperties": false
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=SensorModule]
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "SensorModule",
+  "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.SensorModule",
+  "extends": { "$ref": "datamodule.schema.json" },
+  "additionalProperties": false
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=AnalysisModule]
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "AnalysisModule",
+  "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.AnalysisModule",
+  "extends": { "$ref": "datamodule.schema.json" },
+  "properties": {
     "dependencies": {
       "type": "array",
       "items": { "type": "array", "items": { "$ref": "#/definitions/dependency" }, "minItems": 1, "uniqueItems": true }
     }
   },
   "additionalProperties": false,
-  "required": [ "name", "_version" ],
   "definitions": {
-    "table": {
+    "dependency": {
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "columns": {
+        "name": { "type": "string" },
+        "version": { "type": "number", "minimum": 0.0, "exclusiveMinimum": true }
+      },
+      "additionalProperties": false,
+      "required": [ "name", "version", "task" ]
+    }
+  }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=ViewModule]
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "ViewModule",
+  "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.ViewModule",
+  "extends": { "$ref": "module.schema.json" },
+  "properties": {
+    "view": {
+      "type": "object",
+      "properties": {
+        "layout": { "type": "string", "pattern": "^[a-zA-Z0-9]+(.xml)" },
+        "viewData": {
           "type": "array",
-          "items": { "$ref": "#/definitions/column" },
+          "items": { "$ref": "#/definitions/viewData" },
           "minItems": 1,
           "uniqueItems": true
         }
       },
-      "additionalProperties": false,
-      "required": [ "name", "columns" ]
-    },
-    "column": {
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false,
+  "required": [ "name", "_version" ],
+  "definitions": {
+    "viewData": {
       "properties": {
-        "name": {
-          "type": "string"
-        },
-        "dataType": { "enum": [ "INTEGER", "REAL", "TEXT", "BLOB" ]},
-        "nullable": {
-          "type": "boolean"
-        },
-        "_unit": {
-          "type": "string"
-        }
+        "name": { "type": "string" },
+        "dataTypes": { "type": "array", "items": { "enum": ["INTEGER", "REAL", "TEXT", "BLOB"] }, "uniqueItems":true, "minItems": 1 },
+        "fromTimestamp": { "type": "boolean" }
       },
       "additionalProperties": false,
-      "required": [ "name", "dataType"]
-    },
-    "dependency": {
-      "properties": {
-        "name": { "type": "string" }
-      },
-      "additionalProperties": false,
-      "required": [ "name" ]
+      "required": ["name", "dataTypes"]
     }
   }
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Task]
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "Task",
+  "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.Task",
+  "properties": {
+    "type": { "enum": ["interval", "scheduled"] },
+    "value": { "type": "string", "description": "Interval in minutes, scheduled in HH:MM format" }
+  },
+  "additionalProperties": false,
+  "required": ["type", "value"]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Table]
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "table",
+  "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.Table",
+  "properties": {
+    "name": { "type": "string" },
+    "columns": {
+      "type": "array",
+      "items": { "$ref": "column.schema.json" },
+      "minItems": 1,
+      "uniqueItems": true
+    }
+  },
+  "additionalProperties": false,
+  "required": [ "name", "columns" ]
+}
+\end{lstlisting}
+
+\begin{lstlisting}[caption=Column]
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "title": "column",
+  "type": "object",
+  "javaType": "dk.aau.cs.psylog.data_access_layer.generated.Column",
+  "properties": {
+    "name": { "type": "string" },
+    "dataType": { "enum": [ "INTEGER", "REAL", "TEXT", "BLOB", "BOOLEAN" ]},
+    "nullable": { "type": "boolean" },
+    "_unit": { "type": "string" }
+  },
+  "additionalProperties": false,
+  "required": [ "name", "dataType"]
 }
 \end{lstlisting}

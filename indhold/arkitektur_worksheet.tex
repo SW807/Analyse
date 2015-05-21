@@ -1,21 +1,27 @@
 \section{Arkitektur}\label{sec:arkitektur}
-Eftersom vi ikke har fundet et eksisterende arkitekturmønster der kan tilgodese behovene opstillet i \cref{arkitekturkrav}, er en særskilt arkitektur blevet konstrueret.
-Denne søger at tilgodese behovene bedst muligt.
-Arkitekturen er lavet ud fra ideen om at apps på android kan kontakte hinanden igennem android systemet. 
-Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation.
-Dette udnyttes ved at pakke alle moduler i hver deres selvstændige app.
+Dette afsnit præsenterer arkitekturen som er udarbejdet på baggrund af de specificerede behov i \cref{arkitekturkrav}.
+
+\paragraph{Platform}
+Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ift. arkitektur.
+
+Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
+Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \cite{android_service}.
+Dette udnyttes ved at pakke alle moduler i hver deres selvstændige applikation.
 Ved at anvende en centraliseret database vil det være muligt for moduler at få adgang til data fra andre moduler.
 Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
 På den måde kan adgang kontrolleres på alle moduler, inklusiv de der måtte blive udviklet i fremtiden.
-hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem de installerede moduler.
+Hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem de installerede moduler.
 
 \section{Opbygning}\label{arkitektur:opbygning}
-Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB access} og \textit{DB}.
+Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB\footnote{Database} access} og \textit{DB}.
+For at opfylde de specificerede behov i \cref{arkitekturkrav}, nærmere nøgleordene \textit{modulær}(se \cref{arkitekturkrav::modulaer}) og \textit{fleksibel}(se \cref{arkitekturkrav::fleksibel}) er arkitekturen opbygget af moduler der opsamler data, analyser denne data og viser den uafhængige af hinanden.
+Disse moduler kan vælges til eller fra i \textit{manager}'en.
+
 
 Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
-	\centering
-	\includegraphics[width=0.9\textwidth]{ArkitekturVisio}
+	\centering						%  l   b   r	t
+	\includegraphics[scale=0.5, trim = 1cm 17.5cm 1cm 1cm, clip]{ArkitekturLucidChart}
 	\caption{Systemets arkitektur}
   \label{arkitektur_udkast_1}
 \end{figure}
@@ -28,89 +34,42 @@ Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en SQLite database da denne er standard i Android.
+Til dette projekt er valgt en SQLite database da denne er standard i Android \cite{android_database}.
 
 
-\subsection{DB Access}
+\subsection{DBAccess}\label{subsec:DBACCESS}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
 Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
-Men det kan være nyttigt at abstrahere over hvor data indsamles og lagres, og er fint i tråd med de krav om generalitet og fleksibilitet for platformen.
-\mikkel{Jeg forstår ikke meningen med den sidste sætning.}
+Grundet denne potentielle opdeling af lager placeringer, kan de være nyttigt at abstrahere over hvor data lagres.
 
-Da det er intentionen, at eksterne udviklere skal kunne udvikle moduler til systemet, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
-På denne måde forhindres det at eksterne moduler korrumperer andre modulers data, enten ved et uheld eller med vilje.
+For at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
+På denne måde forhindres det at eksterne moduler modificerer andre modulers data.
 
 \paragraph{Design} 
-For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder har vi undersøgt eksisterende mønstre der vil kunne opfylde disse krav.
+For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder er der blevet valgt at benytte facade designmønster \citep[s.~185]{gamma1994design}.
 
-\subparagraph{Facade}
-For at kunne give en ensrettet interface til moduler tager vi inspiration i det strukturelle \textit{facade} design mønster.
-Facade er et design mønter der tilbyder et simpelt interface til et komplekst subsystem \citep{DATGANGOFFOUR}. 
-Det er et middel til at få en løsere kobling mellem et system og klienterne der bruger systemet.
-Dette gøres ved at opstille en facade mellem klienterne og subsystemet.
-Facaden sikrer et ensartet interface til brug af subsystemerne, men hvor man abstraherer over disse.
-At implementere dette sikrer også større modularitet idet ændringer i subsystemerne ikke kræver ændring i klienterne, da de blot bruger facaden der kan justere for disse ændringer.
-
-Af denne årsag vælges facade designmønstret til at abstrahere over lagringen af data.
-Mønstret er implementeret ved hjælp af Androids indbyggede \textit{Content Provider} konstruktion\citep{contentprovider}.
-En Content Provider indkapsler data og giver adgang til hertil gennem et \textit{Content Resolver} interface.
-Dette interface anvendes til deling af data mellem flere applikationer.
-I vores tilfælde af den data der deles den som DB Access råder over.
-\mikkel{Bør DB Access ikke være implementationen af facade? DB Access råder ikke over data, men håndterer adgang.}
-\mikkel{\stefan{mere detalje?} Det synes jeg. Der står ikke så meget om hvordan mønstret opnår de plusser det har.}
-
-\subparagraph{Observer}
-For at moduler kan tilgå hinandens data uden at have adgang til at tilføje eller ændre i det har vi brug for en model til at dele data.
-Med observer mønstret kan man hver gang der er ny data sende opdateringen ud til alle de moduler der har brug for den nye information \citep[p.~244]{gamma1994design}.
-
-Altså vil moduler kunne abonnere på informationer fra andre moduler.
-Ved brug af dette mønster vil hvert modul der abonnerer på en datakilde kunne udføre sine beregninger i det øjeblik informationerne bliver tilgængelig.
-Det betyder at det ikke er muligt for modulet selv at bestemme hvornår tunge beregninger skal udføres.
-\mikkel{Nej det gør det ikke.
-Det betyder bare at modulet ikke selv kan bestemme hvornår det får ny data.
-Beregningerne kan ske når som helst.
-Det kunne derimod betyde at modulerne ikke selv skal holde styr på hvad der er ny data.
-Har vi andre argumenter mod observer?}
-Hvis et modul skal udføre tunge beregninger vil det være fordelagtigt at kunne udføre disse når brugeren ikke bruger telefonen, eventuelt om natten når telefonen alligevel er sat til strøm.
-Vi har derfor valgt ikke at bruge observer mønstret til deling af data.
-
-\subparagraph{Sikkerhed}
-Udover at være ensrettet skal \textit{DB Access} også sørge at et komponent kun kan skrive til sine egne tabeller, men samtidig have mulighed for at læse fra andre modulers tabeller.
-Denne del af systemet er ikke implementeret.
-\mikkel{Mere detalje om sikkerhed? Jeg synes ikke vi bare kan lade være med at fortælle om det bare fordi det ikke er implementeret.}
-
-\paragraph{Fremtidig udvikling}
-På nuværende tidspunkt er sikkerhedsdelen ikke implementeret, og alle moduler kan derfor både læse og skrive til alle databasetabeller.
-For at undgå at en udvikler kan lave et modul der ødelægger data for et andet modul er dette nødvendigt.
-Vi forestiller os at der skal laves en nøgleudveksling mellem manager og modul når et modul installeres, så manageren kan kende forskel på moduler og derved begrænse skriveadgang til modulet der har oprettet tabellen.
-\mikkel{Burde den her del, der beskriver en mulig løsning ikke bare stå under sikkerhed? Og så kan vi skrive i refleksion at det ikke er lavet.}
-\mikkel{\stefan{skriv eventuelt også i refleksion} Jeg synes ikke vi skal skrive det to steder.
-Jeg synes bare vi skal flytte beskrivelser af alt hvad vi ikke har nået over i refleksion.
-Det er lidt underligt at en del af arkitekturen er en beskrivelse af det vi ikke har fået lavet.}
-
-Det udviklede system anvender en database placeret på selve mobiltelefonen og er dermed begrænset af de muligheder der er for lagring på den enkelte enhed.
-Da der er begrænset plads på en mobiltelefon (se \cref{eksperimenter}) vil denne løsning muligvis udløse en række problemer.
-Det vil derfor være en naturlig udvidelse at lade  DB Access sørge for at uploade data til et eksternt lager hvis der er data der ikke er nødvendigt at lagre på telefonen mere.
-På denne måde begrænser man systemets pladsforbrug.
-
-Eventuelle analyser på al data vil dog i så fald kunne kræve mere plads end telefonen kan tilbyde.
-En mulig løsning herpå kan være at lade den samme server som opbevarer data udføre analyse arbejdet.
+Grunden til at facade er benyttet er fordi det giver en kobling mellem moduler og databasen.
+Denne kobling sker gennem et interface der sørger for modulerne kun skal opfylde nogle få krav for at få deres data gemt i databasen, samt for at få data fra andre moduler.
+Endvidere, sørger den kobling for at skabe en specifik og sikker kommunikation mellem moduler sker nemt og sikkert, hvilket er nødvendigt for at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}.
 
 \subsection{Moduler}
-Moduler komponenten i arkitekturen befinder sig i et lag for sig selv.
-Moduler indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visning af data.
+Denne komponent befinder sig i et lag for sig selv og indeholder tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
+Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
 
-\paragraph{Design}
-Til hvert enkelt modul hører en modulbeskrivelse (se \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
-Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
+Dette afsnit beskriver hvordan modulerne er defineret og en beskrivelse af de tre typer moduler.
+Men først en begrundelse for valget af dette lag på baggrund af behovene i \cref{arkitekturkrav}.
 
-Modullaget inddeles yderligere i tre konceptuelle lag: \textit{sensor}-, \textit{analyse}- og \textit{visnings}moduler.
+\paragraph{Begrundelse for valg}
+For at opfylde nøgleordet \textit{modulær}(se \cref{arkitekturkrav::modulaer}) er det valgt lave et lag der indeholder moduler, så det er let at tilføje og fjerne moduler.
+Dette kunne fx være i en situation hvor der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
 
-Nedenstående beskriver intentionerne bag de forskellige modultyper og deres opgave.
+\subsubsection{Moduldefinition}\label{modul_definition}
+\input{indhold/modul_definition}
+\input{indhold/modul_view}
 
-\subparagraph{Sensor}
-\textit{Sensor}laget indeholder moduler der indsamler data fra telefonens (eller tilbehør dertil) forskellige sensorer og applikationer.
+\subparagraph{Data}
+\textit{Data}-laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
 Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
 Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
 Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
@@ -125,34 +84,29 @@ Herefter udføres en analyse af det indsamlede data med \textit{''forståelig in
 I denne process vil der kunne forekomme tab af data.
 Herved opnås en opsummering af det indsamlede data, der skaber værdifuld information for brugeren.
 Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
-Denne information anvendes af visningsmodulerne.
+Denne information anvendes af visualiseringsmodulerne.
 
 Der kan ved analyse af sensordata anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
-Eksempelvis kan analysen foretages om natten hvor telefonen kan sættes til opladning.
+Eksempelvis kan analysen foretages om natten hvor smartphonen kan sættes til opladning.
 
 Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
 Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
 
-\subparagraph{Visning}
-\textit{Visnings}laget indeholder moduler der visualiserer analyserede data.
-Som en del af et visningsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
-Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visning anvendes på den enkelte analyse.
+\subparagraph{Visualisering}
+\textit{Visualiserings}laget indeholder moduler der visualiserer analyserede data.
+Som en del af et visualiseringsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
+Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visualisering anvendes på den enkelte analyse.
 
-Et eksempel på et visningsmodul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
+Et eksempel på et visualiseringsmodul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
 Dette kunne være en graf der fortæller hvor dyb søvn man har været i, eller en simpel farvet indikator hvis farve viser hvor godt man har sovet de sidste par dage.
 
-Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visnings}modul.
+Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visualiserings}modul.
 
 Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
-Sammensætningen af analyse- og visningsmoduler sker ved en beskrivelse af deres grænseflade.
+Sammensætningen af analyse- og visualiseringsmoduler sker ved en beskrivelse af deres grænseflade.
 Moduler med fælles grænseflade vil kunne kombineres.
-Det vil sige at der kan anvendes flere forskellige visningsmoduler til det samme analysemodul, givet at de er kompatible.
-Tilsvarende kan det samme visningsmoduler anvendes til flere forskellige analysemoduler.
-
-\paragraph{Fremtidig udvikling}
-
-\stefan{ideer?}
-\mikkel{Samme kommentar som tidligere - jeg synes det er det forkerte sted at have 'fremtidig udvikling'}
+Det vil sige at der kan anvendes flere forskellige visualiseringsmoduler til det samme analysemodul, givet at de er kompatible.
+Tilsvarende kan det samme visualiseringsmoduler anvendes til flere forskellige analysemoduler.
 
 \subsection{Manager}\label{subsec:arkitektur-Manager}
 Manager komponenten kan siges at være grænsefladen mellem bruger og moduler.
@@ -162,15 +116,10 @@ Sidstnævnte sker ud fra definitioner givet i beskrivelserne af de enkelte modul
 Desuden er det også gennem manageren brugeren for vist den information de leder efter.
 
 \paragraph{Design}
-Ved at sammenholde visninger og analyser kan manageren beskrive for brugeren hvilke data der kan fremvises og med hvilke visninger det kan ske.
+Ved at sammenholde visualiseringer og analyser kan manageren beskrive for brugeren hvilke data der kan fremvises og med hvilke visualiseringer det kan ske.
 Manageren har desuden en prædefineret brugerflade der anvender ovenstående kombinationer til at vise brugeren de relevante informationer.
 
 Manager komponenten indeholder desuden et JSON skema for hver modul-type i moduler komponenten.
 Disse definitioner beskriver formatet for eventuelle nye moduler man måtte ønske at føje til systemet.
 \stefan{et eller flere skemaer? Muligvis har views anderledes skema, men analyse og sensorer har det samme}
 
-
-\paragraph{Fremtidig udvikling}
-
-\stefan{ideer?}
-\mikkel{Samme kommentar som tidligere - jeg synes det er det forkerte sted at have 'fremtidig udvikling'}
