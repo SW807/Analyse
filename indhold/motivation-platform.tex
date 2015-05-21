@@ -8,11 +8,11 @@ Derfor skal arkitekturen understøtte muligheden for at detektere alle de forske
 Det er dog ikke nødvendigt altid at detektere alle symptomer, da de konkrete symptomer varierer fra person til person.
 Denne varians gør at en modulær opbygning er nødvendig, da dette vil gøre det muligt nemt at modificere funktionaliteten så den kun går efter at identificere den konkrete brugers symptomer.
 
-Ydermere vil en modulær arkitektur også gøre det nemt at udskifte enkelte dele af funktionalitet, hvis der nye og bedre teorier inden for de forskellige områder.
+Ydermere vil en modulær arkitektur også gøre det nemt at udskifte enkelte dele af funktionalitet, hvis der for eksempel kommer nye og bedre teorier inden for de forskellige områder.
 
 \subsection{Fleksibel}\label{arkitekturkrav::fleksibel}
 Arkitekturen skal være fleksibel så den kan tilpasses til patienten.
-Dette kunne fx være en mulighed for patienten at styre hvilke moduler der aktive.
+Dette kunne fx være en mulighed for at patienten kan styre hvilke moduler der er aktive.
 
 Arkitekturen skal også være fleksibel i forbindelse med valg af lignende sensorer.
 Dette kunne for eksempel være valget af accelerometer hvis patienten både har en smartphone og et smart watch.
@@ -40,7 +40,7 @@ Dette er dog ikke blevet implementeret, men bliver diskuteret yderligere i \cref
 \subsection{Opsummering}
 For at opsummere ønsker vi en arkitektur der er opbygget af moduler.
 Det skal være muligt at udvikle moduler uafhængigt af hinanden.
-Arkitekturen skal være fleksibel så det er muligt at til- og fra-vælge moduler og sensorer for den individuelle patient.
+Arkitekturen skal være fleksibel så det er muligt at til- og fra-vælge moduler for den individuelle bruger.
 Desuden skal modulerne være kombinerbar i en sådan forstand så det er muligt at fx bruge moduler andre har udviklet sammen med ens egne moduler.
 Til sidst skal arkitekturen understøtte nem og sikker kommunikation mellem modulerne.
 
