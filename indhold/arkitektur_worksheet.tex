@@ -66,47 +66,6 @@ For at opfylde nøgleordet \textit{modulær}(se \cref{arkitekturkrav::modulaer})
 Dette kunne fx være i en situation hvor der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
 
 \input{indhold/modul_definition}
-\input{indhold/modul_view}
-
-\subsubsection{Data}
-\textit{Data}-laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
-Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
-Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
-Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
-
-Et eksempel på et sensormodul er indsamling af data fra accelerometret.
-Modulet får data fra accelerometret og gemmer det i sin database. 
-For ikke at gemme unødvendige mængder data vil modulet kun gemme et datapunkt når det er forskelligt fra det forrige målte punkt.
-
-\subsubsection{Analyse}
-\textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
-Herefter udføres en analyse af det indsamlede data med \textit{''forståelig information''} som resultat.
-I denne process vil der kunne forekomme tab af data.
-Herved opnås en opsummering af det indsamlede data, der skaber værdifuld information for brugeren.
-Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
-Denne information anvendes af visualiseringsmodulerne.
-
-Der kan ved analyse af sensordata anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
-Eksempelvis kan analysen foretages om natten hvor smartphonen kan sættes til opladning.
-
-Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
-Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
-
-\subsubsection{Visualisering}
-\textit{Visualiserings}laget indeholder moduler der visualiserer analyserede data.
-Som en del af et visualiseringsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
-Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visualisering anvendes på den enkelte analyse.
-
-Et eksempel på et visualiseringsmodul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
-Dette kunne være en graf der fortæller hvor dyb søvn man har været i, eller en simpel farvet indikator hvis farve viser hvor godt man har sovet de sidste par dage.
-
-Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visualiserings}modul.
-
-Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
-Sammensætningen af analyse- og visualiseringsmoduler sker ved en beskrivelse af deres grænseflade.
-Moduler med fælles grænseflade vil kunne kombineres.
-Det vil sige at der kan anvendes flere forskellige visualiseringsmoduler til det samme analysemodul, givet at de er kompatible.
-Tilsvarende kan det samme visualiseringsmoduler anvendes til flere forskellige analysemoduler.
 
 \subsection{Manager}\label{subsec:arkitektur-Manager}
 Dette afsnit begrunder valget af denne komponent.
