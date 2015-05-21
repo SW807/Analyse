@@ -50,18 +50,15 @@ På denne måde forhindres det at eksterne moduler modificerer andre modulers da
 \stefan{skal det nævnes at dette ikke er impl?}
 
 \paragraph{Design} 
-For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder er der blevet valgt at benytte facade designmønster \citep[s.~185]{gamma1994design}.
+DB access benytter implementerer en \textit{ContentProvider} \citep{contentprovider}, der er et interface som Android stiller tilrådighed.
+Content Providers er en måde hvorpå man kan stille data til rådighed for andre apps i Android.
 
-Grunden til at facade er benyttet er fordi det giver en kobling mellem moduler og databasen.
-Denne kobling sker gennem et interface der sørger for modulerne kun skal opfylde nogle få krav for at få deres data gemt i databasen, samt for at få data fra andre moduler.
-Endvidere, sørger den kobling for at skabe en specifik og sikker kommunikation mellem moduler sker nemt og sikkert, hvilket er nødvendigt for at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}.
-
-Til at benytte facade designmønstret gøres der brug af \textit{ContentProvider} \citep{contentprovider}, der er et interface som Android stiller tilrådighed.
-Dette interface gør at moduler kontakter databasen på en ensrettet måde.
+Brugen af content provideren gør også at interfacet til DB access er veldefineret.
+Ændring af lagringsmetoden eller tilføjelsen af backup i skyen vil kunne gøres under dette interface, så det ikke ødelægger kompatibilitet til moduler.
 
 \subsection{Moduler}
 Denne komponent befinder sig i et lag for sig selv og indeholder tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
-Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
+Modulkomponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
 
 Dette afsnit beskriver hvordan modulerne er defineret og giver en beskrivelse af de tre typer moduler.
 Men først følger en begrundelse for valget af dette lag på baggrund af behovene i \cref{arkitekturkrav}.
