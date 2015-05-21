@@ -5,7 +5,19 @@ At reflektere over disse beslutninger og overvejelser skaber overblik og forstå
 %Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet at hvis man for eksempel har data fra et smartwatch og fra en accelerometer på smartphonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
 %Men dette blev aldrig lavet, idet at det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
 
+\section{Kontekst}
+Konteksten for brugen af applikationen er ikke blevet arbejdet med.
+Man kunne forstille sig at der kunne være indbyggede moduler til at registrere hvilket kontekst telefonen befinder sig i.
+Dette kunne være at finde ud af om telefonen befinder sig på en person eller om den er i en jakkelommer, på et natbord eller lignende.
+Hvis det er muligt at identificere konteksten, kan det være yderst brugbar information for analysemoduler, til at hjælpe dem med at afgøre hvordan forskellige former af data skal behandles.
+Her kunne man for eksempel forestille sig at lyd var yderst relevant hvis enheden var på en person, men irrelevant hvis den lå i en jakkelomme.
+Der er også den mulighed at platformen ud fra konteksten vælger hvilke datakilder der stadig er relevante at se på, men en sådan måde at beslutte på vil reducere platformens modularitet, så det vil være bedre at overlade det til det enkelte modul at beslutte hvad der er relevant for den givne kontekst.
+
+Dog vides det ikke om en sådan klassificering kan opnå den fornødne præcision, men undersøgelse af det vil bestemt være værd at overveje.
+
 \section{Brugerinteraktion}
+En række refleksioner går på brugerinteraktion.
+Dette inkluderer refleksion af visualiseringer, interaktive moduler, notifikationer og huskekort, og er beskrevet herunder.
 \subsection{Visualiseringer}
 Data indsamlet og analyseret af forskellige moduler, skulle originalt kunne visualiseres, med det formål at give brugere af platformen et overblik over deres sindstilstand.
 I \cref{modul_definition}, blev der diskuteret hvordan håndteringen af visualiserings-modulerne skal foretages.
@@ -62,6 +74,8 @@ Dette er især interessant ved fysisk sensor/analyse hvor stress antageligvis ka
 Disse huskekort skal dog nødvendigvis udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.
 
 \section{Platform}
+Andre refleksioner går på platformen.
+Disse refleksioner omhandler hvordan man kan mindske plads- og strøm-forbrug, alternativer til moduldefinitions-deling, samt hvordan en højere granularitet kan opnås hvad angår databaserettigheder, og er beskrevet herunder.
 \subsection{Dataindsamling}
 Som nævnt i \cref{eksperimenter}, blev der udført eksperimenter for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
 Ydermere siger den at mængden af data der indsamles kan blive reduceret.
@@ -79,7 +93,7 @@ Dog er det en stor ændring i forhold til den nuværende arkitektur, men er et a
 
 Når en eller flere af disse er implementeret, er det en god idé at gentage eksperimenterne for at verificere at løsningerne har den ønskede effekt, og på samme tid vil det være fordelagtigt at udvide eksperimenterne til at inkludere andre faktorer såsom batteri forbrug.
 
-\subsection{Analyse Aflastning}
+\subsection{Analyse i Skyen}
 For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
 Dette vil have den effekt at smartphonen ikke behøver gøre særlig meget udover at registrere sensor data.
 Dette er også en idé der bør undersøges videre, hvor man også skal have problematikker såsom  og kommunikationstid i mente.
@@ -106,13 +120,3 @@ Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke k
 
 En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
 
-\section{Andre}
-\subsection{Kontekst}
-Konteksten for brugen af applikationen er ikke blevet arbejdet med.
-Man kunne forstille sig at der kunne være indbyggede moduler til at registrere hvilket kontekst telefonen befinder sig i.
-Dette kunne være at finde ud af om telefonen befinder sig på en person eller om den er i en jakkelommer, på et natbord eller lignende.
-Hvis det er muligt at identificere konteksten, kan det være yderst brugbar information for analysemoduler, til at hjælpe dem med at afgøre hvordan forskellige former af data skal behandles.
-Her kunne man for eksempel forestille sig at lyd var yderst relevant hvis enheden var på en person, men irrelevant hvis den lå i en jakkelomme.
-Der er også den mulighed at platformen ud fra konteksten vælger hvilke datakilder der stadig er relevante at se på, men en sådan måde at beslutte på vil reducere platformens modularitet, så det vil være bedre at overlade det til det enkelte modul at beslutte hvad der er relevant for den givne kontekst.
-
-Dog vides det ikke om en sådan klassificering kan opnå den fornødne præcision, men undersøgelse af det vil bestemt være værd at overveje.
