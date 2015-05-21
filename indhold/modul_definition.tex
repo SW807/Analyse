@@ -22,12 +22,12 @@ Desuden kan det være træls at skulle installere en større mængde af applikat
 Som løsning derpå kunne man med videre arbejde have et indbygget applikation marked i manageren, og er værd at udforske med mere tid.
 
 \subsubsection{Valg af Modulær Lag}
-For at vælge den en måde at lave det modulære lag på, er det vigtigt at kigge på de behov der er for arkitekturen.
+For at vælge en måde at lave det modulære lag på, er det vigtigt at kigge på de behov der er for arkitekturen.
 
-Løsningen den komplette pakke giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
+Løsningen med den komplette pakke giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
 Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
 Det er i strid med behovet \textit{modulær}, beskrevet i \cref{arkitekturkrav::modulaer}.
-Derudover, gør løsningen også så at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændret på systemet.
+Derudover, gør løsningen også at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændret på systemet.
 På grund af disse begrænsninger er denne løsning ikke valgt
 
 Den næste løsning der blev kigget på er import af kode.
@@ -36,13 +36,13 @@ Denne løsning er dog \textit{modulær}, idet man selv kan vælge hvilke moduler
 Desuden er løsningen også med til at gøre det mere enkelt at udvikle sit eget modul.
 Denne løsning er en mulighed der kan benyttes.
 
-Den sidste løsning der er at have selvstændige applikationer.
+Den sidste løsning er at have selvstændige applikationer.
 Ved denne løsning er det muligt, ligesom ved import af kode, at kunne vælge mellem hvilke moduler man vil gøre brug af, hvilket gør denne løsning \textit{modulær}.
 Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler da de er hver deres applikation, hvilket er i strid med behovet \textit{kommunikation}, beskrevet i \cref{arkitekturkrav::kommunikation}
 Dog er dette ikke en stor ulempe på grund af den måde DBAccess er designet.
-Eftersom løsningen gør systemet mere modulært og da ulempe ved rørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes.
+Eftersom løsningen gør systemet mere modulært og da ulempen vedrørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes.
 
-Løsningen selvstændige applikationer er valgt fordi at denne løsning er mindre tidskrævende end import af kode.
+Løsningen med selvstændige applikationer er valgt fordi denne løsning er mindre tidskrævende end import af kode.
 
 
 
