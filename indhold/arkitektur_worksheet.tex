@@ -4,7 +4,7 @@ Først beskrives den overordnede opbygning.
 Derefter beskrives komponenterne mere detaljeret.
 
 \paragraph{Platform}
-Projektet har valgt at bruge Android som platform, se \cref{sec:valg_af_android}, hvilket også lægger op til nogle overvejelser ift. arkitektur.
+Android er blevet valgt som platform, se \cref{sec:valg_af_android}, hvilket også lægger op til nogle overvejelser ift. arkitektur.
 
 Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
 Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \citep{android_service}.\lars{herfra}
@@ -17,7 +17,7 @@ Hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem d
 
 \subsection{Opbygning}\label{arkitektur:opbygning}
 Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB\footnote{Database} access} og \textit{DB}.
-For at opfylde de specificerede behov i \cref{arkitekturkrav}, nærmere nøgleordene \textit{modulær}(se \cref{arkitekturkrav::modulaer}) og \textit{fleksibel}(se \cref{arkitekturkrav::fleksibel}) er arkitekturen opbygget af moduler der opsamler data, analyser denne data og viser den uafhængige af hinanden.
+For at opfylde de specificerede behov i \cref{arkitekturkrav}, nærmere nøgleordene \textit{modulær}(se \cref{arkitekturkrav::modulaer}) og \textit{fleksibel}(se \cref{arkitekturkrav::fleksibel}) er arkitekturen opbygget af moduler der opsamler data, analyserer data og viser det uafhængigt af hinanden.
 Disse moduler kan vælges til eller fra i \textit{manager}'en.
 
 
@@ -36,7 +36,7 @@ Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en SQLite database da denne er standard i Android \citep{android_database}.
+Til dette projekt er der valgt en SQLite database da denne er standard i Android \citep{android_database}.
 
 
 \subsection{DBAccess}\label{subsec:DBACCESS}
@@ -64,7 +64,7 @@ Denne komponent befinder sig i et lag for sig selv og indeholder tre typer modul
 Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
 
 Dette afsnit beskriver hvordan modulerne er defineret og giver en beskrivelse af de tre typer moduler.
-Men først en begrundelse for valget af dette lag på baggrund af behovene i \cref{arkitekturkrav}.
+Men først følger en begrundelse for valget af dette lag på baggrund af behovene i \cref{arkitekturkrav}.
 
 \paragraph{Begrundelse for valg}
 For at opfylde nøgleordet \textit{modulær}(se \cref{arkitekturkrav::modulaer}) er det valgt lave et lag der indeholder moduler, så det er let at tilføje og fjerne moduler.
