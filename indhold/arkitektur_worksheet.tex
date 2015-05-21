@@ -89,11 +89,12 @@ Denne del af systemet er ikke implementeret.
 Denne komponent befinder sig i et lag for sig selv og indeholder tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
 Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
 
-\paragraph{Design}
-Til hvert enkelt modul hører en modulbeskrivelse (beskrevet i \cref{modul_definition}) der beskriver modulets afhængigheder af andre moduler samt hvordan det skal administreres i systemet.
-Denne administration består til dels i en definitioner af de tabeller modulet har behov for at få oprettet i \textit{DB} komponenten.
+Dette afsnit beskriver hvordan modulerne er defineret og en beskrivelse af de tre typer moduler.
+Men først en begrundelse for valget af dette lag på baggrund af behovene i \cref{arkitekturkrav}.
 
-Modullaget inddeles yderligere i tre konceptuelle lag: \textit{data}-, \textit{analyse}- og \textit{visualiserings}-moduler.
+\paragraph{Begrundelse for valg}
+For at opfylde nøgleordet \textit{modulær}(se \cref{arkitekturkrav::modulaer}) er det valgt lave et lag der indeholder moduler, så det er let at tilføje og fjerne moduler.
+Dette kunne fx være i en situation hvor der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
 
 Nedenstående beskriver intentionerne bag de forskellige modultyper og deres opgave.
 
