@@ -13,7 +13,33 @@ Platformen danner dermed grundlaget for videre arbejde, da med platformen udvikl
 Da fokus har været at facilitere dataindsamlings- og analyseaspektet af platformen mangler der at blive udforsket hvorledes visualiserings-moduler skal faciliteres.
 Vi er klar over denne mangel, men det blev bedømt vigtigere at fokusere på at gøre det nemt at indsamle relevant data først, inden at der blev lagt fokus på hvordan man skulle visualisere data.
 
-\als{Der skal skrives noget konklusion i forhold til kriterier - hvordan overholder platformen kriterierne?}
+Med hensyn til kriterier er der også en række kriterier der kan konkluderes på.
+Følgende kriterier der konkluderes på er de samme kriterier som blev opstillet i \cref{sec:process} og blev holdt i mente til udviklingen af platformen, beskrevet i \cref{arkitekturkrav}.
+\begin{description}[style=nextline]
+	\item[Modulær]
+	Platformen er udviklet med primært fokus på at være modulær, og det kan konkluderes at den er det.
+	Dette understøttes af den fælles datagrænseflade i form af DBAccess og moduldefinitionerne.  
+	Det er muligt at specificere at man er afhængig af blot et modul af en mængde af disse.
+	Eksempelvis er det muligt for et analyse modul at afhænge af minimum et accelerationsmodul, om dette så bliver fra en smartwatch datakilde eller det indbyggede accelerometer i mobilen afhænger af den enkelte patients installerede moduler.
+	
+	Som et eksisterende eksempel på at moduler nemt kan tilføjes og bruges af manageren er de nævnte udviklede moduler, beskrevet i \citet{misc:soevnrapp} og \citet{misc:surveyrapp}.
+	Dette eksempel viser også hvorledes det er muligt at udvikle moduler, der afhænger af data fra andre moduler.
+	
+	\item[Fleksibilitet]
+	Til at sikre at platformen er fleksibel i forhold til patienten, hvor de er i kontrol, er der udviklet en indstillingsmenu der kan justere hvilke af de installerede moduler de vil benytte.
+	I den sammenhæng kan det konkluderes at platformen er fleksibel.
+	Endvidere har patienten også kontrol over hvilke moduler der er installeret på deres smartphone, idét at hvert modul er en separat applikation på deres smartphone, som de sagtens kan afinstallere hvis ønsket.
+	
+	\item[Kombinerbar]
+	Vi kan også konkludere at platformen sikrer kombinerbarhed.
+	Med dette tænkes at data indsamlet fra diverse moduler kan benyttes af andre moduler, eksempelvis analyse moduler.
+	Et klart eksempel på dette kan læses i \citet{misc:soevnrapp}, hvor data fra et søvnestimeringsmodul for acceleration og et modul for amplitude kombineres i et samlet søvnestimeringsmodul.
+	
+	\item[Kommunikation]
+	Kommunikations kriteriet er understøttet i den grad at data nemt kan kommunikeres til relevante moduler.
+	Dog er sikkerhedskriteriet for denne kommunikation ikke på plads, da hvis man installerer nye moduler kan ethvert af disse også tilgå data fra platformen.
+	Derudover er der ikke opsat skriverettighedsrestriktioner, og således er der altså her et kriterie der ikke er blevet opfyldt og skal arbejdes videre med før man kan konkludere at en tilpas færdig platform er udviklet.
+\end{description}
 
 
 % Platform facilliterer udviklingen af moduler der kan benyttes

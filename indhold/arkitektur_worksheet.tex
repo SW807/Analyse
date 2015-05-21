@@ -7,7 +7,7 @@ Derefter beskrives komponenterne mere detaljeret.
 Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ift. arkitektur.
 
 Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
-Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \cite{android_service}.
+Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \citep{android_service}.
 Dette udnyttes ved at pakke alle moduler i hver deres selvstændige applikation.
 Ved at anvende en centraliseret database vil det være muligt for moduler at få adgang til data fra andre moduler.
 Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
@@ -35,7 +35,7 @@ Denne komponent administrerer data for systemets forskellige moduler.
 Data opbevares i en række tabeller i et relationelt database system.
 Hvert modul har mulighed for at definere egne tabeller, der alle gemmes i \textit{DB} komponenten.
 
-Til dette projekt er valgt en SQLite database da denne er standard i Android \cite{android_database}.
+Til dette projekt er valgt en SQLite database da denne er standard i Android \citep{android_database}.
 
 
 \subsection{DBAccess}\label{subsec:DBACCESS}
@@ -54,6 +54,9 @@ Grunden til at facade er benyttet er fordi det giver en kobling mellem moduler o
 Denne kobling sker gennem et interface der sørger for modulerne kun skal opfylde nogle få krav for at få deres data gemt i databasen, samt for at få data fra andre moduler.
 Endvidere, sørger den kobling for at skabe en specifik og sikker kommunikation mellem moduler sker nemt og sikkert, hvilket er nødvendigt for at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}.
 
+Til at benytte facade designmønstret gøres der brug af \textit{ContentProvider} \citep{contentprovider}, der er et interface som Android stiller tilrådighed.
+Dette interface gør at moduler kontakter databasen på en ensrettet måde.
+
 \subsection{Moduler}
 Denne komponent befinder sig i et lag for sig selv og indeholder tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
 Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
@@ -64,6 +67,7 @@ Men først en begrundelse for valget af dette lag på baggrund af behovene i \cr
 \paragraph{Begrundelse for valg}
 For at opfylde nøgleordet \textit{modulær}(se \cref{arkitekturkrav::modulaer}) er det valgt lave et lag der indeholder moduler, så det er let at tilføje og fjerne moduler.
 Dette kunne fx være i en situation hvor der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
+Desuden opfylder det også nøgleordet \textit{kombinerbar}, fordi fx moduler fra \textit{data} kan kombineres til at lave et \textit{analyse}-modul.
 
 \input{indhold/modul_definition}
 
@@ -79,12 +83,6 @@ Denne administration indebærer blandt andet oprettelse af de database tabeller 
 Sidstnævnte sker ud fra definitioner givet i beskrivelserne af de enkelte moduler.
 Desuden er det også gennem manageren brugeren får vist den information de leder efter.
 \bruno{Ref til moduledefinition når den er done}
-\paragraph{Design}
-Ved at sammenholde visualiseringer og analyser kan manageren beskrive for brugeren hvilke data der kan fremvises og med hvilke visualiseringer det kan ske.
-Manageren har desuden en prædefineret brugerflade der anvender ovenstående kombinationer til at vise brugeren de relevante informationer.
-
-Manager komponenten indeholder desuden et JSON skema for hver modul-type i moduler komponenten.
-Disse definitioner beskriver formatet for eventuelle nye moduler man måtte ønske at føje til systemet.
 
 \subsubsection{Beskrivelse af manageren}
 \input{indhold/komponent-manager}

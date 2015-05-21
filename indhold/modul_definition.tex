@@ -1,7 +1,3 @@
-
-Dette afsnit beskriver de forskellig forslag til et modulbaseret lag.
-Derefter et rationale for valget af et forslag på baggrund af behovene for arkitekturen, beskrevet i \cref{arkitekturkrav}.
-Til sidst bliver løsningen beskrevet.
 \subsubsection{Forslag til Modulært Lag}
 For at kunne vælge et modulært lag som opfylde behovene for arkitekturen(\cref{arkitekturkrav}) er der her givet eksempler på hvordan laget kan se ud.
 Hvorefter et valg af hvilket modulært lag der vælges vil blive beskrevet.
@@ -25,85 +21,46 @@ Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræv
 Desuden kan det være træls at skulle installere en større mængde af applikationer for at have den fornødne funktionalitet.
 Som løsning derpå kunne man med videre arbejde have et indbygget applikation marked i manageren, og er værd at udforske med mere tid.
 
-\subsubsection{Valg af Modulært Lag}
+\subsubsection{Valg af Modulær Lag}
 For at vælge den en måde at lave det modulære lag på, er det vigtigt at kigge på de behov der er for arkitekturen.
 
 Løsningen den komplette pakke giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
 Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
+Det er i strid med behovet \textit{modulær}, beskrevet i \cref{arkitekturkrav::modulaer}.
 Derudover, gør løsningen også så at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændret på systemet.
 På grund af disse begrænsninger er denne løsning ikke valgt
 
 Den næste løsning der blev kigget på er import af kode.
 Løsningen kræver at man udvikler et scripting sprog der har alle Androids funktionaliteter til rådighed, hvilket er meget tidskrævende.
-Denne løsning er dog modulær, idet man selv kan vælge hvilke moduler man vil gøre brug af.
+Denne løsning er dog \textit{modulær}, idet man selv kan vælge hvilke moduler man vil gøre brug af.
 Desuden er løsningen også med til at gøre det mere enkelt at udvikle sit eget modul.
 Denne løsning er en mulighed der kan benyttes.
 
 Den sidste løsning der er at have selvstændige applikationer.
-Ved denne løsning er det muligt, ligesom ved import af kode, at kunne vælge mellem hvilke moduler man vil gøre brug af.
-Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler da de er hver deres applikation.
+Ved denne løsning er det muligt, ligesom ved import af kode, at kunne vælge mellem hvilke moduler man vil gøre brug af, hvilket gør denne løsning \textit{modulær}.
+Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler da de er hver deres applikation, hvilket er i strid med behovet \textit{kommunikation}, beskrevet i \cref{arkitekturkrav::kommunikation}
 Dog er dette ikke en stor ulempe på grund af den måde DBAccess er designet.
-Eftersom løsningen gør systemet mere modulært og da ulempe ved rørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes
+Eftersom løsningen gør systemet mere modulært og da ulempe ved rørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes.
 
-Eftersom der skal vælges en måde at gøre dette på, vælges løsningen der benytter selvstændige applikationer af den grund at denne løsning er mindre tidskrævende end import af kode.
+Løsningen selvstændige applikationer er valgt fordi at denne løsning er mindre tidskrævende end import af kode.
 
 
 
-\subsubsection{Beskrivelse af Løsning}\label{modul_definition}
+\subsubsection{Beskrivelse af Modulært Lag}\label{modul_definition}
 Her vil den implementerede løsning blive gennemgået.
 
 \paragraph{Typer af Moduler}
-Der findes tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visualisering}.
-Sensor moduler indsamler data fra smartphonens forskellige sensorer og applikationer.
-Endvidere bruger analyse moduler data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data, som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
+Der findes tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
+Data moduler indsamler data fra smartphonens forskellige sensorer og applikationer.
+Endvidere bruger analyse moduler data fra enten data-moduler eller andre analyse-moduler til at bearbejde data med den hensigt at opnå en opsummering af data, som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
 Visualiserings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
-
-\subparagraph{Data}
-\textit{Data}-laget indeholder moduler der indsamler data fra smartphonens (eller tilbehør dertil) forskellige sensorer og applikationer.
-Der påføres kun et minimum af behandling på indsamlede data (eksempelvis komprimering) således at data kan indsamles kontinuert uden stort energi-behov.
-Derudover for at have mulighed for at lave meningsfulde analyser skal alt logget data gemmes i \textit{DB} i rå eller komprimeret form.
-Det vil sige at komprimering skal være tabsfri og at eventuelle fejlmålinger bør markeres som sådan i den pågældende data tabel.
-
-Et eksempel på et sensormodul er indsamling af data fra accelerometret.
-Modulet får data fra accelerometret og gemmer det i sin database. 
-For ikke at gemme unødvendige mængder data vil modulet kun gemme et datapunkt når det er forskelligt fra det forrige målte punkt.
-
-\subparagraph{Analyse}
-\textit{Analyse}laget indeholder moduler der bruger data fra et antal sensormoduler samt eventuelle andre analysemoduler.
-Herefter udføres en analyse af det indsamlede data med \textit{''forståelig information''} som resultat.
-I denne process vil der kunne forekomme tab af data.
-Herved opnås en opsummering af det indsamlede data, der skaber værdifuld information for brugeren.
-Som en del af et analysemoduls beskrivelse findes en beskrivelse af hvilken information man kan få fra modulet.
-Denne information anvendes af visualiseringsmodulerne.
-
-Der kan ved analyse af sensordata anvendes flere ressourcer, da analysen typisk vil kunne udføres på større mængder indsamlede data få gange dagligt.
-Eksempelvis kan analysen foretages om natten hvor smartphonen kan sættes til opladning.
-
-Et eksempel på et analysemodul kan være et søvnanalyse modul der bruger førnævnte accelerometer data til at undersøge en sovendes søvn.
-Dette modul vil bruge flere sensormoduler til sin analyse og vil muligvis bruge accelerometerdata fra både en smartphone og et smart watch.
-
-\subparagraph{Visualisering}
-\textit{Visualiserings}laget indeholder moduler der visualiserer analyserede data.
-Som en del af et visualiseringsmoduls beskrivelse findes en beskrivelse af hvilken information modulet accepterer.
-Hvis denne beskrivelse stemmer overens med et analysemodul, kan den enkelte visualisering anvendes på den enkelte analyse.
-
-Et eksempel på et visualiseringsmodul er et modul der visualisere de resultater som føromtalte søvnanalyse har fundet frem til.
-Dette kunne være en graf der fortæller hvor dyb søvn man har været i, eller en simpel farvet indikator hvis farve viser hvor godt man har sovet de sidste par dage.
-
-Eksempelvis vil et accelerometer \textit{sensor}modul kunne anvendes af et søvn \textit{analyse}modul der viser resultatet i et graf \textit{visualiserings}modul.
-
-Skulle man her ønske en anden fortolkning af accelerometerets data kan et andet analysemodul anvendes.
-Sammensætningen af analyse- og visualiseringsmoduler sker ved en beskrivelse af deres grænseflade.
-Moduler med fælles grænseflade vil kunne kombineres.
-Det vil sige at der kan anvendes flere forskellige visualiseringsmoduler til det samme analysemodul, givet at de er kompatible.
-Tilsvarende kan det samme visualiseringsmoduler anvendes til flere forskellige analysemoduler.
 
 \paragraph{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
 
-Sensor- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visualiserings-moduler.
-For at specificere hvordan data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert modul af førstnævnte typer.
-For hvert modul skal der defineres en eller flere tabeller som modulet kan gemme data i.
+Data- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visualiserings-moduler.
+For at specificere hvordan data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert data- og analyse-modul.
+For hvert modul skal der defineres en eller flere tabeller, hvor disse tabeller beskriver det data som modulet gemmer og derved gør tilgængeligt til andre moduler.
 For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
 
 \paragraph{Data Typer}
@@ -122,28 +79,28 @@ Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men de
 \paragraph{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
 JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul.
-For at sikre validiteten af eksternt leverede modul-beskrivelser, udarbejdes der et JSON Skema, som JSON-dokumenter kan holdes op imod og derved verificeres.
-Det anvendte JSON Skema kan findes i \cref{app:json_schema}.
+For at sikre validiteten af eksternt leverede modul-beskrivelser, er der udarbejdet nogle JSON Schemas, som JSON-dokumenter holdes op imod og derved verificeres.
+De anvendte JSON Schemas kan findes i \cref{app:json_schema}.
 
-\subparagraph{Eksempel} på en modul-beskrivelse.
+\subparagraph{Eksempel} Accelerometer modul-definitionen kan ses her.
 Meta-data er præfikset med \_ (underscore).
 \begin{lstlisting}
 {
   "name": "accelerometer",
+  "_userfriendlyname": "Accelerometer",
   "_version": 1.0,
+  "_description":"Maaler og opbevarer acceleration i tre akser.",
   "tables": [
-    { "name": "accelerations",
+    {
+      "name": "accelerations",
       "columns": [
-        { "name": "accX",
-          "dataType": "REAL",
-          "_unit": "g" },
-        { "name": "accY",
-          "dataType": "REAL",
-          "_unit": "g" },
-        { "name": "accZ",
-          "dataType": "REAL",
-          "_unit": "g" }
-      ]}]}
+        { "name": "accX", "dataType": "REAL", "_unit": "g"},
+        { "name": "accY", "dataType": "REAL", "_unit": "g"},
+        { "name": "accZ", "dataType": "REAL", "_unit": "g"}
+      ]
+    }
+  ]
+}
 \end{lstlisting}
 
 \paragraph{Implementering}
