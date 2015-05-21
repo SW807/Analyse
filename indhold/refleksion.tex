@@ -5,7 +5,8 @@ At reflektere over disse beslutninger og overvejelser skaber overblik og forstå
 %Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet at hvis man for eksempel har data fra et smartwatch og fra en accelerometer på smartphonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
 %Men dette blev aldrig lavet, idet at det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
 
-\section{Visualiseringer}
+\section{Brugerinteraktion}
+\subsection{Visualiseringer}
 Data indsamlet og analyseret af forskellige moduler, skulle originalt kunne visualiseres, med det formål at give brugere af platformen et overblik over deres sindstilstand.
 I \cref{modul_definition}, blev der diskuteret hvordan håndteringen af visualiserings-modulerne skal foretages.
 Dette er et emne der bør udforskes ved videre arbejde, men er ikke foretaget på nuværende tidspunkt da det blev dømt for tidstagende.
@@ -34,7 +35,34 @@ Platformen benyttes af udvikleren, men hvordan de enkelte visualiseringer skal s
 
 De præsenterede muligheder er ikke fastlagte, og opfordres til at blive diskuteret yderligere ved videre arbejde, så den mest hensigtsmæssige løsning opnås.
 
-\section{Dataindsamling}
+\subsection{Interaktive Moduler}
+En idé som ikke blev undersøgt var at udvikle interaktive moduler.
+Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at teste reaktionsevne.
+Dette kunne være en god idé, da man ved affektive lidelser nogle gange ser den slags symptomer.
+Et sådant modul ville klassificeres som en mellemting mellem et visualiserings modul og et sensor modul.
+Visualisering da modulet skal vise noget til brugeren og sensor da den giver data der kan bruges af analysemoduler til at få et indblik i folks tilstand.
+
+\subsection{Notifikationer}
+Noget som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
+Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber i.f.t. at forstyrre en evt. patient med psykiske problemer.
+Dog erfarede vi senere, i forbindelse med styregruppemødet, at patienterne er meget interesseret i at få at vide så tidligt som muligt om de er under forværring i deres tilstand.
+
+Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår en forværring eller at der har været en drastisk stigning/fald i.f.t. sensor/analyse.
+Den anden slags information kan være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
+Det andet eksempel på en notifikation kunne få brugeren til at reflektere over sin situation, hvis der for eksempel kunne ses et tydeligt fald i søvnkvalitet eller antal sociale interaktioner, men uden direkte at sige noget om en evt. forværring.
+
+\subsubsection{Huskekort}
+I interviewet med psykolog Janne Rasmussen blev huskekort nævnt.
+Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven før en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
+
+Disse kan på samme måde som benævnt ovenover også implementeres som notifikationer.
+På denne måde kan der foreslås en lystbetonet aktivitet hvis analyser antyder en stressende dag.
+Dette er især interessant ved fysisk sensor/analyse hvor stress antageligvis kan opdages i øjeblikket og et passende huskekort kan præsenteres.
+
+Disse huskekort skal dog nødvendigvis udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.
+
+\section{Platform}
+\subsection{Dataindsamling}
 Som nævnt i \cref{eksperimenter}, blev der udført eksperimenter for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
 Ydermere siger den at mængden af data der indsamles kan blive reduceret.
 Der nævnes tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, oprydning af data eller ved at ændre på opdateringshastigheden for de forskellige sensorer.
@@ -51,12 +79,12 @@ Dog er det en stor ændring i forhold til den nuværende arkitektur, men er et a
 
 Når en eller flere af disse er implementeret, er det en god idé at gentage eksperimenterne for at verificere at løsningerne har den ønskede effekt, og på samme tid vil det være fordelagtigt at udvide eksperimenterne til at inkludere andre faktorer såsom batteri forbrug.
 
-\section{Analyse Aflastning}
+\subsection{Analyse Aflastning}
 For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
 Dette vil have den effekt at smartphonen ikke behøver gøre særlig meget udover at registrere sensor data.
 Dette er også en idé der bør undersøges videre, hvor man også skal have problematikker såsom  og kommunikationstid i mente.
 
-\section{Alternativ Moduldefinitions-deling}
+\subsection{Alternativ Moduldefinitions-deling}
 Med den nuværende implementering skal platformen hente ressourcefilerne for de enkelte moduler, for at læse deres moduldefinitioner.
 Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket muligvis kan give problemer.
 
@@ -68,7 +96,7 @@ Det var nødvendigt for platformen at vide hvilke fileproviders der skulle bruge
 
 Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning ikke er idéel idet at det ikke er sådan man skal dele filer mellem applikationer på Android.
 
-\section{Databaserettigheder}\label{databaserettigheder}
+\subsection{Databaserettigheder}\label{databaserettigheder}
 Med den nuværende implementering af DBAccess har hvert modul adgang til alt data som ligger i databasen.
 Dette er unødvendigt åbent og giver for bred adgang til de forskellige modulers data.
 For at gøre løsningen mere sikker, bør der med videre arbejde implementeres en måde til at begrænse hvilke moduler, der har adgang til hvilket data.
@@ -78,38 +106,13 @@ Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke k
 
 En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
 
-\section{Interaktive Moduler}
-En idé som ikke blev undersøgt var at udvikle interaktive moduler.
-Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at teste reaktionsevne.
-Dette kunne være en god idé, da man ved affektive lidelser nogle gange ser den slags symptomer.
-Et sådant modul ville klassificeres som en mellemting mellem et visualiserings modul og et sensor modul.
-Visualisering da modulet skal vise noget til brugeren og sensor da den giver data der kan bruges af analysemoduler til at få et indblik i folks tilstand.
-
-\section{Notifikationer}
-Noget som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
-Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber i.f.t. at forstyrre en evt. patient med psykiske problemer.
-Dog erfarede vi senere, i forbindelse med styregruppemødet, at patienterne er meget interesseret i at få at vide så tidligt som muligt om de er under forværring i deres tilstand.
-
-Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår en forværring eller at der har været en drastisk stigning/fald i.f.t. sensor/analyse.
-Den anden slags information kan være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
-Det andet eksempel på en notifikation kunne få brugeren til at reflektere over sin situation, hvis der for eksempel kunne ses et tydeligt fald i søvnkvalitet eller antal sociale interaktioner, men uden direkte at sige noget om en evt. forværring.
-
-\subsection{Huskekort}
-I interviewet med psykolog Janne Rasmussen blev huskekort nævnt.
-Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven før en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
-
-Disse kan på samme måde som benævnt ovenover også implementeres som notifikationer.
-På denne måde kan der foreslås en lystbetonet aktivitet hvis analyser antyder en stressende dag.
-Dette er især interessant ved fysisk sensor/analyse hvor stress antageligvis kan opdages i øjeblikket og et passende huskekort kan præsenteres.
-
-Disse huskekort skal dog nødvendigvis udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.
-
-\section{Kontekst}
+\section{Andre}
+\subsection{Kontekst}
 Konteksten for brugen af applikationen er ikke blevet arbejdet med.
 Man kunne forstille sig at der kunne være indbyggede moduler til at registrere hvilket kontekst telefonen befinder sig i.
 Dette kunne være at finde ud af om telefonen befinder sig på en person eller om den er i en jakkelommer, på et natbord eller lignende.
-Hvis det er muligt at klassificere konteksten, kan det være yderst brugbar information for analysemoduler, til at hjælpe dem med at afgøre hvordan forskellige former af data skal behandles.
-Her kunne man for eksempel forstille sig at lyd data var yderst relevant hvis enheden var på en person, men irrelevant hvis den lå i en jakkelomme.
+Hvis det er muligt at identificere konteksten, kan det være yderst brugbar information for analysemoduler, til at hjælpe dem med at afgøre hvordan forskellige former af data skal behandles.
+Her kunne man for eksempel forestille sig at lyd var yderst relevant hvis enheden var på en person, men irrelevant hvis den lå i en jakkelomme.
 Der er også den mulighed at platformen ud fra konteksten vælger hvilke datakilder der stadig er relevante at se på, men en sådan måde at beslutte på vil reducere platformens modularitet, så det vil være bedre at overlade det til det enkelte modul at beslutte hvad der er relevant for den givne kontekst.
 
 Dog vides det ikke om en sådan klassificering kan opnå den fornødne præcision, men undersøgelse af det vil bestemt være værd at overveje.
