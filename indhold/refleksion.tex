@@ -54,17 +54,19 @@ Når en eller flere af disse er implementeret, er det en god idé at gentage eks
 \section{Analyse Aflastning}
 For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
 Dette vil have den effekt at smartphonen ikke behøver gøre særlig meget udover at registrere sensor data.
-Dette er også en idé der bør undersøges videre, hvor man også skal have problematikker såsom sikkerhed og kommunikationstid i mente.
+Dette er også en idé der bør undersøges videre, hvor man også skal have problematikker såsom  og kommunikationstid i mente.
 
 \section{Alternativ Moduldefinitions-deling}
 Med den nuværende implementering skal platformen hente ressourcefilerne for de enkelte moduler, for at læse deres moduldefinitioner.
 Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket muligvis kan give problemer.
 
 Til at undgå denne metode af deling, bør der ved videre arbejde blive set på andre metoder til at dele filer.
-En mulig metode var at bruge en file provider.
+En mulig metode var at bruge en fileprovider.
 En file provider kan gøre det muligt at dele en bestemt fil og er den officielle måde at dele filer på i Android.
+Vi nåede dog frem til at brugen af fileprovider havde en væsentlig ulempe.
+Det var nødvendigt for platformen at vide hvilke fileproviders der skulle bruges, hvilket gør platformen væsentlig mindre modulær, da tilføjelse af et modul også vil kræve ændring i platformen.
 
-Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning er ikke idéel idet at det er ikke sådan man skal dele file mellem applikationer på Android.
+Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning ikke er idéel idet at det ikke er sådan man skal dele filer mellem applikationer på Android.
 
 \section{Databaserettigheder}\label{databaserettigheder}
 Med den nuværende implementering af DBAccess har hvert modul adgang til alt data som ligger i databasen.
@@ -80,6 +82,8 @@ En måde at løse dette problem på er ved en nøgleudveksling mellem manager og
 En idé som ikke blev undersøgt var at udvikle interaktive moduler.
 Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at teste reaktionsevne.
 Dette kunne være en god idé, da man ved affektive lidelser nogle gange ser den slags symptomer.
+Et sådant modul ville klassificeres som en mellemting mellem et visualiserings modul og et sensor modul.
+Visualisering da modulet skal vise noget til brugeren og sensor da den giver data der kan bruges af analysemoduler til at få et indblik i folks tilstand.
 
 \section{Notifikationer}
 Noget som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
@@ -99,3 +103,33 @@ På denne måde kan der foreslås en lystbetonet aktivitet hvis analyser antyder
 Dette er især interessant ved fysisk sensor/analyse hvor stress antageligvis kan opdages i øjeblikket og et passende huskekort kan præsenteres.
 
 Disse huskekort skal dog nødvendigvis udarbejdes sammen med patientens behandler, da antal, type og indhold af huskekort varierer.
+
+\section{Kontekst}
+%tekst fra scenarier til refleksion
+\begin{comment}
+Den første problematik er hvordan man identificerer hvilken kontekst dataindsamlingsenheden befinder sig i, og ud fra denne vurdere hvilke datakilder der stadig bibeholder deres relevans i denne kontekst.
+Eksemplet der et givet i førnævnte scenarie er at patienten har efterladt eller glemt sin smartphone i sin jakke, i en sådan situation kunne man forstille sig at datakilder som for eksempel bevægelsesdata eller lydregistrering er ubrugelige.
+Dog skal man også i denne sammenhæng være forsigtig, for hvis man forkaster for meget data når smartphonen ikke er på en person, vil det gøre det vanskeligt at lave analyser på perioder hvor præmis for analysen er, at smartphonen ikke holdes af en person, hvilket kunne være søvn analyse. 
+Det er dog ikke kun et spørgsmål om at identificere hvornår smartphonen ikke er på en person.
+Der skal også identificeres om det er den tiltænkte person der bærer enheden, da i disse situationer giver data der indsamles et indblik i den forkerte persons tilstand og er derfor irrelevant størstedelen af tiltænkte analyser.
+Der er dog en mulighed at det kunne anses som social interaktion at en patient låner sin smartphone ud, og derfor kunne sådan information måske bruges i sociale analyser.
+\end{comment}
+
+Konteksten for brugen af applikationen er ikke blevet arbejdet med.
+Man kunne forstille sig at der kunne være indbyggede moduler til at registrere hvilket kontekst telefonen befinder sig i.
+Dette kunne være at finde ud af om telefonen befinder sig på en person eller om den er i en jakkelommer, på et natbord eller lignende.
+Hvis det er muligt at klassificere konteksten, kan det være yderst brugbar information for analysemoduler, til at hjælpe dem med at afgøre hvordan forskellige former af data skal behandles.
+Her kunne man for eksempel forstille sig at lyd data var yderst relevant hvis enheden var på en person, men irrelevant hvis den lå i en jakkelomme.
+Der er også den mulighed at platformen ud fra konteksten vælger hvilke datakilder der stadig er relevante at se på, men en sådan måde at beslutte på vil reducere platformens modularitet, så det vil være bedre at overlade det til det enkelte modul at beslutte hvad der er relevant for den givne kontekst.
+
+Dog vides det ikke om en sådan klassificering kan opnå den fornødne præcision, men undersøgelse af det vil bestemt være værd at overveje.
+
+\begin{comment}
+dette er måske også noget der kan reflekteres over.
+
+Den anden udfordring, at identificere brugerens tilstand, kræver indsamling af meget data fra mange forskellige kilder for at have et grundlag for en vurdering af disse.
+Hvilke datakilder dette skal være kan variere meget fra individ til individ.
+Et individ kunne for eksempel have brug for at få set på sit bevægelsesmønster og på sin sociale adfærd, hvor et andet kunne have brug for at få analyseret på søvn og på hvor meget han har forladt sit hjem.
+At kunne se på disse er udfordrende i sig selv, da man for hver af disse skal finde ud af hvilke datakilder man har til rådighed der kan give en fornuftig information om disse, og derefter skal man finde ud af hvordan man ud fra den data kan lave en vurdering af det givne kriterie.
+
+\end{comment}
