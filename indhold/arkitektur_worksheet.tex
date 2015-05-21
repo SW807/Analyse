@@ -7,13 +7,13 @@ Derefter beskrives komponenterne mere detaljeret.
 Projektet har valgt at bruge Android som platform, se \cref{sec:valg_af_android}, hvilket også lægger op til nogle overvejelser ift. arkitektur.
 
 Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
-Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \citep{android_service}.
-\lars{tror ikke dette bør nævnes, da det sådanset er hvad den næste section indeholder}
+Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \citep{android_service}.\lars{herfra}
 Dette udnyttes ved at pakke alle moduler i hver deres selvstændige applikation.
 Ved at anvende en centraliseret database vil det være muligt for moduler at få adgang til data fra andre moduler.
 Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
 På den måde kan adgang kontrolleres på alle moduler, inklusiv de der måtte blive udviklet i fremtiden.
 Hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem de installerede moduler.
+\lars{ og hertil tror jeg ikke bør nævnes, da det sådanset er hvad den næste section indeholder}
 
 \subsection{Opbygning}\label{arkitektur:opbygning}
 Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB\footnote{Database} access} og \textit{DB}.
