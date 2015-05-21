@@ -1,5 +1,7 @@
 \section{Arkitektur}\label{sec:arkitektur}
 Dette afsnit præsenterer arkitekturen som er udarbejdet på baggrund af de specificerede behov i \cref{arkitekturkrav}.
+Først beskrives den overordnede opbygning.
+Derefter beskrives komponenterne mere detaljeret.
 
 \paragraph{Platform}
 Projektet har valgt at bruge Android platformen, se \cref{sec:valg_af_android}, som også lægger op til nogle overvejelser ift. arkitektur.
@@ -12,7 +14,7 @@ Samtidig kan adgangsrettigheder til de forskellige tabeller styres et sted.
 På den måde kan adgang kontrolleres på alle moduler, inklusiv de der måtte blive udviklet i fremtiden.
 Hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem de installerede moduler.
 
-\section{Opbygning}\label{arkitektur:opbygning}
+\subsection{Opbygning}\label{arkitektur:opbygning}
 Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB\footnote{Database} access} og \textit{DB}.
 For at opfylde de specificerede behov i \cref{arkitekturkrav}, nærmere nøgleordene \textit{modulær}(se \cref{arkitekturkrav::modulaer}) og \textit{fleksibel}(se \cref{arkitekturkrav::fleksibel}) er arkitekturen opbygget af moduler der opsamler data, analyser denne data og viser den uafhængige af hinanden.
 Disse moduler kan vælges til eller fra i \textit{manager}'en.
@@ -26,8 +28,7 @@ Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
   \label{arkitektur_udkast_1}
 \end{figure}
 
-Herunder gives en beskrivelse af hver af de fire komponenter.
-Komponenterne beskrives i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
+Herefter beskrives komponenterne i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
 
 \subsection{DB}
 Denne komponent administrerer data for systemets forskellige moduler.
