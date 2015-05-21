@@ -59,15 +59,15 @@ Dette er også en idé der bør undersøges videre, hvor man også skal have pro
 \section{Alternativ Moduldefinitions-deling}
 Med den nuværende implementering skal platformen hente ressourcefilerne for de enkelte moduler, for at læse deres moduldefinitioner.
 Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket muligvis kan give problemer.
-Til at undgå denne deling af filer, blev der undersøgt om en file provider kunne implementeres, der kan gøre det muligt at dele en bestemt fil til en anden applikation.
-Brug af en sådan file provider kræver dog at 
-Brug af en sådan file provider kræver dog at platformen på forhånd skal vide hvilke moduler den skal benytte en file provider af.
-Dette mindsker modulariteten af platformen, da man ville begrænse moduler der kan bruges til en fastsat mængde, hvorfor denne løsning ikke blev brugt.
 
-Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes, der ikke mindsker modulariteten, bør denne benyttes.
+Til at undgå denne metode af deling, bør der ved videre arbejde blive set på andre metoder til at dele filer.
+En mulig metode var at bruge en file provider.
+En file provider kan gøre det muligt at dele en bestemt fil og er den officielle måde at dele filer på i Android.
+
+Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning er ikke idéel idet at det er ikke sådan man skal dele file mellem applikationer på Android.
 
 \section{Databaserettigheder}\label{databaserettigheder}
-Med den nuværende implementering af DBAcess har hvert modul adgang til alt data som ligger i databasen.
+Med den nuværende implementering af DBAccess har hvert modul adgang til alt data som ligger i databasen.
 Dette er unødvendigt åbent og giver for bred adgang til de forskellige modulers data.
 For at gøre løsningen mere sikker, bør der med videre arbejde implementeres en måde til at begrænse hvilke moduler, der har adgang til hvilket data.
 
@@ -76,16 +76,15 @@ Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke k
 
 En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
 
-
 \section{Interaktive Moduler}
 En idé som ikke blev undersøgt var at udvikle interaktive moduler.
 Eksempelvis kunne patienter blive sat til at løse matematiske problemer for at teste deres kognitive evner eller udvikle et `balance the ball' spil til at teste reaktionsevne.
 Dette kunne være en god idé, da man ved affektive lidelser nogle gange ser den slags symptomer.
 
 \section{Notifikationer}
-En ting som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
+Noget som også blev diskuteret tidligere i projektforløbet var at give notifikationer til brugeren, herunder det som tidligere er benævnt som interventioner.
 Dette blev dog tilsidesat, da det blev vurderet at der var for mange faldgruber i.f.t. at forstyrre en evt. patient med psykiske problemer.
-Dog erfarede vi senere, ifm. styregruppemødet, at patienterne er interesseret i dette, da de er meget interesseret i at få at vide så tidligt som muligt, hvis de er under forværring i deres tilstand.
+Dog erfarede vi senere, i forbindelse med styregruppemødet, at patienterne er meget interesseret i at få at vide så tidligt som muligt om de er under forværring i deres tilstand.
 
 Der kunne eksempelvis gives to slags informationer; interventionen som direkte siger at der foregår en forværring eller at der har været en drastisk stigning/fald i.f.t. sensor/analyse.
 Den anden slags information kan være noget opsummerende og mere neutralt, så der ikke på samme måde skal evalueres om hvorvidt der er ved at ske en forværring, derimod blot præsentere noget af det seneste data fra en sensor/analyse.
@@ -93,7 +92,7 @@ Det andet eksempel på en notifikation kunne få brugeren til at reflektere over
 
 \subsection{Huskekort}
 I interviewet med psykolog Janne Rasmussen blev huskekort nævnt.
-Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven inden en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
+Disse dækker over nogle fysiske huskekort som patienten har på sig, hvorpå der står en form for instruktioner der kan assistere i svære situationer; hvor dette eksempelvis kan være at ringe til en ven før en svær beslutning skal træffes eller at droppe den nuværende opgave og i stedet foretage en lystbetonet aktivitet.
 
 Disse kan på samme måde som benævnt ovenover også implementeres som notifikationer.
 På denne måde kan der foreslås en lystbetonet aktivitet hvis analyser antyder en stressende dag.
