@@ -56,7 +56,7 @@ Endvidere bruger analyse moduler data fra enten data-moduler eller andre analyse
 Visualiserings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
 \paragraph{Moduldefinition}
-Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
+Som minimum har et modul et navn og en version, så andre moduler kan referere til dem.
 
 Data- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visualiserings-moduler.
 For at specificere hvordan data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert data- og analyse-modul.
@@ -78,9 +78,9 @@ Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men de
 
 \subparagraph{JSON kontra XML}
 XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af en parser ud fra skemaet.
+Dog blev JSON valgt over XML, da automatisk generering af en parser ud fra skemaet var ønsket.
 En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
-Denne automatiske generering viste sig ikke at være ligetil på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
+Denne automatiske generering viste sig ikke at være ligetil med XML på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
 
 \paragraph{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
