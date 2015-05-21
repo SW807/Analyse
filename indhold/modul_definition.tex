@@ -16,7 +16,7 @@ For eksempel vil det være vanskeligt at kontrollere hvilke database tabeller de
 Sikkerhedsproblemet er stort, men kunne sikkert løses med nok tid og ressourcer.
 
 \paragraph{Selvstændig Applikation}
-Den tredje mulighed er at pakke hvert modul i en selvstændig APK\footnote{Androids pakkeformat}.\bruno{kilde på androids pakkeformat}
+Den tredje mulighed er at pakke hvert modul i en selvstændig APK\footnote{Androids pakkeformat} \citep{misc:apk}.
 Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet.
 Denne metode sørger for at hoved applikationen kan kontrollere hvad moduler har adgang til. 
 
@@ -35,10 +35,10 @@ Det følgende vil forklare detaljerne i implementeringen af moduler ved hjælp a
 Her vil den implementerede løsning blive gennemgået.
 
 \paragraph{Typer af Moduler}
-Der findes som sagt i \cref{sec:arkitektur}, tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visualisering}.
-Som sagt er sensor moduler, moduler som indsamler data fra smartphonens forskellige sensorer og applikationer.
-Endvidere er analyse moduler, moduler som bruger data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
-Visualiseringsmodulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
+Der findes tre typer moduler: \textit{sensor}, \textit{analyse} og \textit{visualisering}.
+Sensor moduler indsamler data fra smartphonens forskellige sensorer og applikationer.
+Endvidere bruger analyse moduler data fra enten sensor eller andre analyse moduler til at bearbejde data med den hensigt at opnå en opsummering af data, som kan videre bruges af systemet til enten visualisering eller videre bearbejdning.
+Visualiserings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
 \paragraph{Moduldefinition}
 Som minimum har et modul et navn og en version, så andre moduler kan referere dem.
