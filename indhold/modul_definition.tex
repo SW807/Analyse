@@ -1,13 +1,7 @@
-%Måde at lave eksterne modul-applikationer uden at ændre hoved-applikation.
-%Definere output (tabeller/kolonner), samt input (afhængigheder)
-%Evt. konfigurationsmuligheder for moduler afhængige af det
-%Fleksibel måde at modtage data fra andre moduler, uden at skulle opdatere applikation(erne). Dvs. ikke design-mønstre: observer, mediator, men gennem content provider.
-% modularisering i Android; multiple applikationer under samme package
-
-For at opfylde kravet om fleksibilitet der er stillet til systemet, har vi udtænkt en modulbaseret arkitektur der gør det let at tilføje moduler til pakken.
-Det skal være muligt at tilføje eksterne moduler, uden at have behov for at lave ændringer i hoved-applikationen.
-Dette kan gøre sig gældende når der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
-\subsubsection{Forslag til modulariseing}
+Dette afsnit beskriver de forskellig forslag til et modulbaseret lag.
+Derefter et rationale for valget af et forslag på baggrund af behovene for arkitekturen, beskrevet i \cref{arkitekturkrav}.
+Til sidst bliver løsningen beskrevet.
+\subsubsection{Forslag til modulært lag}
 \paragraph{Komplet Pakke}
 En traditionel applikation samler al funktionalitet i en pakke.
 Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele appen på samme tid.
