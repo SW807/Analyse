@@ -46,6 +46,7 @@ Grundet denne potentielle opdeling af lager placeringer, kan de være nyttigt at
 
 For at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
 På denne måde forhindres det at eksterne moduler modificerer andre modulers data.
+\stefan{skal det nævnes at dette ikke er impl?}
 
 \paragraph{Design} 
 For at imødekomme kravene om både at give ensrettet adgang til moduler og stille garantier om adgangsrettigheder er der blevet valgt at benytte facade designmønster \citep[s.~185]{gamma1994design}.
