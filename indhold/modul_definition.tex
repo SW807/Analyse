@@ -76,6 +76,12 @@ En hard-dependency er ét andet modul som det pågældende modul ikke kan funger
 En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede moduler skal være til stede på enheden.
 Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en smartphone eller fra en wearable.
 
+\subparagraph{JSON kontra XML}
+XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
+Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af en parser ud fra skemaet.
+En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
+Denne automatiske generering viste sig ikke at være ligetil på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
+
 \paragraph{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
 JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul.
@@ -102,28 +108,3 @@ Meta-data er præfikset med \_ (underscore).
   ]
 }
 \end{lstlisting}
-
-\paragraph{Implementering}
-Som nævnt i \cref{sec:valg_af_android}, implementeres der til Android smartphones.
-Dette sætter nogle begrænsninger ift. valg af løsninger.
-
-\subparagraph{JSON kontra XML}
-XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-Dog blev JSON valgt over XML, da vi gerne ville have automatisk generering af en parser ud fra skemaet.
-En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
-Denne automatiske generering viste sig ikke at være ligetil på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
-
-\subparagraph{Moduler som Applikationer}
-For at det skal være muligt at installere moduler uden at opdatere hoved-applikationen, skal der installeres applikationer via Google Play Store.
-Alle modul-applikationer, samt hoved-applikationen, deler \textit{package}-navn.
-Hver modul-applikation har sin JSON beskrivelse som en eksternt tilgængelig \textit{ressource}, som hoved-applikationen eller andre moduler har adgang til.
-Kommunikation mellem applikationer foregår med \textit{services}, \textit{intents} eller \textit{content provider}.
-
-\subparagraph{Håndtering i Manager}
-Håndteringen af moduler sker i manageren, beskrevet i \cref{subsec:arkitektur-Manager}.
-Når der tilføjes eller opdateres et modul detekterer manageren dette ved at finde alle applikationer der er installeret under pakken ``dk.aau.cs.psylog''.
-Manageren læser alle moduldefinitioner efter at have valideret dem op imod JSON skemaet.
-Alle moduler der har opdateret versionsnummer eller er helt nye vil blive håndteret ved at manageren læser tabelinformation ind fra moduldefinitionen og opretter eller ændrer de pågældende tabeller.
-
-Når modulernes tabeller er blevet oprettet bygges en graf over afhængigheder, som bruges til at vise brugeren hvilke moduler der kan aktiveres.
-Denne proces er yderligere beskrevet i \cref{sec:settings}
