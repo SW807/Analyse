@@ -54,6 +54,9 @@ Grunden til at facade er benyttet er fordi det giver en kobling mellem moduler o
 Denne kobling sker gennem et interface der sørger for modulerne kun skal opfylde nogle få krav for at få deres data gemt i databasen, samt for at få data fra andre moduler.
 Endvidere, sørger den kobling for at skabe en specifik og sikker kommunikation mellem moduler sker nemt og sikkert, hvilket er nødvendigt for at opfylde nøglepunktet \textit{kommunikation}, se \cref{arkitekturkrav::kommunikation}.
 
+Til at benytte facade designmønstret gøres der brug af \textit{ContentProvider} \citep{contentprovider}, der er et interface som Android stiller tilrådighed.
+Dette interface gør at moduler kontakter databasen på en ensrettet måde.
+
 \subsection{Moduler}
 Denne komponent befinder sig i et lag for sig selv og indeholder tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
 Komponenten indeholder applikationens hovedfunktionalitet og er ansvarlig for indsamling af data, bearbejdelse af data og visualisering af data.
