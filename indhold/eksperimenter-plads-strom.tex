@@ -1,6 +1,6 @@
 \section{Pladsforbrug eksperimenter}\label{eksperimenter}
 Det faktum at der skal indsamles data kommer med den konsekvens at en mængde plads på smartphonen skal bruges.
-På mobile enheder er der begrænset lagerplads grundet enhedens størrelse, som eksempel har en Samsung Galaxy S4 enhed kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
+På mobile enheder er der begrænset lagerplads, som eksempel har en Samsung Galaxy S4 enhed kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
 Pladsforbrug er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre på mobile enheder.
 I vores tilfælde skal det overvejes hvor stor en mængde data der kan lagres og samtidig tillade brugen af andre applikationer på en persons smartphone.
 For at undersøge hvordan de forskellige datakilder bruger pladsen på en smartphonen opstilles to eksperimenter.
@@ -110,7 +110,7 @@ Frekvensen af en sådan synkronisering afhænger derfor af hvor lang tids data a
 Det vil selvfølgelig altid være muligt at hente data tilbage fra serveren, eller hvis pladsen bliver et større problem, udføre analyse på serversiden.
 Dette vil også muliggøre at have analyser kørende i skyen, hvis den mobile enhed ikke har beregningskraft nok.
 
-\subsubsection{Oprydning i data}\label{sec:opryd}
+\subsubsection{Komprimering af data}\label{sec:opryd}
 Skærm datakilden er opbygget således at det kun indsættes data når skærmen bliver tændt eller slukket.
 En modificering af hvordan data indsamles af de andre datakilder kan gøre at de virker ligedan. 
 For eksempel er accelerometer data kun interessante når der sker en vis svingning i acceleration.
@@ -133,7 +133,7 @@ Når smartphonen ikke er i brug vil det valgte udsnit af datakilder generere 49 
 
 De store syndere er accelerometret og gyroskopet der begge er sat til at gemme data 5 gange i sekundet.
 Det vil derfor være en god idé at udvikle en strategi for begrænsning af hvor meget data som opbevares på smartphonen.
-Her er foreslået enten oprydning af data som går ud på kun at gemme det data der er interessant for analyserne.
+Her er foreslået enten komprimering af data som går ud på kun at gemme det data der er interessant for analyserne.
 En anden mulighed er at nedsætte opdateringshastigheden så der ikke gemmes så ofte.
 En tredje mulighed er at aggregere data, eksempelvis ved brug af run-length encoding eller ved blot at lagre ændring i værdi.
 
