@@ -1,32 +1,37 @@
 \section{Valg af udviklingsplatform}\label{sec:valg_af_android}
-Udviklingsplatformen for projektet skal vælges, her ses der på hvilke fordele og ulemper de forskellige udviklingsplatforme har og endeligt laves der en beslutning.
+For at vælge teknologisk platform for projektet ses der her på hvilke fordele og ulemper der er ved de foreliggende muligheder.
 
 Der er forskellige udviklingsplatforme der kan vælges, specifikt Android, iPhone og Windows Phone.
-Der kunne også vælges en hybrid-udviklingsplatform som for eksempel Apache Cordova der tillader udvikling af smartphone applikationer ved hjælp af HTML, CSS og JavaScript \citep{misc:apachecordova}, eller kryds-udviklingsplatform udvikling som for eksempel Xamarin der tillader udvikling i C\# som kan kompileres til mange forskellige operativ systemet såsom Android, iOS og andre \citep{misc:xamarin}.
+Der kunne også vælges en hybrid-udviklingsplatform, som for eksempel Apache Cordova der tillader udvikling af smartphone applikationer ved hjælp af HTML, CSS og JavaScript \citep{misc:apachecordova}, eller Xamarin der tillader udvikling i C\# \citep{misc:xamarin}.
 
+\paragraph{Android}
 Fordelene ved Android er som følgende:
 \begin{itemize}
 \item Det er en meget åben udviklingsplatform som giver adgang til meget sensor data
 \item Android har flere brugere end iPhone og Windows Phone.
 \item Der er ingen begrænsninger på hvad der kan udvikles
-\item Der er mange udviklings ressourcer tilgængelige såsom guides og vejledninger.
+\item Der er mange udviklings ressourcer tilgængelige såsom guides og vejledninger
 \item Android applikationer udvikles som regel i Java, hvilket er et udbredt programmeringssprog.
 \end{itemize}
 
 Android har dog også ulemper, såsom mange forskellige typer smartphones med forskellig hardware og forskellige versioner af operativ systemet.
 
+\paragraph{iPhone}
 Fordelene ved iPhone er primært at der er nemmere at udvikle til da det ikke er særlig fragmenteret i forhold til Android. 
 Brugerfladen er meget standardiseret hvilket gør det nemmere at udvikle den del af applikationen. 
 iPhone har ulemper, da det er et meget mere lukket system hvilket gør at data kan være umulige at få fat i. iPhone udvikling foregår kun på OS X, og kræver en licens. iPhone udvikling foregår i et sprog som ikke bruges bredt, Objective-C.
 
+\paragraph{Windows Phone}
 Fordelene ved Windows Phone er et meget modent/godt udviklingsmiljø og programmeringssprog, og at brugerflade design er meget nemt. 
 Ulemper ved Windows Phone er så at der ikke er særlig mange udviklings ressourcer tilgængelig da Windows Phone markedet ikke er særlig bredt. Windows Phone er også en lukket udviklingsplatform.
 
-Fordelene ved en hybrid-udviklingsplatform som for eksempel Apache Cordova er at ens applikation kommer ud til den bredest mulige målgruppe, da man her har adgang til alle de forskellige smartphone enheder.
+\paragraph{Hybrid}
+Fordelene ved en hybrid udviklingsplatform, som for eksempel Apache Cordova, er at ens applikation kommer ud til den bredest mulige målgruppe, da man her har adgang til alle de forskellige smartphone enheder.
 Det muliggøre at skrive en applikation i HTML, CSS og JavaScript og gør det muligt at lave en applikation uden at bruge udviklingsplatformens programmeringssprog.
 Et problem med hybrid- og kryds-udviklingsplatform er komplicerer designprocessen, da hver smartphone udviklingsplatform har forskellige design guidelines.
 Derudover giver det også en væsentlig uoverensstemmelse mellem hvad man kan forvente af de underliggende datalag, hvilket kan gå ud over kvaliteten af det udviklede software.
 
+\subsection{Android som udviklingsplatform}
 Vores projekt er meget afhængig af åben adgang til datakilder, hvilket Android giver bedre adgang til.
 Vores situation er også at udvikling på Android virker nemmere da det ikke påkræver et specielt operativ system da ingen på udviklingsholdet har OS X computere, og at udvikling i Java er kendt blandt mange på udviklingsholdet.
 Desuden fravælger vi også hybrid- og kryds-udviklingsplatform, idet at brug af disse vil have den konsekvens at lav-niveau kontrol vil blive tabt og at verificering af systemet vil kræve flere smartphones at teste på.
