@@ -4,8 +4,8 @@ Dette afsnit præsenterer arkitekturen som er udarbejdet på baggrund af de spec
 Først beskrives den overordnede opbygning.
 Derefter beskrives komponenterne mere detaljeret.
 
-\paragraph{Platform}
-Android er blevet valgt som platform, se \cref{sec:valg_af_android}, hvilket også lægger op til nogle overvejelser ift. arkitektur.
+\paragraph{Udviklingsplatform}
+Android er blevet valgt som udviklingsplatform, se \cref{sec:valg_af_android}, hvilket også lægger op til nogle overvejelser ift. arkitektur.
 
 Arkitekturen er lavet ud fra ideen om at applikationer på Android kan kontakte hinanden igennem Android systemet.
 Det er muligt for en hovedapplikation at starte en service der ligger i en anden applikation \citep{android_service}.\lars{herfra}
@@ -44,7 +44,7 @@ Til dette projekt er der valgt en SQLite database da denne er standard i Android
 
 \subsection{DBAccess}\label{subsec:DBACCESS}
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
-Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
+Da vi arbejder på en mobil udviklingsplatform er det værd at tage højde for lagerstyring og abstraktion derover.
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
 Grundet denne potentielle opdeling af hvor data er lagret, kan det være nyttigt at abstrahere over hvor data er lagret.\lasse{Han forstår ikke abstrahere. Jeg kunne ikke beskrive det ordentligt.}
 
