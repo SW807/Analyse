@@ -46,7 +46,9 @@ Til dette projekt er der valgt en SQLite database da denne er standard i Android
 Denne komponent styrer adgangen til \textit{DB} komponenten så det sker på en ensrettet måde.
 Da vi arbejder på en mobil platform er det værd at tage højde for lagerstyring og abstraktion derover.
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
-Grundet denne potentielle opdeling af hvor data er lagret, kan det være nyttigt at abstrahere over hvor data er lagret.\lasse{Han forstår ikke abstrahere. Jeg kunne ikke beskrive det ordentligt.}
+Grundet denne potentielle opdeling af hvor data er lagret, kan det være nyttigt at abstrahere over hvor data er lagret.
+En sådan abstraktion vil gøre at udviklere af moduler ikke skal tage højde for den bagvedliggende lagring.
+Om det er lokal lagring, cloud eller en kombination håndteres på samme måde fra udviklerens synspunkt.
 
 For at opfylde nøglepunktet \textit{kommunikativ}, se \cref{arkitekturkrav::kommunikation}, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
 På denne måde forhindres det at eksterne moduler modificerer andre modulers data.
