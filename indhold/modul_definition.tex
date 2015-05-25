@@ -24,13 +24,13 @@ Som løsning derpå kunne man med videre arbejde have et indbygget applikation m
 \subsubsection{Valg af Modulær Lag}
 For at vælge en måde at lave det modulære lag på, er det vigtigt at kigge på de behov der er for arkitekturen.
 
-Den komplette pakke løsning giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
+``Komplet pakke'' løsningen giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
 Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
 Det er i strid med behovet \textit{modulær}, beskrevet i \cref{arkitekturkrav::modulaer}.
-Derudover, gør løsningen at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændre på systemet.
+Derudover gør løsningen også at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændre på systemet.
 På grund af disse begrænsninger vælges denne løsning fra. 
 
-Den næste løsning der blev kigget på er import af kode.
+Den næste løsning der blev kigget på er ``import af kode''.
 Løsningen kræver at man udvikler et scripting sprog der har alle Androids funktionaliteter til rådighed, hvilket er meget tidskrævende.
 På samme tid skal man også overveje sikkerheds bekymringer, idet at hvis koden der bliver importeret er ondsindet kan dette give problemer såsom at data kan blive stjålet. 
 Denne løsning er dog \textit{modulær}, idet man selv kan vælge hvilke moduler man vil gøre brug af.
@@ -82,6 +82,7 @@ JSON blev valgt over XML.
 Grunden til dette var at det var ønsket automatisk generering ud fra et skema.
 En automatisk genereret parser var ønsket på grund af at det vil gøre det nemmere at ændre på et skema som helt klart ville ændres igen og igen gennem udviklingsperioden.
 Denne automatiske generering viste sig ikke at være ligetil med XML på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
+\stefan{Ivan havde svært ved at følge argumentationen. Lasses har rettet det siden, men jeg foreslår at vi helt skrotter afsnittet. Det giver ikke noget til forståelsen af platformen.}
 
 \paragraph{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
