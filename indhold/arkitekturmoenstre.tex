@@ -5,8 +5,8 @@ Herunder beskrives eksisterende arkitekturmønstre og der foretages en vurdering
 \mikkel{Hvor har vi netop de her mønstre fra og hvordan ved vi at der ikke findes andre mønstre der passer bedre?}
 
 \subsection{Client-Server}
-En af standard arkitekturerne i mobil udvikling er \textbf{Client-Server}, hvilket kunne være hvor web sider kan bruges til at f.eks. visualisere data, men dette har et problem idet at sensor data indsamling vil nødvendigvis påkræve implementering adskilt da det er data som er interessant.
-Denne arkitektur har dette problem at det ikke er nemt for udefrakommende udviklere at tilføje funktionalitet, det kan desværre også være svært at implementere dele som indsamler, analysere og viser data idet at alt data ville ligge lokalt og skal nødvendigvis sendes til serveren før den kan bruge denne data til noget. 
+En af standard arkitekturerne i mobil udvikling er \textbf{Client-Server}, hvilket kunne være hvor web sider kan bruges til at f.eks. visualisere data, men dette har et problem idet sensor data indsamling vil nødvendigvis påkræve implementering adskilt da det er data som er interessant.
+Denne arkitektur har dette problem at det ikke er nemt for udefrakommende udviklere at tilføje funktionalitet, det kan desværre også være svært at implementere dele som indsamler, analysere og viser data idet alt data ville ligge lokalt og skal nødvendigvis sendes til serveren før den kan bruge denne data til noget. 
 Det har dog fordelen at det kan køre på Android gennem en almindelig webbrowser eller en applikation som bruger WebViews.
 Baseret på disse ville denne arkitektur nok ikke fungere.
 \mikkel{Vi mangler en beskrivelse af selve arkitekturen.}
@@ -14,7 +14,7 @@ Baseret på disse ville denne arkitektur nok ikke fungere.
 \subsection{Standalone}
 En anden arkitektur ville være en \textbf{standalone} applikation som indeholder alt sensor indsamling, analyse og visualisering i samme applikation.
 Dette har fordelen at det er nemmere at programmere end 15 forskellige applikationer, men kommer med ulempen at applikationen kunne ende med at blive meget stor.
-Det er selvfølgelig muligt for udefrakommende udviklere at implementere ny funktionalitet til denne hvis de har fri adgang til kildekoden, men dette vil nok danne med problemer med Google Play Store idet at hvis 30 forskellige udviklere tilføjer ny funktionalitet til applikationen ville dette påkræve at hvis denne skal bruges af flere ville der være flere versioner af den samme applikation uploadet af forskellige udviklere og dette gør det på samme tid svære at udvikle videre på andres arbejde da alting er samlet i en applikation og ikke over flere.
+Det er selvfølgelig muligt for udefrakommende udviklere at implementere ny funktionalitet til denne hvis de har fri adgang til kildekoden, men dette vil nok danne med problemer med Google Play Store idet hvis 30 forskellige udviklere tilføjer ny funktionalitet til applikationen ville dette påkræve at hvis denne skal bruges af flere ville der være flere versioner af den samme applikation uploadet af forskellige udviklere og dette gør det på samme tid svære at udvikle videre på andres arbejde da alting er samlet i en applikation og ikke over flere.
 På grund af dette ville denne arkitektur ikke gøre det let at implementere og bruge ny funktionalitet.
 Denne arkitektur gør det muligt at implementere forskellige dele til applikationen som indsamler, analysere og viser data.
 Da det ikke er let at tilføje ny funktionalitet afvises denne arkitektur. 
