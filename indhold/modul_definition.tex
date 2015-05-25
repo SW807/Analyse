@@ -10,7 +10,7 @@ Desuden begrænser det eksterne udviklere at bidrage til applikationen, da opdat
 \paragraph{Import af Kode}
 En anden mulighed er at inkludere et scripting sprog med applikationen og gøre det muligt at udvikle scripts der kan agere modul.
 Denne løsning kræver et scripting sprog der kan  stille alle Androids muligheder til rådighed.
-Derudover skal scripting sproget også sørge for at der er en nem og sikker måde at kontakt databasen.
+Derudover skal scripting sproget også sørge for at der er en nem og sikker måde at kontakte databasen.
 Hvis scriptet på den anden side skal skrives direkte i Java vil der være nogle sikkerhedshensyn som vil gøre det svært at kontrollere hvad moduler kan og ikke kan.
 
 \paragraph{Selvstændig Applikation}
@@ -24,7 +24,7 @@ Som løsning derpå kunne man med videre arbejde have et indbygget applikation m
 \subsubsection{Valg af Modulær Lag}
 For at vælge en måde at lave det modulære lag på, er det vigtigt at kigge på de behov der er for arkitekturen.
 
-``Komplet pakke'' løsningen giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
+Den komplete løsning giver en nem måde at kunne kommunikere mellem moduler på, idet de kan kontakte hinanden direkte eftersom de er i samme pakke.
 Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
 Det er i strid med behovet \textit{modulær}, beskrevet i \cref{arkitekturkrav::modulaer}.
 Derudover gør løsningen også at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændre på systemet.
