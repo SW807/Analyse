@@ -78,9 +78,8 @@ Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men de
 
 \subparagraph{JSON kontra XML}
 XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-JSON blev valgt over XML.
-Grunden til dette var at det var ønsket automatisk generering ud fra et skema.
-En automatisk genereret parser var ønsket på grund af at det vil gøre det nemmere at ændre på et skema som helt klart ville ændres igen og igen gennem udviklingsperioden.
+JSON blev valgt over XML fordi automatisk generering ud fra et skema var ønsket.
+En automatisk genereret parser var ønsket af den grund at det vil gøre det nemmere at ændre på et skemaet uden at skulle manuelt opdatere den tilhørende klasse, idet at det ville ske automatisk.
 Denne automatiske generering viste sig ikke at være ligetil med XML på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
 \stefan{Ivan havde svært ved at følge argumentationen. Lasses har rettet det siden, men jeg foreslår at vi helt skrotter afsnittet. Det giver ikke noget til forståelsen af platformen.}
 
