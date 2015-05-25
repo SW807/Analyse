@@ -1,6 +1,6 @@
 \section{Eksisterende systemer}
 Der eksisterer allerede systemer som implementerer mange af de ting der er tiltænkt dette projekt eller har lignende funktionalitet, såsom fitness applikationer. 
-Systemerne der vil blive forklaret er Ginger.io, Apple Health, Google Fit, Microsoft Health og Healthvault.
+Systemerne der vil blive undersøgt og beskrevet er Ginger.io, Apple Health, Google Fit, Microsoft Health og Healthvault.
 
 \subsection{Ginger.io}
 Ginger.io er en applikation til iPhone og Android, beregnet til at assistere patienter med diverse psykiske lidelser\citep{ginger_dot_io,gingerio_mit,gingerio_dailymail}.
@@ -18,7 +18,8 @@ Derudover vil passiv data der indsamles i de første dage bruges til at angive b
 Herefter vil brugeren modtage notifikationer om ændring i social eller fysisk aktivitet, og i værste tilfælde vil behandler eller anden angivet kontaktperson blive notificeret.
 
 Brugere af Ginger.io skal være forbundet gennem en behandler, og denne behandler vil til enhver tid have adgang til alle brugerens informationer.
-Den overordnede idé er at Ginger.io skal assistere behandlingsprocessen, ved at give en indikator på brugerens tilstand mellem klinikbesøg (se \cref{eksisterende_systemer:ginger_io_graf}).
+Den overordnede idé er at Ginger.io skal assistere behandlingsprocessen, ved at give en indikator på brugerens tilstand mellem klinikbesøg. 
+Et eksempel på denne indikator kan ses i \cref{eksisterende_systemer:ginger_io_graf}.
 
 \begin{figure}[h]
 \centering
@@ -44,7 +45,7 @@ Ens for disse fitness trackere, i modsætning til enkelte applikationer, er at d
 Ydermere kan de indstilles til bestemte mål, og derved løbende fortælle om hvordan det går med at opnå disse mål.
 
 \subsubsection{Apple Health}
-Med Apple Health er det muligt at indsamle information fra andre applikationer (fx. måltider eller hjertefrekvens), for at samle al data ét sted på sin mobil, eller synce det med en iCloud konto.
+Med Apple Health er det muligt at indsamle information fra andre applikationer (eksempelvis måltider eller hjertefrekvens), for at samle al data ét sted på sin mobil, eller synkronisere det med en iCloud konto.
 Derudover er det muligt for andre applikationer at få adgang til Apple Health's data, ved at give tilladelse til forskellige kategorier af data.
 Skærmbilleder af henholdsvis den oversigt Apple Health kan give, samt de kategorier der indsamles i, kan ses på \cref{eksisterende_systemer:apple_health_ss}.
 
@@ -62,7 +63,7 @@ Derefter er det muligt at få oversigt over ens aktiviteter og fysiske tilstand,
 Det er også muligt at lave sine egne applikationer, til både indsamling og visualisering, via Google Fit API (Android SDK eller REST web service).
 
 Uden eksterne wearables eller applikationer, indsamles der kun bevægelses-data fra fx. GPS, hvor Google Fit applikationen selv estimerer om man går, løber eller cykler.
-For andet aktivitet skal man manuelt indtaste (fx. roning eller yoga) sammen med varigheden.
+For andet aktivitet skal man manuelt indtaste (for eksempel roning eller yoga) sammen med varigheden.
 
 Google Fit består af 4 komponenter:
 
@@ -99,17 +100,18 @@ Der er 4 vigtige koncepter i HealthVault:
 \end{figure}
 
 \subsubsection{Problemer}
+Disse forskellige systemet har problemer, som også skal overvejes.
 
 \paragraph{Apple Health}
 Apple Health er naturligvis lukket til iOS, hvilket gør at det kun er Apple produkter der kan tilsluttes til Apple Health.
 Som det er nu, er det ikke muligt at dele helbredsoplysninger direkte med andre personer.
 
 \paragraph{Google Fit}
-Ifølge Google Fit Terms and Conditions er det ikke tilladt at bruge Google Fit til andet end fitness-formål, fx. at gemme lægelige eller biometriske data.\footnote{''Do not use Google Fit APIs for non-fitness purposes, such as storing medical or biometric data, selling data, or using data for advertising.''}
+Ifølge Google Fit Terms and Conditions er det ikke tilladt at bruge Google Fit til andet end fitness-formål, for eksempel at gemme lægelige eller biometriske data.\footnote{''Do not use Google Fit APIs for non-fitness purposes, such as storing medical or biometric data, selling data, or using data for advertising.''}
 Lægelige data dækker over lægefaglige data, såsom diagnoser og sygdomsforløb.
 Biometrisk data dækker over data som kan identificere en person, såsom iris-skan eller stemmemønster.
 
-\paragraph{MS Health og HealthVault}
-Ved brug af MS Health er det kun muligt at hente data ned, efter det er i skyen.
+\paragraph{Microsoft Health og HealthVault}
+Ved brug af Microsoft Health er det kun muligt at hente data ned, efter det er i skyen.
 Det vil sige at det ikke er muligt at få fat i rå data, som ved Google Fit.
-På nuværende tidspunkt er der ingen SDK'er til MS Health, det er kun muligt at få adgang til data via web service'en.
+På nuværende tidspunkt er der ingen SDK'er til Microsoft Health, det er kun muligt at få adgang til data via web service'en.
