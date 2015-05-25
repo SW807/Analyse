@@ -2,8 +2,8 @@ I udviklingsforløbet af platformen, var der forskellige beslutninger, som blev 
 At reflektere over disse beslutninger og overvejelser skaber overblik og forståelse af forløbet, og er beskrevet herefter.
 
 %\section{Valg af data kilder}
-%Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet at hvis man for eksempel har data fra et smartwatch og fra en accelerometer på smartphonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
-%Men dette blev aldrig lavet, idet at det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
+%Hvilke data kilder man bruger i for eksempelvis et analyse modul kan være vigtige, idet hvis man for eksempel har data fra et smartwatch og fra en accelerometer på smartphonen og en af disse viser ingen bevægelse ville det være en god idé at hvis modulet selv kunne evaluere hvilke kilde den skal tage data fra. 
+%Men dette blev aldrig lavet, idet det ikke var tænkt særlig vigtigt og at ressourcerne var begrænsede og skulle bruges på andre opgaver i stedet for.
 
 \section{Kontekst}
 Konteksten for brugen af applikationen er ikke blevet arbejdet med.
@@ -114,14 +114,14 @@ En file provider kan gøre det muligt at dele en bestemt fil og er den officiell
 Vi nåede dog frem til at brugen af fileprovider havde en væsentlig ulempe.
 Det var nødvendigt for platformen at vide hvilke fileproviders der skulle bruges, hvilket gør platformen væsentlig mindre modulær, da tilføjelse af et modul også vil kræve ændring i platformen.
 
-Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning ikke er idéel idet at det ikke er sådan man skal dele filer mellem applikationer på Android.
+Vi tager det forbehold at andre alternativer kan benyttes vi ikke har kendskab til, og hvis en sådan løsning findes bør denne benyttes da den nuværende løsning ikke er idéel idet det ikke er sådan man skal dele filer mellem applikationer på Android.
 
 \subsection{Databaserettigheder}\label{databaserettigheder}
 Med den nuværende implementering af DBAccess har hvert modul adgang til alt data som ligger i databasen.
 Dette er unødvendigt åbent og giver for bred adgang til de forskellige modulers data.
 For at gøre løsningen mere sikker, bør der med videre arbejde implementeres en måde til at begrænse hvilke moduler, der har adgang til hvilket data.
 
-En ønsket mulighed er at gøre det internt i platformen, idet at man kan definere tilladelser i moduldefinitionen og baseret på disse give tilladelse til tabeller. 
+En ønsket mulighed er at gøre det internt i platformen, idet man kan definere tilladelser i moduldefinitionen og baseret på disse give tilladelse til tabeller. 
 Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke kan blive orienteret om hvilket modul benytter den, dette er en begrænsning fra Androids side.
 
 En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
@@ -129,16 +129,16 @@ En måde at løse dette problem på er ved en nøgleudveksling mellem manager og
 \subsection{Styrker og svagheder}
 Platformen har forskellige styrker og svagheder, disse bliver dokumenteret herunder. 
 
-Platformen er meget modulær idet at det er simpelt at tilføje nye moduler til den. % Styrke
+Platformen er meget modulær idet det er simpelt at tilføje nye moduler til den. % Styrke
 Dette har dog den betydning at brugeren potentielt skal installere mange applikationer, hvilket selvfølgelig kan være forvirrende hvis de ikke ved hvad de skal bruge. %svaghed
 Man kunne måske her forstille sig en fremtidig løsning hvor systemet anbefalede hvilke applikationer der skulle hentes for at lave bestemte analyser, og måske endda at det var muligt at installere dem gennem platformen.
 
 Platformen har det problem at størrelsen af data den gemmer kan give problemer og lige nu er der ikke blevet implementeret noget som kan håndtere dette på en hensigtsmæssig måde. % Svaghed
 
 Denne mængde data kan tage lang tid at bearbejde og analysere, hvorfor nogle moduler har måder der gør det nemmere at håndtere meget data såsom at tage det lidt af gangen.
-Idet at platformen tillader dette er det en styrke. % Styrke
+Idet platformen tillader dette er det en styrke. % Styrke
 
-Platformen er meget åben, idet at den deler adgang til databasen og ressourcefiler, hvilket gør det meget nemt for modulerne at få adgang til de data de skal bruge. 
-Der kan dog gøres et argument for at det er for åbent, idet at alt for meget data deles og ikke bare hvad modulerne skal bruge. 
+Platformen er meget åben, idet den deler adgang til databasen og ressourcefiler, hvilket gør det meget nemt for modulerne at få adgang til de data de skal bruge. 
+Der kan dog gøres et argument for at det er for åbent, idet alt for meget data deles og ikke bare hvad modulerne skal bruge. 
 
 \lasse{Hvis der er nogen som har nogle andre styrker og svagheder må de godt skrive dem her.}
