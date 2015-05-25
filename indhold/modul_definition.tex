@@ -18,27 +18,27 @@ Den tredje mulighed er at pakke hvert modul i en selvstændig APK\footnote{Andro
 Denne APK skal indeholde en beskrivelsesfil som læses i hoved-applikationen og indeholder information om modulet.
 
 Ulemper ved denne løsning er at den er knap så lightweight, idét at det kræver at en stor mængde af applikationer skal installeres.
-Desuden kan det være træls at skulle installere en større mængde af applikationer for at have den fornødne funktionalitet.
-Som løsning derpå kunne man med videre arbejde have et indbygget applikation marked i manageren, og er værd at udforske med mere tid.
+Desuden kan det være problematisk at skulle installere en større mængde af applikationer for at have den fornødne funktionalitet.
+Som løsning derpå kunne man med videre arbejde have et indbygget applikation marked i manageren.
 
 \subsubsection{Valg af Modulær Lag}
 For at vælge en måde at lave det modulære lag på, er det vigtigt at kigge på de behov der er for arkitekturen.
 
-Løsningen med den komplette pakke giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
+Den komplette pakke løsning giver en nem måde at kunne kommunikere mellem moduler på den måde at de kan kontakte hinanden direkte fordi de er i samme pakke.
 Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
 Det er i strid med behovet \textit{modulær}, beskrevet i \cref{arkitekturkrav::modulaer}.
-Derudover, gør løsningen også at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændret på systemet.
-På grund af disse begrænsninger er denne løsning ikke valgt
+Derudover, gør løsningen at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændre på systemet.
+På grund af disse begrænsninger vælges denne løsning fra. 
 
 Den næste løsning der blev kigget på er import af kode.
 Løsningen kræver at man udvikler et scripting sprog der har alle Androids funktionaliteter til rådighed, hvilket er meget tidskrævende.
+På samme tid skal man også overveje sikkerheds bekymringer, idet at hvis koden der bliver importeret er ondsindet kan dette give problemer såsom at data kan blive stjålet. 
 Denne løsning er dog \textit{modulær}, idet man selv kan vælge hvilke moduler man vil gøre brug af.
 Desuden er løsningen også med til at gøre det mere enkelt at udvikle sit eget modul.
-Denne løsning er en mulighed der kan benyttes.
 
 Den sidste løsning er at have selvstændige applikationer.
 Ved denne løsning er det muligt, ligesom ved import af kode, at kunne vælge mellem hvilke moduler man vil gøre brug af, hvilket gør denne løsning \textit{modulær}.
-Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler da de er hver deres applikation, hvilket er i strid med behovet \textit{kommunikation}, beskrevet i \cref{arkitekturkrav::kommunikation}
+Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler da de er hver deres applikation, hvilket er i strid med behovet \textit{kommunikativ}, beskrevet i \cref{arkitekturkrav::kommunikation}
 Dog er dette ikke en stor ulempe på grund af den måde DBAccess er designet.
 Eftersom løsningen gør systemet mere modulært og da ulempen vedrørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes.
 
@@ -71,15 +71,16 @@ Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og
 Et analyse- eller visualiserings-modul kan være afhængigt af andre sensor- eller visualiserings-moduler.
 Et analysemodul kan aggregere data fra andre analysemoduler mens et visualiseringsmodul er afhængig af det modul det skal vise data fra.
 Derfor skal det defineres for hvert modul hvilke andre moduler det er afhængigt af.
-Der findes to grader af afhængigheder i systemet: hard- eller soft-dependency.
+Der findes to grader af afhængigheder i systemet som vi kalder hard- og soft-dependencies.
 En hard-dependency er ét andet modul som det pågældende modul ikke kan fungere uden.
 En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede moduler skal være til stede på enheden.
 Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en smartphone eller fra en wearable.
 
 \subparagraph{JSON kontra XML}
 XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-Dog blev JSON valgt over XML, da automatisk generering af en parser ud fra skemaet var ønsket.
-En automatisk genereret parser vil lette arbejdet med et skema der i udviklingsperioden ændres ofte.
+JSON blev valgt over XML.
+Grunden til dette var at det var ønsket automatisk generering ud fra et skema.
+En automatisk genereret parser var ønsket på grund af at det vil gøre det nemmere at ændre på et skema som helt klart ville ændres igen og igen gennem udviklingsperioden.
 Denne automatiske generering viste sig ikke at være ligetil med XML på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
 
 \paragraph{JSON og JSON Schema}
