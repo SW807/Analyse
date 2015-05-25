@@ -77,15 +77,16 @@ En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede m
 Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en smartphone eller fra en wearable.
 
 \subparagraph{JSON kontra XML}
-XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-JSON blev dog valgt over XML fordi automatisk generering ud fra et skema var ønsket.
-En automatisk genereret parser var ønsket af den grund at det vil gøre det nemmere at ændre på et skema uden manuelt at skulle opdatere den tilhørende klasse, idet at det ville ske automatisk.
-Denne automatiske generering viste sig ikke at være ligetil med XML på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
-\stefan{Ivan havde svært ved at følge argumentationen. Lasses har rettet det siden, men jeg foreslår at vi helt skrotter afsnittet. Det giver ikke noget til forståelsen af platformen.}
-\lars{jeg er uenig i at skrotte det, kan godt være det ikke giver noget til forståelse, men det er argumentation for et af vores valg, hvilket er vigtigt}
+Et af ønskerne til platformen var at man for kunne lave en modul definition for hver modul, og idéen bag dette er så at modulet giver al den information som manageren skal bruge til at kontrollere de moduler. 
+Til disse modul-definitioner skal man bruge en eller andet format til at definere dette, og valget her stod mellem XML og JSON.
+XML vil være det naturlige valg for Android applikationer, da en stor del af  applikationsudvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
+Et af ønskerne til platformen var at ud fra modul-definitionen skulle den kunne generere Java objekter.
+Dette blev undersøgt til XML, men det viste sig ikke at være praktisk og derfor blev JSON undersøgt hvori det viste sig at være relativt simple at gøre.
+Udover dette virkede JSON til at være mere læsbar og forståelig end XML.
+Af disse grund blev JSON valgt over XML.
 
 \paragraph{JSON og JSON Schema}
-For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
+Som sagt er JSON valgt fordi der ønskes en auto-genering og at det skal være læsbart for både menneske og maskiner.
 JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul.
 For at sikre validiteten af eksternt leverede modul-beskrivelser, er der udarbejdet nogle JSON Schemas, som JSON-dokumenter holdes op imod og derved verificeres.
 De anvendte JSON Schemas kan findes i \cref{app:json_schema}.
