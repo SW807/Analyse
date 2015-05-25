@@ -52,7 +52,7 @@ Her vil den implementerede løsning blive gennemgået.
 \paragraph{Typer af Moduler}
 Der findes tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
 Data moduler indsamler data fra smartphonens forskellige sensorer og applikationer.
-Endvidere bruger analyse moduler data fra enten data-moduler eller andre analyse-moduler til at bearbejde data med den hensigt at opnå en opsummering af data, som videre kan bruges af systemet til enten visualisering eller videre bearbejdning.
+Endvidere bruger analyse moduler data fra enten data-moduler eller andre analyse-moduler til bearbejdning med den hensigt at opnå en opsummering af data, som videre kan bruges af systemet til enten visualisering eller videre bearbejdning.
 Visualiserings-modulerne bruges til visualisering af den rå sensor-data eller den behandlede analyse-data.
 
 \paragraph{Moduldefinition}
@@ -64,7 +64,7 @@ For hvert modul skal der defineres en eller flere tabeller, hvor disse tabeller 
 For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
 
 \paragraph{Data Typer}
-De tilgængelige data typer tilgængelig for tabel-kolonner, er begrænset til de tilgængelige SQLite datatyper.
+De tilgængelige data typer for tabel-kolonner, er begrænset til de tilgængelige SQLite datatyper.
 Der er 5 typer: \textit{NULL}, \textit{INTEGER}, \textit{REAL}, \textit{TEXT} og \textit{BLOB}.
 
 \paragraph{Afhængigheder}
@@ -78,10 +78,11 @@ Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men de
 
 \subparagraph{JSON kontra XML}
 XML ville være det naturlige valg for Android applikationer, da en del af applikations udvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-JSON blev valgt over XML fordi automatisk generering ud fra et skema var ønsket.
-En automatisk genereret parser var ønsket af den grund at det vil gøre det nemmere at ændre på et skemaet uden at skulle manuelt opdatere den tilhørende klasse, idet at det ville ske automatisk.
+JSON blev dog valgt over XML fordi automatisk generering ud fra et skema var ønsket.
+En automatisk genereret parser var ønsket af den grund at det vil gøre det nemmere at ændre på et skema uden manuelt at skulle opdatere den tilhørende klasse, idet at det ville ske automatisk.
 Denne automatiske generering viste sig ikke at være ligetil med XML på grund af kompatibilitetsproblemer på Android, mens det var enkelt at udføre i JSON.
 \stefan{Ivan havde svært ved at følge argumentationen. Lasses har rettet det siden, men jeg foreslår at vi helt skrotter afsnittet. Det giver ikke noget til forståelsen af platformen.}
+\lars{jeg er uenig i at skrotte det, kan godt være det ikke giver noget til forståelse, men det er argumentation for et af vores valg, hvilket er vigtigt}
 
 \paragraph{JSON og JSON Schema}
 For at have en modul-beskrivelse der er læselig for både mennesker og maskiner, er JSON valgt.
