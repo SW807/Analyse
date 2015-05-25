@@ -27,18 +27,18 @@ For at vælge en måde at lave det modulære lag på, er det vigtigt at kigge p�
 Den komplete løsning giver en nem måde at kunne kommunikere mellem moduler på, idet de kan kontakte hinanden direkte eftersom de er i samme pakke.
 Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
 Det er i strid med behovet \textit{modulær}, beskrevet i \cref{arkitekturkrav::modulaer}.
-Derudover gør løsningen også at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen der har mulighed for at ændre på systemet.
+Derudover gør løsningen også at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen, der har mulighed for at ændre på systemet.
 På grund af disse begrænsninger vælges denne løsning fra. 
 
 Den næste løsning der blev kigget på er ``import af kode''.
-Løsningen kræver at man udvikler et scripting sprog der har alle Androids funktionaliteter til rådighed, hvilket er meget tidskrævende.
-På samme tid skal man også overveje sikkerheds bekymringer, idet at hvis koden der bliver importeret er ondsindet kan dette give problemer såsom at data kan blive stjålet. 
+Løsningen kræver at man udvikler et scripting sprog, der har alle Androids funktionaliteter til rådighed, hvilket er meget tidskrævende.
+På samme tid skal man også overveje sikkerheds bekymringer, idet hvis koden der bliver importeret er ondsindet kan dette give problemer såsom at data kan blive stjålet. 
 Denne løsning er dog \textit{modulær}, idet man selv kan vælge hvilke moduler man vil gøre brug af.
 Desuden er løsningen også med til at gøre det mere enkelt at udvikle sit eget modul.
 
 Den sidste løsning er at have selvstændige applikationer.
 Ved denne løsning er det muligt, ligesom ved import af kode, at kunne vælge mellem hvilke moduler man vil gøre brug af, hvilket gør denne løsning \textit{modulær}.
-Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler da de er hver deres applikation, hvilket er i strid med behovet \textit{kommunikativ}, beskrevet i \cref{arkitekturkrav::kommunikation}
+Denne løsning har dog den ulempe at det kan give problemer med kommunikationen mellem moduler, da de er hver deres applikation, hvilket er i strid med behovet \textit{kommunikativ}, beskrevet i \cref{arkitekturkrav::kommunikation}
 Dog er dette ikke en stor ulempe på grund af den måde DBAccess er designet.
 Eftersom løsningen gør systemet mere modulært og da ulempen vedrørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes.
 
