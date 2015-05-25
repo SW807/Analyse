@@ -76,6 +76,8 @@ Disse huskekort skal dog nødvendigvis udarbejdes sammen med patientens behandle
 \section{Platform}
 Andre refleksioner går på platformen.
 Disse refleksioner omhandler hvordan man kan mindske plads- og strøm-forbrug, alternativer til moduldefinitions-deling, samt hvordan en højere granularitet kan opnås hvad angår databaserettigheder, og er beskrevet herunder.
+Ydermere reflekteres der også om platformens styrker og svagheder.
+
 \subsection{Dataindsamling}
 Som nævnt i \cref{eksperimenter}, blev der udført eksperimenter for at få en idé over hvor meget plads der kræves for at kunne benytte platformen.
 Ydermere siger den at mængden af data der indsamles kan blive reduceret.
@@ -100,7 +102,7 @@ Dette er også en idé der bør undersøges videre, hvor man også skal have pro
 
 \subsection{Alternativ moduldefinitions-deling}
 Med den nuværende implementering skal platformen hente ressourcefilerne for de enkelte moduler, for at læse deres moduldefinitioner.
-Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket muligvis kan give problemer.
+Med denne løsning har andre applikationer dog også rettighed til at læse ressourcefilerne, hvilket normalt ikke er muligt med Android applikationer og det er på samme tid heller ikke den ønskede måde at dele filer på i Android.
 
 Til at undgå denne metode af deling, bør der ved videre arbejde blive set på andre metoder til at dele filer.
 En mulig metode var at bruge en fileprovider.
@@ -120,3 +122,19 @@ Dette har ikke været muligt at implementere, da man fra DBAccess' vinkel ikke k
 
 En måde at løse dette problem på er ved en nøgleudveksling mellem manager og modul når et modul installeres, hvor hvert modul får en unik nøgle man sender med, så manageren kan kende forskel på moduler.
 
+\subsection{Styrker og svagheder}
+Platformen har forskellige styrker og svagheder, disse bliver dokumenteret herunder. 
+
+Platformen er meget modulær idet at det er simpelt at tilføje nye moduler til den. % Styrke
+Dette har dog den betydning at brugeren skal potentielt installere mange applikationer, hvilket selvfølgelig kan være forvirrende hvis de ikke ved hvad de skal bruge. %svaghed
+
+
+Platformen har det problem at størrelsen af data den gemmer kan give problemer og lige nu er der ikke blevet implementeret noget som kan håndtere dette på en hensigtsmæssig måde. % Svaghed
+
+Denne mængde data kan tage lang tid at bearbejde og analysere, hvorfor nogle moduler har måder der gør det nemmere at håndtere meget data såsom at tage det lidt af gangen.
+Idet at platformen tillader dette er det en styrke. % Styrke
+
+Platformen er meget åben, idet at den deler adgang til databasen og ressourcefiler, hvilket gør det meget nemt for modulerne at få adgang til de data de skal bruge. 
+Der kan dog gøres et argument for at det er for åbent, idet at alt for meget data deles og ikke bare hvad modulerne skal bruge. 
+
+\lasse{Hvis der er nogen som har nogle andre styrker og svagheder må de godt skrive dem her.}
