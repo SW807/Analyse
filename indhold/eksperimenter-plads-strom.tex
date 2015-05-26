@@ -2,7 +2,6 @@
 Det faktum at der skal indsamles data kommer med den konsekvens at en mængde plads på smartphonen skal bruges.
 På mobile enheder er der begrænset lagerplads, som eksempel har en Samsung Galaxy S4 enhed kun 16 GB hvor til forskel det ikke er unormalt at se over 250 eller 500 GB på en regulær computer.
 
-om dage har mindst 1 TB (ca 64 gange mere).
 Pladsforbrug er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre på mobile enheder.
 I vores tilfælde skal det overvejes hvor stor en mængde data, der kan lagres og samtidig tillade brugen af andre applikationer på en persons smartphone.
 For at undersøge hvordan de forskellige datakilder bruger pladsen på en smartphonen opstilles to eksperimenter.
@@ -119,7 +118,7 @@ For eksempel er accelerometer data kun interessante når der sker en vis svingni
 Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at data gemmes i databasen.
 Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt.
 Hvilket er algoritmer til at reducere antal af punkter, der bruges til at estimere en kurve, det er dog lossy data komprimerings metoder, hvorfor man også kunne overveje lossless data komprimering.
-Et eksempel på en sådan lossless datakomprimering er run-length encoding.
+Et eksempel på en sådan lossless datakomprimering er run-length encoding\cite{misc:rle}.
 Run-length encoding udnytter at hvis man har en sekvens af punkter med samme værdi ville disse kunne komprimeres til blot at angive antallet af punkter og med hvilken værdi disse punkter har.
 Ydermere er der også mulighed for at gøre rent i data når det ikke længere er nødvendigt, altså det kan slettes hvis analyser er blevet kørt på det.
 
