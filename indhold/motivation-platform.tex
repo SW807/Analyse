@@ -9,7 +9,7 @@ Kriterierne stammer fra metaforen \textit{F16 fly} (se \cref{vision}), hvor foku
 I \cref{sec:affektivelidelser} beskrives det at symptomerne på affektive lidelser varierer meget.
 Derfor skal arkitekturen understøtte muligheden for at detektere alle de forskellige symptomer.
 Det er dog ikke nødvendigt altid at detektere alle symptomer, da de konkrete symptomer varierer fra person til person.
-Denne varians gør at en modulær opbygning er nødvendig, da dette vil gøre det muligt nemt at modificere funktionaliteten så den kun går efter at identificere den konkrete brugers symptomer.
+Denne varians gør at en modulær opbygning er nødvendig, da dette vil gøre det muligt nemt at modificere funktionaliteten så den kun går efter at identificere den konkrete patients symptomer.
 
 Ydermere vil en modulær arkitektur også gøre det nemt at udskifte enkelte dele af funktionalitet, hvis der for eksempel kommer nye og bedre teorier inden for de forskellige områder.
 
@@ -19,7 +19,7 @@ Dette kunne fx være en mulighed for at patienten kan styre hvilke moduler, der 
 
 Arkitekturen skal også være fleksibel i forbindelse med valg af lignende sensorer.
 Dette kunne for eksempel være valget af accelerometer hvis patienten både har en smartphone og et smartwatch.
-Accelerometret i en smartphone er muligvis mere præcist end det i et smartwatch, men da man har sit smartwatch på håndleddet vil data i en given kontekst være mere relevant.
+Accelerometret i en smartphone er muligvis mere præcist end det i et smartwatch, men da man har sit smartwatch på håndleddet vil data herfra være mere relevant i visse kontekster.
 Det skal derfor være muligt at systemet giver mulighed for valget mellem disse to.
 
 \subsection{Kombinerbar}\label{arkitekturkrav::kombinerbar}
