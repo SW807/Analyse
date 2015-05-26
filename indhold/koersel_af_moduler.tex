@@ -13,5 +13,5 @@ På denne måde spares der ressourcer, da modulet kun aktiveres i den tid hvor d
 Når \texttt{TaskRunner}en startes, danner den en liste over de moduler der skal køres med interval eller på fast tidspunkt.
 Derefter laver den en prioriteret kø, sorteret efter næste kørsels-tidspunkt.
 \texttt{TaskRunner} tråden venter så, indtil næste opgave skal udføres.
-Efter opgaven er udført, udregnes næste kørsels-tidspunkt for den netop kørte opgave, hvorefter prioritets-køen sorteres.
+Efter opgaven er udført udregnes næste kørsels-tidspunkt for den netop kørte opgave, hvorefter prioritets-køen sorteres.
 Så venter tråden igen, indtil næste kørsels-tidspunkt, og dette fortsætter så længe der er aktive moduler, som skal køres på denne måde.
