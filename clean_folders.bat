@@ -18,3 +18,5 @@ del /s *.thm
 del /s *.pre
 del /s *.bak
 del /s *.tdo
+del master.run.xml
+del master-blx.bib
