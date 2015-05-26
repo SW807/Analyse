@@ -19,6 +19,9 @@ Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \t
 For at opfylde de specificerede behov i \cref{arkitekturkrav}, nærmere nøgleordene \textit{modulær}(se \cref{arkitekturkrav::modulaer}) og \textit{fleksibel}(se \cref{arkitekturkrav::fleksibel}) er arkitekturen opbygget af moduler der opsamler data, analyserer data og viser det uafhængigt af hinanden.
 Disse moduler kan vælges til eller fra i \textit{manager}'en.
 
+Der blev søgt i \citet{gamma1994design} efter et designmønster, der kunne passe til vores krav til arkitektur.
+Imidlertid har vi ikke kunnet finde et sådant designmønster, der ville passe, og til vores bedste overbevisning er der ikke et sådant designmønster, der passer.
+Af denne grund er vi nødsaget til at udvikle arkitekturen uden.
 
 Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
@@ -28,8 +31,6 @@ Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
   \label{arkitektur_udkast_1}
 \end{figure}
 
-\lasse{Ivan vil have noget med patterns her, men troede vi fjernede det?}
-\als{Evt. nævn at vi har kigget Gang of four igennem, men ikke har kunnet finde nogle designmønstre der passer til vores problemstilling. Desuden at med den viden vi har kender vi ikke til noget designmønster der passer.}
 Herefter beskrives komponenterne i rækkefølge af deres indbyrdes afhængighed, således at forståelsen af hver komponent kun afhænger af det læste.
 
 \subsection{DB}
