@@ -77,17 +77,12 @@ En soft-dependency er en liste af andre moduler, hvor mindst ét af de listede m
 Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men det er ikke vigtigt om det kommer fra en smartphone eller fra en wearable.
 
 \subparagraph{JSON kontra XML}
-Et af ønskerne til platformen var at man for kunne lave en modul definition for hver modul, og idéen bag dette er så at modulet giver al den information som manageren skal bruge til at kontrollere de moduler. 
-Til disse modul-definitioner skal man bruge et eller andet format til at definere dette, og valget her stod mellem XML og JSON.
-XML vil være det naturlige valg for Android applikationer, da en stor del af  applikationsudvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
-Et af ønskerne til platformen var at ud fra modul-definitionen skulle den kunne generere Java objekter.
-Dette blev undersøgt til XML, men det viste sig ikke at være praktisk og derfor blev JSON undersøgt hvori det viste sig at være relativt simpelt at gøre.
-Udover dette virkede JSON til at være mere læsbar og forståelig end XML.
-Af disse grunde blev JSON valgt over XML.
+Et af ønskerne til platformen var, at man for kunne lave en modul definition for hver modul, og idéen bag dette er så at modulet giver al den information, som manageren skal bruge til at kontrollere de moduler. 
+Til disse modul-definitioner skal man bruge et format til at definere dette, valget her stod mellem XML og JSON.
+JSON blev valgt over XML, fordi det er muligt at auto-generere Java-objekter med \citet{jsonpojo}, og det findes ikke til XML på Android platformen.
 
 \paragraph{JSON og JSON Schema}
-Som sagt er JSON valgt fordi der ønskes en auto-genering og at det skal være læsbart for både menneske og maskiner.
-JSON gør det muligt for ikke-tekniske personer at læse, skrive og forstå definitionen af et modul.
+Som sagt er JSON valgt fordi der ønskes en auto-generering af Java-objekter.
 For at sikre validiteten af eksternt leverede modul-beskrivelser, er der udarbejdet nogle JSON Schemas, som JSON-dokumenter holdes op imod og derved verificeres.
 De anvendte JSON Schemas kan findes i \cref{app:json_schema}.
 
