@@ -86,9 +86,9 @@ Som sagt er JSON valgt fordi der ønskes en auto-generering af Java-objekter.
 For at sikre validiteten af eksternt leverede modul-beskrivelser, er der udarbejdet nogle JSON Schemas, som JSON-dokumenter holdes op imod og derved verificeres.
 De anvendte JSON Schemas kan findes i \cref{app:json_schema}.
 
-\subparagraph{Eksempel} Accelerometer modul-definitionen kan ses her.
+Accelerometer modul-definitionen kan ses på \cref{acc_def}.
 Meta-data er præfikset med \_ (underscore).
-\begin{lstlisting}
+\begin{lstlisting}[label=acc_def,caption=Modul-definitionen for et accelerometer modul]
 {
   "name": "accelerometer",
   "_userfriendlyname": "Accelerometer",
