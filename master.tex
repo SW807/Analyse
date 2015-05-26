@@ -18,6 +18,7 @@
 \input{setup/hyphenations.tex}% 
 \input{setup/macros.tex}% my new macros
 
+\addbibresource{bib.bib}
 
 \begin{document}
 %frontmatter
@@ -107,9 +108,9 @@ Dette afsnit omhandler:
 \input{indhold/konklusion}
 
 
-\bibliographystyle{unsrtnat}
-\bibliography{bib}
-\label{bib:mybiblio}
+%\bibliographystyle{unsrtnat}
+\printbibliography[heading=bibintoc]
+%\label{bib:mybiblio}
 
 \appendix
 \include{appendix/janne}
