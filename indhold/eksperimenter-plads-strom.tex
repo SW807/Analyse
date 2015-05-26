@@ -2,7 +2,7 @@
 Det faktum at der skal indsamles data kommer med den konsekvens at en mængde plads på smartphonen skal bruges.
 På mobile enheder er der begrænset lagerplads, som eksempel har en Samsung Galaxy S4 enhed kun 16 GB hvorimod mange computere nu om dage har mindst 1 TB (ca 64 gange mere).
 Pladsforbrug er nødvendigt at forholde sig til, da det sætter en begrænsning på hvad man kan tillade sig at gøre på mobile enheder.
-I vores tilfælde skal det overvejes hvor stor en mængde data der kan lagres og samtidig tillade brugen af andre applikationer på en persons smartphone.
+I vores tilfælde skal det overvejes hvor stor en mængde data, der kan lagres og samtidig tillade brugen af andre applikationer på en persons smartphone.
 For at undersøge hvordan de forskellige datakilder bruger pladsen på en smartphonen opstilles to eksperimenter.
 Hvis pladsforbruget viser sig for stort skal data enten komprimeres, aggregeres eller man bør overveje muligheden for ekstern lagring.
 
@@ -23,7 +23,7 @@ Som platformen bliver udvikle kommer der flere datakilder og måske også udelad
 Disse eksperimenter vil derfor kun kunne give et estimat for pladsforbruget.
 
 Datakilder som Skærm, Nærhed og Placering producerer kun data når der sker ændringer. 
-Derfor blev det første eksperiment udført på en måde der efterligner en potentiel brugssituation. 
+Derfor blev det første eksperiment udført på en måde, der efterligner en potentiel brugssituation. 
 Smartphonen blev bevæget og skærmen blev tændt og slukket flere gange under testperioden.
 Det første eksperiment blev udført over 30 minutter.
 
@@ -34,7 +34,7 @@ Dette eksperiment burde vise et minimumsforbrug for datakilderne.
 Pladsen som datakilder bruger vil naturligvis afhænge af hvor ofte datakilderne forespørger for data.
 
 I Android er der forskellige metoder til at angive forespørgselshastigheden på en datakilde.
-Der findes fire konstanter der kan benyttes til at angive hastigheder der passer i forskellige kontekster \citep{sensormonitor}.
+Der findes fire konstanter, der kan benyttes til at angive hastigheder der passer i forskellige kontekster \citep{sensormonitor}.
 
 \begin{itemize}
 	\item SENSOR\_DELAY\_FASTEST forespørger så hurtigt som muligt.
@@ -52,8 +52,8 @@ Til analyse af pladsforbruget blev programmet \textit{SQLite-analyzer} benyttet 
 SQLite-analyzer viser statistik for en SQLite database inklusiv data for de enkelte tabeller.
 
 \paragraph{30 minutters eksperiment}
-Efter 30 minutter fyldte databasen $1\,156\,459$ bytes ($\approx1.15$ MB).
-Under antagelsen at datakilderne vil fortsætte med at generere data med den samme hastighed vil det efter 24 timer fylde omkring $\approx55$ MB. 
+Efter 30 minutter fyldte databasen $1\,156\,459$ bytes ($\approx1.16$ MB).
+Under antagelsen at datakilderne vil fortsætte med at generere data med den samme hastighed vil det efter 24 timer fylde omkring $\approx56$ MB. 
 
 De enkelte datakilders var fordelt på følgende måde (sorteret efter pladsforbrug),
 
@@ -61,8 +61,8 @@ De enkelte datakilders var fordelt på følgende måde (sorteret efter pladsforb
 	\hline Datakilde		& Plads forbrug i bytes				& Antal datapunkter  & \% af databasen \\
 	\hline Accelerometer 	& $609\,266$ B / $\approx609$ KB	& $12\,434$ 		 & $51.1$ \\ 
 	\hline Gyroskop 		& $495\,018$ B / $\approx495$ KB	& $10\,146$ 		 & $41.6$\\ 
-	\hline Lyd 				& $42\,648$ B / $\approx42$ KB		& $1\,706$ 			 & $4.3$ \\ 
-	\hline Placering 		& $4\,751$ B / $\approx4$ KB		& $91$ 				 & $0.92$ \\ 
+	\hline Lyd 				& $42\,648$ B / $\approx43$ KB		& $1\,706$ 			 & $4.3$ \\ 
+	\hline Placering 		& $4\,751$ B / $\approx5$ KB		& $91$ 				 & $0.92$ \\ 
 	\hline Nærhed    		& $3\,173$ B / $\approx3$ KB		& $135$ 			 & $0.31$ \\ 
 	\hline Skærm 			& $1\,242$ B / $\approx1$	KB		& $54$				 & $0.31$ \\ 
 	\hline 
@@ -82,12 +82,12 @@ Det samme gælder for Skærm datakilden der kun registrerer en ændring når sk�
 \paragraph{Eksperiment over weekend}
 Eksperimentet blev udført fra kl. 13:35 fredag eftermiddag til kl. 08:23 mandag morgen, hvilket giver en total varighed på 66 timer og 48 minutter.
 
-I denne periode blev databasen fyldt med  $136\,523\,139$ bytes ($\approx136$ MB) hvilket svarer til $1\,018\,829$ bytes ($\approx1$ MB) pr. halve time eller $\approx49$ MB i døgnet.
+I denne periode blev databasen fyldt med  $136\,523\,139$ bytes ($\approx137$ MB) hvilket svarer til $1\,018\,829$ bytes ($\approx1$ MB) pr. halve time eller $\approx49$ MB i døgnet.
 
 \begin{tabular}{|c|c|c|c|}
 	\hline Datakilde	 & Plads forbrug i bytes	  			& Antal datapunkter 	& \% af databasen \\
 	\hline Accelerometer & $65\,493\,057$ B / $\approx65$ MB   	& $1\,336\,593$    		& $47.6$ \\ 
-	\hline Gyroskop 	 & $64\,930\,232$ B / $\approx64$ MB  	& $1\,335\,216$   		& $47.6$ \\ 
+	\hline Gyroskop 	 & $64\,930\,232$ B / $\approx65$ MB  	& $1\,335\,216$   		& $47.6$ \\ 
 	\hline Lyd 		  	 & $5\,476\,680$ B / $\approx5$  MB  	& $227\,991$     		& $4.4$ \\ 
 	\hline Placering 	 & $622\,494$ B	/ $\approx622$ KB		& $11\,971$      		& $0.45$ \\ 
 	\hline Nærhed    	 & $3\,173$ B	/ $\approx3$ KB			& $135$ 				& $0.003$ \\ 
@@ -116,26 +116,26 @@ En modificering af hvordan data indsamles af de andre datakilder kan gøre at de
 For eksempel er accelerometer data kun interessante når der sker en vis svingning i acceleration.
 Der kan da sættes en tærskel for hvor store svingningerne i acceleration der skal ske for at data gemmes i databasen.
 Her kunne algoritmer som Douglas-Peucker algoritme eller Sliding Window blive brugt.
-Hvilket er algoritmer til at reducere antal af punkter der bruges til at estimere en kurve, det er dog lossy data komprimerings metoder, hvorfor man også kunne overveje lossless data komprimering.
+Hvilket er algoritmer til at reducere antal af punkter, der bruges til at estimere en kurve, det er dog lossy data komprimerings metoder, hvorfor man også kunne overveje lossless data komprimering.
 Et eksempel på en sådan lossless datakomprimering er run-length encoding.
 Run-length encoding udnytter at hvis man har en sekvens af punkter med samme værdi ville disse kunne komprimeres til blot at angive antallet af punkter og med hvilken værdi disse punkter har.
 
 \subsubsection{Opdateringshastighed}
 Som nævnt under opsætningen til forsøget bruges Android konstanter til at angive hvor hurtigt en datakilde skal opdatere.
-Disse konstanter er beregnet til opdateringshastigheder der er hurtige nok til at være responsive ved brug i applikationer.
+Disse konstanter er beregnet til opdateringshastigheder, der er hurtige nok til at være responsive ved brug i applikationer.
 Vores kontekst er at logge brugerens færden, og 5 gange i sekundet er ikke nødvendigt.
 Der kan derfor spares en del plads ved enten at opdatere langsommere generelt, eller ved at ændre opdateringshastigheden løbende i takt med at der kommer mere relevant data.
 Det skal dog overvejes om den nedsatte præcision kommer til at have en effekt på de analyser der skal bruge data.
 Vi tager det forbehold at opdateringshastigheden kan variere afhængig af datatypen og er noget der bør overvejes for hvert datakilde.
 
 \subsection{Konklusion}
-Når smartphonen ikke er i brug vil det valgte udsnit af datakilder generere 49 MB data i døgnet mens aktiv brug af smartphonen vil få dette forbrug op på 55 MB.
+Når smartphonen ikke er i brug vil det valgte udsnit af datakilder generere 49 MB data i døgnet mens aktiv brug af smartphonen vil få dette forbrug op på omkring $\approx56$.
 
-De store syndere er accelerometret og gyroskopet der begge er sat til at gemme data 5 gange i sekundet.
-Det vil derfor være en god idé at udvikle en strategi for begrænsning af hvor meget data som opbevares på smartphonen.
-Her er foreslået enten komprimering af data som går ud på kun at gemme det data der er interessant for analyserne.
+De store syndere er accelerometret og gyroskopet, der begge er sat til at gemme data 5 gange i sekundet.
+Det vil derfor være en god idé at udvikle en strategi for begrænsning af hvor meget data, som opbevares på smartphonen.
+Her er foreslået enten komprimering af data, som går ud på kun at gemme det data, der er interessant for analyserne.
 En anden mulighed er at nedsætte opdateringshastigheden så der ikke gemmes så ofte.
 En tredje mulighed er at aggregere data, eksempelvis ved brug af run-length encoding eller ved blot at lagre ændring i værdi.
 
 Hvis en eller flere af disse strategier bliver taget i brug vil det kunne reducere størrelsen på den gemte data, men det vil muligvis stadig være for meget til at data kan holdes på smartphonen i længere perioder.
-Hvis et sådant problem stadig eksisterer, er en udvidelse med server klient arkitektur en mulighed idet hvis data kan gemmes, analyseres og visualiseres på en server, kan belastningen på smartphonen reduceres meget, dog kommer dette med andre bekymringer så som brug af internet og båndbredde.
+Hvis et sådant problem stadig eksisterer, er en udvidelse med server klient arkitektur en mulighed, idet hvis data kan gemmes, analyseres og visualiseres på en server, kan belastningen på smartphonen reduceres meget, dog kommer dette med andre bekymringer så som brug af internet og båndbredde.
