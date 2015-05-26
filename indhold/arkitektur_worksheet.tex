@@ -47,7 +47,7 @@ Da vi arbejder på en mobil udviklingsplatform er det værd at tage højde for l
 Da der er begrænset plads på en smartphone kan det blive relevant at lagre noget af det indsamlede data i skyen.
 Grundet denne potentielle opdeling af hvor data er lagret, kan det være nyttigt at abstrahere over hvor data er lagret.
 En sådan abstraktion vil gøre at udviklere af moduler ikke skal tage højde for den bagvedliggende lagring.
-Om det er lokal lagring, i skyen eller en kombination håndteres på samme måde fra udviklerens synspunkt.
+Om det er lokal lagring, i skyen eller en kombination, håndteres på samme måde fra udviklerens synspunkt.
 
 For at opfylde nøglepunktet \textit{kommunikativ}, se \cref{arkitekturkrav::kommunikation}, er det nødvendigt at sørge for at moduler har adgang til kun at skrive til deres egen database og samtidig læse fra alle andres database.
 På denne måde forhindres det at eksterne moduler modificerer andre modulers data.
@@ -69,8 +69,8 @@ Men først følger en begrundelse for valget af dette lag på baggrund af behove
 
 \paragraph{Begrundelse for valg}
 For at opfylde nøgleordet \textit{modulær}(se \cref{arkitekturkrav::modulaer}) er det valgt lave et lag der indeholder moduler, så det er let at tilføje og fjerne moduler.
-Dette kunne fx være i en situation hvor der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
-Desuden opfylder det også nøgleordet \textit{kombinerbar}, fordi fx moduler fra \textit{data} kan kombineres til at lave et \textit{analyse}-modul.
+Dette kunne f.eks. være i en situation hvor der kommer nye sensorer på markedet, eller hvis der skal laves nye former for visualiseringer til det allerede indsamlede data.
+Desuden opfylder det også nøgleordet \textit{kombinerbar}, fordi f.eks. moduler fra \textit{data} kan kombineres til at lave et \textit{analyse}-modul.
 
 \input{indhold/modul_definition}
 
