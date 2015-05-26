@@ -16,12 +16,12 @@ Hertil ønskes en central styrende enhed, der skal fungere som bindeled mellem d
 
 \subsection{Opbygning}\label{arkitektur:opbygning}
 Den overordnede arkitektur er opbygget af fire komponenter: \textit{manager}, \textit{moduler}, \textit{DB\footnote{Database} access} og \textit{DB}.
-For at opfylde de specificerede behov i \cref{arkitekturkrav}, nærmere nøgleordene \textit{modulær}(se \cref{arkitekturkrav::modulaer}) og \textit{fleksibel}(se \cref{arkitekturkrav::fleksibel}) er arkitekturen opbygget af moduler der opsamler data, analyserer data og viser det uafhængigt af hinanden.
+For at opfylde behovene til en modulær og fleksibel arkitektur (se \cref{arkitekturkrav::modulaer} og \cref{fleksibel}) er denne opbygget af moduler der opsamler data, analyserer data og viser det uafhængigt af hinanden.
 Disse moduler kan vælges til eller fra i \textit{manager}'en.
 
-Der blev søgt i \citet{gamma1994design} efter et designmønster, der kunne passe til vores arkitektur behov.
-Imidlertid har vi ikke kunnet finde et sådant designmønster, der ville passe, og til vores bedste overbevisning er der ikke et sådant designmønster, som passer.
-Af denne grund er vi nødsaget til at udvikle arkitekturen uden.
+Der blev i \citet{gamma1994design} søgt efter et designmønster, der levede op til de behov til arkitekturen beskrevet i \cref{arkitekturkrav}.
+Imidlertid har vi ikke kunnet finde et sådant designmønster, der ville passe, og efter vores bedste overbevisning findes et sådant designmønster ikke.
+Af denne grund vælges det at udvikle arkitekturen uden et overordnet designmønster.
 
 Et diagram over arkitekturen kan ses på \cref{arkitektur_udkast_1}.
 \begin{figure}[h]
