@@ -23,7 +23,7 @@
 % Macros for the titlepage
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Creates the aau titlepage
-%\setlength{\fboxsep}{10pt} % Use this to change margins of abstract.
+\setlength{\fboxsep}{5pt} % Use this to change margins of abstract.
 \newcommand{\aautitlepage}[3]{%
   {
     %set up various length
@@ -83,16 +83,16 @@
 %Create danish project info
 \newcommand{\danishprojectinfo}[9]{%
   \parbox[t]{\titlepageleftcolumnwidth}{
-    \textbf{Titel:}\\ #1\medskip \par
-    \textbf{Tema:}\\ #2\medskip \par
-    \textbf{Projektperiode:}\\ #3\medskip \par
-    \textbf{Projektgruppe:}\\ #4\medskip \par
-    \textbf{Deltager(e):}\\ #5\medskip \par
-    \textbf{Vejleder(e):}\\ #6\medskip \par
-    \textbf{Oplagstal:} #7\medskip \par
-    \textbf{Sidetal:} \pageref{LastPage}\medskip \par
-    \textbf{Afleveringsdato:}\\ #8\medskip \par
-    \textbf{Kildekode:} #9
+    \textbf{Titel:}\\ #1\smallskip \par
+    \textbf{Tema:}\\ #2\smallskip \par
+    \textbf{Projektperiode:}\\ #3\smallskip \par
+    \textbf{Projektgruppe:}\\ #4\smallskip \par
+    \textbf{Deltager(e):}\\ #5\smallskip \par
+    \textbf{Vejleder(e):}\\ #6\smallskip \par
+    \textbf{Oplagstal:} #7\smallskip \par
+    \textbf{Sidetal:} \pageref{LastPage}\smallskip \par
+    \textbf{Afleveringsdato:}\\ #8\smallskip \par
+    \textbf{Kildekode:} #9 \medskip
   }
 }
 

@@ -83,9 +83,10 @@ Som nævnt i \cref{eksperimenter}, blev der udført eksperimenter for at få en 
 Ydermere siger den at mængden af data der indsamles kan blive reduceret.
 Der nævnes tre forskellige måder dette kan gøres på, hvilket er ved brug af skyen, komprimering af data eller ved at ændre på opdateringshastigheden for de forskellige sensorer.
 I den sammenhæng er det vigtigt at vægte fordele og ulemper for metoderne, samt om det er muligt at kombinere de forskellige metoder.
-En kombinering man kunne forstille sig er at lagre gammelt data i skyen, hvorimod ny data lagres lokalt, men hvor al data komprimeres.
+Man kunne forstille sig en kombination hvor man lagrer gammel data i skyen, hvorimod ny data lagres lokalt, og hvor al data komprimeres.
 Hvordan dette skal implementeres er et åbent spørgsmål, men bør udforskes videre.
-Som udgangspunkt har vi lavet et interface, som modulerne kan benytte, i form af DBAccess, så disse ændringer ville være backend ændringer og dermed ville de ikke komme til at påvirke de enkelte moduler.
+Som udgangspunkt har vi lavet et interface, som modulerne kan benytte, i form af DBAccess.
+Det betyder at ændringer i det bagvedliggende ikke vil komme til at påvirke de enkelte moduler.
 
 
 En anden tankegang til at reducere plads er ved at ændre arkitekturen så man kan kommunikere modul til modul uden nødvendigvis at lagre i en database.
@@ -93,7 +94,6 @@ En fordel ved dette kan være at moduler kan sende deres opsamlede data til andr
 På den måde vil man kunne spare en masse plads, men det vil komme på bekostning af at det ikke længere er muligt at rekonstruere en analyse. En måde dette kunne implementeres på, uden at gå på kompromis med modulariteten, er at benytte sig af et observer designmønster.
 Dog er det en stor ændring i forhold til den nuværende arkitektur, men er et alternativ man med fordel kunne benytte sig af til at gøre datadeling mellem moduler mindre pladskrævende.
 
-Når en eller flere af disse er implementeret, er det en god idé at gentage eksperimenterne for at verificere at løsningerne har den ønskede effekt, og på samme tid vil det være fordelagtigt at udvide eksperimenterne til at inkludere andre faktorer såsom batteriforbrug og netværksforbrug.
 
 \subsection{Analyse i skyen}
 For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
