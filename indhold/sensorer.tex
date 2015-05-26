@@ -1,5 +1,5 @@
 \section{Sensorer}\label{sensorer}
-Dette afsnit beskriver forskellige sensorer, der kan være interessant for projektet. 
+Dette afsnit beskriver de sensorer der kan være interessante at bruge som datakilder. 
 
 \paragraph{Kamera}
 Kameraet kan tage billeder og billedesekvenser i form af video optagelse.
@@ -31,20 +31,22 @@ Sensoren vil i dette tilfælde rapportere en g-kraft i z-aksens retning.
 \end{figure} 
 
 \paragraph{GPS}
-GPS sensoren giver en lokation som koordinater bestående af: breddegrad, længdegrad og en pejling.
-Ved at differentiere positionen ift. tid kan man blive oplyst om hastigheden og ved at differentiere igen kan man blive oplyst om accelerationen.
+Gennem GPS gives en lokation bestående af breddegrad og længdegrad, samt en pejling.
+Ved at differentiere positionen ift. tid kan man beregne hastigheden og ved at differentiere igen kan man beregne accelerationen.
 Denne sensor er dog ofte utilgængelig når enheden er indendørs, da de signaler der bruges til GPS positionsbestemmelse ikke kommer ind i de fleste bygninger.
 
 \paragraph{Mikrofon}
-Mikrofonen kan optage omgivelserne ved at konvertere akustisk lyd til elektriske signaler. Kvaliteten og følsomheden af denne kommer an på selve smartphonen, idet der er mange forskellige mikrofoner som bruges i smartphones. 
+Mikrofonen kan optage omgivelserne ved at konvertere akustisk lyd til elektriske signaler.
+Kvaliteten og følsomheden af denne kommer an på selve smartphonen, idet mikrofonenerne er forskellige afhængigt af typen af smartphone. 
 
-\paragraph{Lyssensor}
-Lyssensoren kan måle belysningsstyrken på en flade i lux. Det er intensiteten af lyset der måles.
+\paragraph{Lys-sensor}
+Lys-sensoren kan måle belysningsstyrken, altså intensiteten af lyset, på en flade.
+Enheden for dette er lux.
 
 \paragraph{Pulsmåler}
-Pulsmåleren måler pulsen i hjerteslag per minut, dette gøres ved enten en elektrisk puls igennem et ledende materiale eller en optisk sensor mod huden.
+Pulsmåleren måler pulsen i hjerteslag per minut.
+Dette gøres ved enten at sende en elektrisk puls igennem et ledende materiale mod huden eller med en optisk sensor der også holdes mod huden.
 Den mest præcise måling fås hvis sensoren sidder spændt omkring brystet, mens sensorer der måler enten på håndleddet eller fingeren er mindre præcise \citep{burke1998precision}.
 
 \paragraph{Galvanisk hud respons}
-Galvanisk hud respons (GHR) sensoren giver adgang til data om hvor god huden er til at lede strøm.
-Huden er mere strøm-ledende jo mere der svedes.
+Galvanisk hud respons (GHR) sensoren siger noget om hvor god huden er til at lede strøm, da huden er mere strøm-ledende jo mere der svedes.
