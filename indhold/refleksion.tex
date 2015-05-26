@@ -98,7 +98,7 @@ En fordel ved dette kan være at moduler kan sende deres opsamlede data til andr
 På den måde vil man kunne spare en masse plads, men det vil komme på bekostning af at det ikke længere er muligt at rekonstruere en analyse. En måde dette kunne implementeres på, uden at gå på kompromis med modulariteten, er at benytte sig af et observer designmønster som beskrevet i \cref{subsec:DBACCESS}.
 Dog er det en stor ændring i forhold til den nuværende arkitektur, men er et alternativ man med fordel kunne benytte sig af til at gøre datadeling mellem moduler mindre pladskrævende.
 
-Når en eller flere af disse er implementeret, er det en god idé at gentage eksperimenterne for at verificere at løsningerne har den ønskede effekt, og på samme tid vil det være fordelagtigt at udvide eksperimenterne til at inkludere andre faktorer såsom batteri forbrug.
+Når en eller flere af disse er implementeret, er det en god idé at gentage eksperimenterne for at verificere at løsningerne har den ønskede effekt, og på samme tid vil det være fordelagtigt at udvide eksperimenterne til at inkludere andre faktorer såsom batteriforbrug og netværksforbrug.
 
 \subsection{Analyse i skyen}
 For at aflaste smartphonen, er det allerede blevet forslået at bruge skyen til at opbevare data, men på samme tid kan analyser fordelagtigt også blive udført på skyen. 
@@ -139,7 +139,7 @@ Platformen har det problem at størrelsen af data den gemmer kan give problemer 
 Denne mængde data kan tage lang tid at bearbejde og analysere, hvorfor nogle moduler har måder, der gør det nemmere at håndtere meget data såsom at tage det lidt af gangen.
 Idet platformen tillader dette er det en styrke. % Styrke
 
-Platformen er meget åben, idet den deler adgang til databasen og ressourcefiler, hvilket gør det meget nemt for modulerne at få adgang til de data de skal bruge. 
+Platformen er meget åben, idet den deler adgang til databasen og ressourcefiler, hvilket gør det meget nemt for modulerne at få adgang til de datasæt der skal bruges. 
 Der kan dog gøres et argument for at det er for åbent, idet alt for meget data deles og ikke bare hvad modulerne skal bruge. 
 
 \lasse{Hvis der er nogen som har nogle andre styrker og svagheder må de godt skrive dem her.}
