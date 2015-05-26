@@ -5,7 +5,7 @@ Hvorefter et valg af hvilket modulært lag der vælges vil blive beskrevet.
 \paragraph{Komplet Pakke}
 En traditionel applikation samler al funktionalitet i en pakke.
 Hvis man udvikler på dele af applikationen vil en opdatering skulle ske af hele applikationen på samme tid.
-Desuden begrænser det eksterne udviklere at bidrage til applikationen, da opdateringer skal ske igennem udviklerne af hovedapplikationen.
+Desuden begrænser det eksterne udviklere i at bidrage til applikationen, da opdateringer skal ske igennem udviklerne af hovedapplikationen.
 
 \paragraph{Import af Kode}
 En anden mulighed er at inkludere et scripting sprog med applikationen og gøre det muligt at udvikle scripts der kan agere modul.
@@ -27,7 +27,7 @@ For at vælge en måde at lave det modulære lag på, er det vigtigt at kigge p�
 Den komplete løsning giver en nem måde at kunne kommunikere mellem moduler på, idet de kan kontakte hinanden direkte eftersom de er i samme pakke.
 Dog kommer løsningen med den ulempe at det ikke bliver et modulært system, fordi det ikke bliver muligt at udskifte dele af funktionaliteten hvis ny og bedre teori findes.
 Det er i strid med behovet \textit{modulær}, beskrevet i \cref{arkitekturkrav::modulaer}.
-Derudover gør løsningen også at udviklingen af systemet bliver begrænset, på den måde at det kun er udviklerne af hovedapplikationen, der har mulighed for at ændre på systemet.
+Derudover gør denne løsning også at udviklingen af systemet bliver begrænset i den form at det kun er udviklerne af hovedapplikationen, der har mulighed for at videreudvikle systemet.
 På grund af disse begrænsninger vælges denne løsning fra. 
 
 Den næste løsning der blev kigget på er ``import af kode''.
@@ -42,7 +42,7 @@ Denne løsning har dog den ulempe at det kan give problemer med kommunikationen 
 Dog er dette ikke en stor ulempe på grund af den måde DBAccess er designet.
 Eftersom løsningen gør systemet mere modulært og da ulempen vedrørende kommunikation ikke er så stor, er denne også en mulighed der kan benyttes.
 
-Løsningen med selvstændige applikationer er valgt fordi denne løsning er mindre tidskrævende end import af kode.
+Løsningen med selvstændige applikationer er valgt fordi denne løsning er mindre tidskrævende end import af kode, og stadig lever op til kravene på et fornuftigt niveau.
 
 
 
@@ -83,7 +83,7 @@ XML vil være det naturlige valg for Android applikationer, da en stor del af  a
 Et af ønskerne til platformen var at ud fra modul-definitionen skulle den kunne generere Java objekter.
 Dette blev undersøgt til XML, men det viste sig ikke at være praktisk og derfor blev JSON undersøgt hvori det viste sig at være relativt simple at gøre.
 Udover dette virkede JSON til at være mere læsbar og forståelig end XML.
-Af disse grund blev JSON valgt over XML.
+Af disse grunde blev JSON valgt over XML.
 
 \paragraph{JSON og JSON Schema}
 Som sagt er JSON valgt fordi der ønskes en auto-genering og at det skal være læsbart for både menneske og maskiner.
