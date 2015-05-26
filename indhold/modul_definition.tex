@@ -47,7 +47,7 @@ Løsningen med selvstændige applikationer er valgt fordi denne løsning er mind
 
 
 \subsubsection{Beskrivelse af Modulært Lag}\label{modul_definition}
-Her vil den implementerede løsning blive gennemgået.
+Her gennemgås den implementerede løsning.
 
 \paragraph{Typer af Moduler}
 Der findes tre typer moduler: \textit{data}, \textit{analyse} og \textit{visualisering}.
@@ -60,7 +60,7 @@ Som minimum har et modul et navn og en version, så andre moduler kan referere t
 
 Data- og analyse-moduler skal gøre data tilgængeligt for andre analyse- og visualiserings-moduler.
 For at specificere hvordan data skal gemmes, samt hvad der er tilgængeligt for andre, skal dette defineres for hvert data- og analyse-modul.
-For hvert modul skal der defineres en eller flere tabeller, hvor disse tabeller beskriver det data som modulet gemmer og derved gør tilgængeligt til andre moduler.
+For hvert modul skal der defineres en eller flere tabeller, hvor disse tabeller beskriver data som modulet gemmer og derved gør tilgængeligt til andre moduler.
 For hver tabel defineres en eller flere kolonner med et beskrivende navn, datatype og evt. en måleenhed.
 
 \paragraph{Data Typer}
@@ -78,10 +78,10 @@ Dette er nyttigt hvis et modul skal bruge eksempelvis accelerometer data, men de
 
 \subparagraph{JSON kontra XML}
 Et af ønskerne til platformen var at man for kunne lave en modul definition for hver modul, og idéen bag dette er så at modulet giver al den information som manageren skal bruge til at kontrollere de moduler. 
-Til disse modul-definitioner skal man bruge en eller andet format til at definere dette, og valget her stod mellem XML og JSON.
+Til disse modul-definitioner skal man bruge et eller andet format til at definere dette, og valget her stod mellem XML og JSON.
 XML vil være det naturlige valg for Android applikationer, da en stor del af  applikationsudvikling foregår i XML fordi man ofte bruger det til at definere layouts og definering af statiske ressourcer. 
 Et af ønskerne til platformen var at ud fra modul-definitionen skulle den kunne generere Java objekter.
-Dette blev undersøgt til XML, men det viste sig ikke at være praktisk og derfor blev JSON undersøgt hvori det viste sig at være relativt simple at gøre.
+Dette blev undersøgt til XML, men det viste sig ikke at være praktisk og derfor blev JSON undersøgt hvori det viste sig at være relativt simpelt at gøre.
 Udover dette virkede JSON til at være mere læsbar og forståelig end XML.
 Af disse grunde blev JSON valgt over XML.
 
