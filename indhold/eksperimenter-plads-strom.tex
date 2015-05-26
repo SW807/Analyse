@@ -71,7 +71,7 @@ De enkelte datakilders var fordelt på følgende måde (sorteret efter pladsforb
 Som det ses af tabellen er de store pladssyndere `Accelerometer' og `Gyroskop' datakilderne.
 Dette skyldes at de forespørger meget ofte og gemmer al data.
 
-Lyd datakilden gemmer kun maks amplituden over en periode af 1000ms, af denne grund fylder dens data ikke mere end 4\% af databasen.
+Lyd datakilden gemmer kun maks amplituden over en periode af 1000ms, af denne grund fylder dens data ikke mere end 3.3\% af databasen.
 Afhængig af hvad man vil analysere vil det være nødvendigt at gemme væsentligt mere end dette.
 
 Placerings datakilden forespørger kun når der er en tilstrækkelig ændring i placeringen.
@@ -129,7 +129,7 @@ Det skal dog overvejes om den nedsatte præcision kommer til at have en effekt p
 Vi tager det forbehold at opdateringshastigheden kan variere afhængig af datatypen og er noget der bør overvejes for hvert datakilde.
 
 \subsection{Konklusion}
-Når smartphonen ikke er i brug vil det valgte udsnit af datakilder generere 49 MB data i døgnet mens aktiv brug af smartphonen vil få dette forbrug op på omkring $\approx56$.
+Når smartphonen ikke er i brug vil det valgte udsnit af datakilder generere $\approx49$ MB data i døgnet mens aktiv brug af smartphonen vil få dette forbrug op på omkring $\approx56$ MB.
 
 De store syndere er accelerometret og gyroskopet, der begge er sat til at gemme data 5 gange i sekundet.
 Det vil derfor være en god idé at udvikle en strategi for begrænsning af hvor meget data, som opbevares på smartphonen.
