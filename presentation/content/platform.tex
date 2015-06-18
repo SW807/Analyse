@@ -54,7 +54,8 @@ Baseret på metaforen "f-16 fly"
 \begin{itemize}
 \item Central kontrol enhed
 \item Del brugeren interagerer med
-\item Kontrollerer hvilke moduler der skal køre 
+\item Kontrollerer hvilke moduler der skal køre
+\item Finder moduler på telefonen
 \end{itemize}
 \end{frame}
 
@@ -67,6 +68,23 @@ Kriterierne dækkes af følgende elementer i arkitekturen:
 \item Kombiner -> Moduler
 \item Kommunikativ -> DB Access/DB
 \end{itemize}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arkitektur - Vedligeholdelse}
+Ny teori
+\begin{itemize}
+\item Udskift enkelt modul
+\end{itemize}
+Mangler funktionalitet
+\begin{itemize}
+\item Lav ny applikation der overholder kravene for et modul og installer.
+\end{itemize}
+Ændring i krav til data lagring
+\begin{itemize}
+\item Lav nyt JSON-skema og autogenerer parser.
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
