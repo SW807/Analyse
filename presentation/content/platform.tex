@@ -1,8 +1,8 @@
-\section{Platform}
+\section{Arkitektur}
 
 \begin{frame}
 \frametitle{Kriterier}
-Baseret på metaforen "f-16 fly"
+Baseret på metaforen "F-16 fly"
 \begin{itemize}
 \item Modulær
 \item Fleksibel
@@ -22,35 +22,7 @@ Baseret på metaforen "f-16 fly"
 \end{frame}
 
 \begin{frame}
-\frametitle{arkitektur - DB}
-\begin{itemize}
-\item Data fra alle moduler
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{arkitektur - DB Access}
-\begin{itemize}
-\item Adgangslag til DB
-\item Muliggør abstraktion over data lokation
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{arkitektur - Moduler}
-\begin{itemize}
-\item 3 typer
-\begin{itemize}
-\item Data
-\item Analyse
-\item Visning
-\end{itemize}
-\item Hver kan bruge data fra de andre
-\end{itemize}
-\end{frame}
-
-\begin{frame}
-\frametitle{arkitektur - Manager}
+\frametitle{Manager}
 \begin{itemize}
 \item Central kontrol enhed
 \item Del brugeren interagerer med
@@ -60,43 +32,31 @@ Baseret på metaforen "f-16 fly"
 \end{frame}
 
 \begin{frame}
-\frametitle{Arkitektur - Kriterier}
+\frametitle{Kriterier}
 Kriterierne dækkes af følgende elementer i arkitekturen:
 \begin{itemize}
-\item Modulær -> Moduler
-\item Fleksibel -> Manager
-\item Kombiner -> Moduler
-\item Kommunikativ -> DB Access/DB
+\item Modulær $\rightarrow$ Moduler
+\item Fleksibel $\rightarrow$ Manager
+\item Kombinerbar $\rightarrow$ Moduler
+\item Kommunikativ $\rightarrow$ DB Access/DB
 \end{itemize}
 \end{frame}
 
 \begin{frame}
-\frametitle{Arkitektur - Vedligeholdelse}
-Ny teori
+\frametitle{Vedligeholdelse}
+Ny viden
 \begin{itemize}
-\item Udskift enkelt modul
-\end{itemize}
-Mangler funktionalitet
-\begin{itemize}
-\item Lav ny applikation der overholder kravene for et modul og installer.
-\end{itemize}
-Ændring i krav til data lagring
-\begin{itemize}
-\item Lav nyt JSON-skema og autogenerer parser.
+\item Tilføje/forbedre modul(er)
 \end{itemize}
 
 \end{frame}
 
 \begin{frame}
-\frametitle{Eksempel}
+\frametitle{Nyt Modul}
+At lave et nyt modul kræver
 \begin{itemize}
-\item Krav til start på modul navn
-\begin{itemize}
-\item dk.cs.aau.psylog.sensor
-\item dk.cs.aau.psylog.analysis
-\item dk.cs.aau.psylog.view
-\end{itemize}
-\item Valid JSON-skema(Bilag D)
+\item Service
+\item Modul definition.
 \end{itemize}
 \end{frame}
 
