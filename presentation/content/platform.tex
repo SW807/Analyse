@@ -1,5 +1,5 @@
-\section{Arkitektur}
-
+\section{Platform}
+\subsection{Arkitektur}
 \begin{frame}
 \frametitle{Kriterier}
 Baseret på metaforen "F-16 fly"
@@ -16,8 +16,14 @@ Baseret på metaforen "F-16 fly"
 \begin{figure}[h]
 	\centering						%  l   b   r	t
 	\includegraphics[scale=0.5, trim = 1cm 17.5cm 1cm 1cm, clip]{../grafik/ArkitekturLucidChart}
-	\caption{Systemets arkitektur}
-  \label{arkitektur_udkast_1}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\frametitle{Arkitektur}
+\begin{figure}[h]
+	\centering						%  l   b   r	t
+	\includegraphics[scale=0.5, trim = 1cm 17.5cm 1cm 1cm, clip]{../graphics/ArkitekturMedKriterier}
 \end{figure}
 \end{frame}
 
@@ -26,29 +32,23 @@ Baseret på metaforen "F-16 fly"
 \begin{itemize}
 \item Central kontrol enhed
 \item Del brugeren interagerer med
-\item Kontrollerer hvilke moduler der skal køre
+\item Styrer hvilke moduler der skal køre
 \item Finder moduler på telefonen
 \end{itemize}
 \end{frame}
 
-\begin{frame}
-\frametitle{Kriterier}
-Kriterierne dækkes af følgende elementer i arkitekturen:
-\begin{itemize}
-\item Modulær $\rightarrow$ Moduler
-\item Fleksibel $\rightarrow$ Manager
-\item Kombinerbar $\rightarrow$ Moduler
-\item Kommunikativ $\rightarrow$ DB Access/DB
-\end{itemize}
-\end{frame}
-
+\subsection{Udvikling til Platform}
 \begin{frame}
 \frametitle{Vedligeholdelse}
 Ny viden
 \begin{itemize}
 \item Tilføje/forbedre modul(er)
 \end{itemize}
-
+Data lagring
+\begin{itemize}
+\item Ændring i DB-access
+\item Kompatibilitet med moduler stadig ok
+\end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -57,6 +57,11 @@ At lave et nyt modul kræver
 \begin{itemize}
 \item Service
 \item Modul definition.
+\begin{itemize}
+\item Modul navn
+\item Database specifikationer
+\item Dependencies
+\end{itemize}
 \end{itemize}
 \end{frame}
 
