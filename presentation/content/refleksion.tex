@@ -219,7 +219,77 @@ Mulig løsning:
 \end{frame}
 
 \begin{frame}
-	\frametitle{Nøgleudveksling: Skriv til DB}
+	\frametitle{Skriv til DB}
+	\begin{tikzpicture}[
+	>=stealth,
+	node distance=3cm,
+	database/.style={
+		cylinder,
+		cylinder uses custom fill,
+		cylinder body fill=yellow!50,
+		cylinder end fill=yellow!50,
+		shape border rotate=90,
+		aspect=0.25,
+		draw
+	}
+	]
+	\node[database] (db1) at (1,-1) {Keys};
+	\node[database] (db2) at (2,-4) {DB};
+	
+	
+	\draw  (-5,0) rectangle (-2,-2);
+	\draw  (0,0) rectangle (4,-2);
+	\node at (-4,-1) {Module: A};
+	
+	\node at (3,-1) {DB Access};
+	
+	\node (v2) at (-2.5,-1) {$K_a$};
+	
+	
+	\node (v1) at (-2,-1) {};
+	\node (v3) at (0,-1) {};
+	\node (v4) at (2,-2) {};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Skriv til DB}
+	\begin{tikzpicture}[
+	>=stealth,
+	node distance=3cm,
+	database/.style={
+		cylinder,
+		cylinder uses custom fill,
+		cylinder body fill=yellow!50,
+		cylinder end fill=yellow!50,
+		shape border rotate=90,
+		aspect=0.25,
+		draw
+	}
+	]
+	\node[database] (db1) at (1,-1) {Keys};
+	\node[database] (db2) at (2,-4) {DB};
+	
+	
+	\draw  (-5,0) rectangle (-2,-2);
+	\draw  (0,0) rectangle (4,-2);
+	\node at (-4,-1) {Module: A};
+	
+	\node at (3,-1) {DB Access};
+	
+	\node (v2) at (-2.5,-1) {$K_a$};
+	
+	\node at (-1,-0.8) {write($K_a$)};
+
+	\node (v1) at (-2,-1) {};
+	\node (v3) at (0,-1) {};
+	\draw[->] (v1) edge (v3);
+	\node (v4) at (2,-2) {};
+	\end{tikzpicture}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Skriv til DB}
 	\begin{tikzpicture}[
 	>=stealth,
 	node distance=3cm,
